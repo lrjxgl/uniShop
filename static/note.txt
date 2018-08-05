@@ -1,0 +1,4 @@
+
+tabbar
+ color:#555
+ active-color:#0069CD
