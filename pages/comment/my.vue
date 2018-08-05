@@ -1,7 +1,7 @@
 <template>
-	<view class="bg-a">	
+	<view v-if="pageLoad" class="bg-a">	
 		<view v-if="pageData.rscount==0">
-			<view class="emptyData">暂无消息</view>
+			<view class="emptyData">暂无评论</view>
 		</view>
 		<view v-else>
 					<view  class="row-box"  v-for="(item,index) in pageData.list" :key="index">	
@@ -18,20 +18,17 @@
 
 <script> 
 	var app= require("../../common/common.js"); 
-	import mtFooter from "../../components/footer.vue";
+ 
 	var per_page=0;
 	var isfirst=true;
 	var catid=0;
-	var activeClass="list-side-item-active";
+	 
 	export default{
-		components:{
-			mtFooter
-		},
+		 
 		data:{
 			pageLoad:false, 
-			pageData:{},
-			winHeight:600,
-			defaultActive:"list-side-item-active",
+			pageData:{}
+			 
 		},
 		onLoad:function(option){
 			var win=uni.getSystemInfoSync();
@@ -57,7 +54,9 @@
 					},
 					success:function(data){
 						isfirst=false;
+						
 						that.pageData=data.data.data;
+						that.pageLoad=true;
 						per_page=data.data.data.per_page; 
 					}
 				})

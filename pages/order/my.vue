@@ -1,5 +1,5 @@
 <template>
-	<view class="bg-a">
+	<view v-if="pageLoad" class="bg-a">
 		<view class="tabs-border">
 			<view @click="setCat(0)" class="tabs-border-item" v-bind:class="{'tabs-border-active':status==0}">全部</view>
 			<view @click="setCat(1)" class="tabs-border-item" v-bind:class="{'tabs-border-active':status==1}">待付款</view>
@@ -100,6 +100,7 @@
 					},
 					success: function (data) {
 						isfirst = false;
+						that.pageLoad=true;
 						that.pageData = data.data.data;
 						per_page = data.data.data.per_page;
 					}

@@ -1,5 +1,5 @@
 <template>
-	<view>
+	<view v-if="pageLoad">
 		
 		<swiper :indicator-dots="true" :autoplay="true" :interval="3000" :duration="1000">
 			<swiper-item v-for="(item,key) in pageData.flashlist" :key="key">
@@ -58,7 +58,7 @@
 		},
 		
 		onLoad:function(option){
-			
+			uni.showNavigationBarLoading();
 			this.getPage();
 		},
 		onShow:function(){
@@ -76,9 +76,9 @@
 				uni.request({
 					url:app.apiHost+"?ajax=1&fromapp="+app.fromapp(),
 					success:function(data){
-						
+						that.pageLoad=true;
 						that.pageData=data.data.data;
-						 
+						uni.hideNavigationBarLoading(); 
 					}
 				})
 			},

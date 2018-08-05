@@ -1,5 +1,5 @@
 <template>
-	<view class="flex">
+	<view v-if="pageLoad" class="flex">
 		<view class="list-side">
 			<view  @click="setCat(0)" class="list-side-item" v-bind:class="defaultActive">推荐</view>
 			<view @click="setCat(item.catid)" v-bind:class="{ 'list-side-item-active':item.isactive }" v-for="(item,key) in pageData.catlist" :key="key" class="list-side-item">{{item.cname}}</view>
@@ -93,6 +93,7 @@
 					},
 					success:function(data){
 						isfirst=false;
+						that.pageLoad=true;
 						that.pageData=data.data.data;
 						per_page=data.data.data.per_page; 
 					}

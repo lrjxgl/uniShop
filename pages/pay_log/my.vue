@@ -1,7 +1,7 @@
 <template>
-	<view  >
+	<view v-if="pageLoad" >
 			<view v-if="pageData.rscount==0">
-				<view class="emptyData">暂无消息</view>
+				<view class="emptyData">暂无消费记录</view>
 			</view>
 			<view v-else>
 				 
@@ -22,24 +22,20 @@
 
 <script> 
 	var app= require("../../common/common.js"); 
-	import mtFooter from "../../components/footer.vue";
+ 
 	var per_page=0;
 	var isfirst=true;
 	var catid=0;
-	var activeClass="list-side-item-active";
+ 
 	export default{
-		components:{
-			mtFooter
-		},
+	 
 		data:{
 			pageLoad:false, 
-			pageData:{},
-			winHeight:600,
-			defaultActive:"list-side-item-active",
+			pageData:{}
+			 
 		},
 		onLoad:function(option){
-			var win=uni.getSystemInfoSync();
-			this.winHeight=win.windowHeight-50;
+
 			uni.setNavigationBarTitle({
 				title: '消费记录'
 			});
@@ -61,6 +57,7 @@
 					},
 					success:function(data){
 						isfirst=false;
+						that.pageLoad=true;
 						that.pageData=data.data.data;
 						per_page=data.data.data.per_page; 
 					}

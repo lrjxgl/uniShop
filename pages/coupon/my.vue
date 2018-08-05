@@ -1,26 +1,30 @@
 <template>
-	<view>
-		<view v-if="pageData.pageLoad">
+	<view  v-if="pageLoad">
+		 
 			<view v-if="pageData.rscount==0">
-				<view class="emptyData">暂无消息</view>
+				<view class="emptyData">暂无优惠券</view>
 			</view>
 			<view v-else>
 
 				<view class="flexlist">
-					<view @click="go(item.id)" class="flexlist-item pdb-10" v-for="(item,index) in pageData.list" :key="index">
+					<view  class="flexlist-item pdb-10" v-for="(item,index) in pageData.list" :key="index">
 
 						<image class="flexlist-img" :src="item.imgurl+'.100x100.jpg'"></image>
 						<view class="flex-1">
 							<view class="flexlist-title f16">{{item.title}}</view>
-							<view class="flexlist-desc cor2 f14">截止时间:{{item.endtime}}</view>
-							<view class="cor-money">￥{{item.money}}</view>
+							<view class="flexlist-desc cor2 f14">截止时间:{{item.end_day}}</view>
+						 
+							<view class="cor-money flex">
+								满 <text class="cor-money">￥{{item.lower_money}} </text>
+								减 <text class="cor-money">￥{{item.money}}</text>
+							</view>
 						</view>
-
+						<view class="btn btn-primary" @click="goPros(item.money)">去购买</view> 
 
 					</view>
 				</view>
 			</view>
-		</view>
+		 
 	</view>
 </template>
 
@@ -30,18 +34,16 @@
 	var per_page = 0;
 	var isfirst = true;
 	var catid = 0;
-	var activeClass = "list-side-item-active";
+ 
 	export default {
 
 		data: {
 			pageLoad: false,
-			pageData: {},
-			winHeight: 600,
-			defaultActive: "list-side-item-active",
+			pageData: {}
+		 
+		 
 		},
 		onLoad: function (option) {
-			var win = uni.getSystemInfoSync();
-			this.winHeight = win.windowHeight - 50;
 			uni.setNavigationBarTitle({
 				title: '我的优惠券'
 			});
@@ -63,8 +65,10 @@
 						fromapp: app.fromapp()
 					},
 					success: function (data) {
+						
 						isfirst = false;
 						that.pageData = data.data.data;
+						that.pageLoad=true;
 						per_page = data.data.data.per_page;
 					}
 				})
@@ -107,6 +111,11 @@
 			},
 			loadMore: function () {
 				this.getList();
+			},
+			goPros:function(money){
+				uni.navigateTo({
+					url:"/pages/product/index?startprice="+money,
+				})
 			}
 		},
 	}

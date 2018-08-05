@@ -1,7 +1,7 @@
 <template>
 	<view class="bg-a">
 			<view v-if="pageData.rscount==0">
-				<view class="emptyData">暂无消息</view>
+				<view class="emptyData">暂无地址</view>
 			</view>
 			<view v-else>
 				<view class="row-box" v-for="(item,index) in pageData.list" :key="index">

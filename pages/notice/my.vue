@@ -1,7 +1,7 @@
 <template>
-	<view class="bg-a">
+	<view v-if="pageLoad" class="bg-a">
 
-		<view v-if="pageData.rscount==0">
+		<view v-if="!pageData.rscount">
 			<view class="emptyData">暂无消息</view>
 		</view>
 		<view v-else>
@@ -25,24 +25,20 @@
 
 <script>
 	var app = require("../../common/common.js");
-	import mtFooter from "../../components/footer.vue";
+ 
 	var per_page = 0;
 	var isfirst = true;
 	var catid = 0;
-	var activeClass = "list-side-item-active";
+	 
 	export default {
-		components: {
-			mtFooter
-		},
+	 
 		data: {
 			pageLoad: false,
 			pageData: {},
-			winHeight: 600,
-			defaultActive: "list-side-item-active",
+			 
 		},
 		onLoad: function (option) {
-			var win = uni.getSystemInfoSync();
-			this.winHeight = win.windowHeight - 50;
+		 
 			uni.setNavigationBarTitle({
 				title: '我的消息'
 			});
@@ -69,6 +65,7 @@
 							})
 						} else {
 							isfirst = false;
+							that.pageLoad=true;
 							that.pageData = data.data.data;
 							per_page = data.data.data.per_page;
 						}
