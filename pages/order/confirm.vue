@@ -1,10 +1,10 @@
 <template>
-	<view>
-		<form @submit="formSubmit" class="bg-a" v-if="pageLoad">
-			<view class="row-box">
+	<view class="bg-ef">
+		<form @submit="formSubmit" v-if="pageLoad">
+			<view class="row-box mgb-10">
 				<view class="row-box-hd">收货地址
 				<view class="flex-1"></view>
-					<view class=" f14 cor2">新增地址</view>
+					<view class=" f14 cor2"  @click="goAddress()">新增地址</view>
 				</view>
 				<radio-group class="radio-group" @change="setAddress" >
 					<view class="mgb-10 flex" v-for="(item,key,index) in pageData.address" :key="key">
@@ -12,44 +12,56 @@
 					</view>
 				</radio-group>
 			</view>
-			<view class="row-box">
+			<view class="row-box mgb-10">
 				<view class="f16">商品列表</view>
 				<view class="flexlist">
-					<view class="flexlist-item" v-for="(item,index) in pageData.prolist" :key="index">
-						<image class="flexlist-img" :src="item.imgurl+'.100x100.jpg'"></image>
-						<view class="flex-1">
-							<view class="flexlist-title">{{item.title}}</view>
-							<view v-if="item.ks_title!=''" class="f14 cor2">{{item.ks_title}}</view>
-							<view class="flexlist-price">
-								价格：<text class="cor-money f18 mgr-10"> {{item.price}}</text>
-								x <text class="cor-num mgl-10"> {{item.amount}} </text>
-							</view>
+					<view class="flexlist-item"  v-for="(item,index) in pageData.prolist" :key="index">
+						<view class="none">
+						<input type="text" name="cart_id[]" :value="item.id">
 						</view>
+						<view class="flexlist-imgbox">
+							<img :src="item.imgurl+'.100x100.jpg'" class="flexlist-img">
+						</view>
+					 
+					<view class="flex-1">					 
+						<view class="flexlist-title">{{item.title}}</view>
+						 
+						<view class="cl2"  v-if="item.ks_title!=''">{{item.ks_title}}</view>
+						<view class="flex">
+							<view class="cl-num mgr-10">￥ {{item.price}} </view> 
+							<view class="cl2">x {{item.amount}}</view>
+							
+						</view>
+									
 					</view>
+				</view>
+					 
 				</view>	
 			</view>
 			
-			<view class="row-box">
+			<view class="row-box mgb-10">
 				<view class="cart-stat mgb-10 flex">
-					商品：￥<text class="cor-money">{{pageData.goods_money}}</text>元 
-					  邮费：￥<text class="cor-money">{{pageData.express_fee}}</text>元  
-					  总价：￥<text class="cor-money">{{pageData.total_money}}</text>
+					商品：￥<text class="cl-money">{{pageData.goods_money}}</text>元 
+					  邮费：￥<text class="cl-money">{{pageData.express_fee}}</text>元  
+					  总价：￥<text class="cl-money">{{pageData.total_money}}</text>
 				</view>
 				<view class="cart-stat flex">
 			  
-					账户余额：<text class="cor-money">{{pageData.user.money}}</text>元
+					账户余额：<text class="clmoney">{{pageData.user.money}}</text>元
 				</view>
 			</view>
 			
-			<view class="row-box">
-				<view class="row-box-hd">支付方式</view>
-				<radio-group class="radio-group" @change="setPayType">
-					<view  class="mgb-10 flex" v-for="(item,key,index) in pageData.pay_type_list" :checked="index==0" :key="key">
-						<radio :value="key" /> {{item}}
-					</view>
-				</radio-group>
+		 
+			<view class="row-box mgb-10">
+			<view class="row-box-hd mgb-10">支付方式</view>
+
+			<view class="paylist">
+				<view class="none">
+				<input type="hidden" name="pay_type" id="pay_type" :value="pay_type">
+				</view>
+				<view class="paylist-item"  v-for="(item,key) in pageData.pay_type_list" v-bind:class="(key==pay_type)?'paylist-item-active':''"   :key="key">{{item}}</view>
 			</view>
-			
+		</view>
 			<view class="row-box">
 				<view class="mgb-10"><textarea name="comment" placeholder="请输入订单需求"></textarea></view>
 				<button type="primary" form-type="submit" class="btn-row-submit">确认下单</button>
@@ -67,9 +79,13 @@
 	var comment="";
 	var pay_type="";
 	export default{
-		data:{
-			pageLoad:false, 
-			pageData:{}
+		data:function(){
+			return {
+				pageLoad:false, 
+				pageData:{},
+				payIndex:0,
+				pay_type:"wxpay",
+			}
 		},
 		onLoad:function(option){
 			id=option.id;
@@ -77,6 +93,11 @@
 		},
 		 
 		methods:{
+			goAddress:function(){
+				uni.navigateTo({
+					url:"/pages/user_address/add",
+				})
+			},
 			getPage:function(){
 				var that=this;
 				uni.request({
@@ -101,6 +122,7 @@
 			},
 			formSubmit:function(e){
 				console.log("wwwwwww")
+				var that=this;
 				comment=e.detail.value.comment;
 				uni.request({
 					url:app.apiHost+"?m=order&a=order&ajax=1&authcode="+app.getAuthCode(),
@@ -120,12 +142,12 @@
 						})
 						 
 						if(!res.data.error){
-							if(res.data.data.ispay==2){
+							if(1==1 || res.data.data.ispay==2){
 									uni.redirectTo({
 										url:"/pages/order/success",
 									})
 							}else{
-								wxpay(res.data.data.order_id);
+								that.wxpay(res.data.data.order_id);
 							}
 							
 						}
@@ -175,4 +197,5 @@
 </script>
 
 <style>
+	
 </style>

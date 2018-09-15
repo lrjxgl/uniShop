@@ -10,8 +10,6 @@
         <input type="password" class="input-flex-text" name="password" placeholder="请输入密码">
       </view>
       <button type="primary" formType="submit"  class="btn-row-submit">登陆</button>
-       
-      
      <navigator class="btn-link m20" url="/pages/register/index" >还不是会员？立即注册</navigator>
     </form>
 	</view>
@@ -20,8 +18,11 @@
 <script>
 	var app= require("../../common/common.js");
 	export default {
-		data:{
-			
+		data:function(){
+			return {
+				pageLoad:false, 
+				pageData:{}
+			}
 		},
 		methods:{
 		

@@ -74,7 +74,8 @@
 		{"path":"pages/user_address/add"},
 		{"path":"pages/user_address/edit"},
 		{"path":"pages/user_address/orderadd"},
-		{"path":"pages/user/set","style":{"navigationBarTitleText":"用户设置"}}
+		{"path":"pages/user/set","style":{"navigationBarTitleText":"用户设置"}},
+		{"path":"pages/search/index"}
 	],
 	"tabBar":{
 		"color":"#555",

@@ -2,7 +2,7 @@
 	<view>
 		<view >
 			<view class="pd-10 f18"> 下单成功，感谢您的支持 </view>
-			<navigator  url="/pages/index/index"><view class="btn-row-submit">返回首页</view> </navigator>
+			<view @click="goHome()" class="btn-row-submit">返回首页</view>
 		</view>
 	</view>
 </template>
@@ -11,9 +11,11 @@
 	var app= require("../../common/common.js"); 
 	var id;
 	export default{
-		data:{
-			pageLoad:false, 
-			pageData:{}
+		data:function(){
+			return {
+				pageLoad:false, 
+				pageData:{}
+			}
 		},
 		onLoad:function(option){
 			 
@@ -34,7 +36,10 @@
 						 
 					}
 				})
-			} 
+			},
+			 goHome:function(){
+				 app.goHome();
+			 }
 		},
 	}
 </script>

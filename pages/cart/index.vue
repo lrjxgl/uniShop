@@ -12,19 +12,20 @@
 
 
 			<view v-else class="mgt-10">
-				<view class="cartlist">
+				<view class="cart-list">
 					
-					<view v-for="($c,key) in pageData.list" :key="key" class="cartlist-item js-cart-item">
-						 
-						<image class="cartlist-item-img" :src="$c.imgurl+'.100x100.jpg'" width="50" height="50"></image>
-						 
+					<view v-for="($c,key) in pageData.list" :key="key" class="cart-list-item js-cart-item">
+						<view class="cart-list-imgbox"> 
+						<image class="cart-list-img" mode="widthFix" :src="$c.imgurl+'.100x100.jpg'" ></image>
+						</view> 
 						<view class="flex-1">
 
-							<view class="f16 pdb-5"> {{$c.title}}</view>
-							<view class="pdt-5 pdb-5 mgb-5 flex">
-								<view class="f14 corb" v-if="$c.ks_title !=''">{{$c.ks_title}}</view>
-								￥
-								<text class="f18 cor-money">{{$c.price}}</text>元
+							<view class="cart-list-title"> {{$c.title}}</view>
+						 
+							<view class="cart-list-row">
+								<view class="cart-list-ks-title mgr-10" v-if="$c.ks_title !=''">{{$c.ks_title}}</view>
+								
+								<text class="cart-list-price">￥ {{$c.price}} </text>
 							</view>
 							<view class="pd-5 flex">
 								<view class="numbox">
@@ -33,27 +34,27 @@
 									<view href="javascript:;" class="numbox-plus" @click="plusCart($c.id,$c.amount)">+</view>
 								</view>
 								<view class="flex-1"></view>
-								<view class="fr f14 cor-danger" @click="deleteCart($c.id)">删除</view>
+								<view class="cl-danger" @click="deleteCart($c.id)">删除</view>
 							</view>
 
 						</view>
 					</view>
 
 				</view>
-				<view class="cartlist-total pd-10 flex">
+				<view class="cart-list-stat">
+					
+					<view class="flex">共
+						<text class="cl-num">{{pageData.total_num}}</text> 件
+					</view>
+					<view class="flex"> 总价：￥
+						<text class="cl-num">{{pageData.total_money}}</text>元
+					</view>
 					<view class="flex-1"></view>
-					<view class="cartlist-total-item">共
-						<text class="num">{{pageData.total_num}}</text> 件
-					</view>
-					<view class="cartlist-total-item"> 总价：￥
-						<text class="num">{{pageData.total_money}}</text>元
-					</view>
-				</view>
-				<view class="cartlist-btns">
 					<navigator url="/pages/order/confirm">
-						<view class="cartlist-btn">确认购买</view>
+						<view class="cart-list-btn">确认购买</view>
 					</navigator>
 				</view>
+				
 				<view class="clearfix"></view>
 
 			</view>
@@ -71,11 +72,14 @@
 		components:{
 			mtFooter
 		},
-		data: {
-			pageLoad: false,
-			pageHide:false,
-			pageData: {}
+		data:function(){
+			return {
+				pageLoad:false, 
+				pageData:{},
+				pageHide:false,
+			}
 		},
+		 
 		onLoad: function (option) {
 			uni.setNavigationBarTitle({
 				title: "购物车",
@@ -95,13 +99,13 @@
 			getPage: function () {
 				var that = this;
 				uni.request({
-					url: app.apiHost + "?m=order_cart&ajax=1",
+					url: app.apiHost + "?m=order_cart&formapp='+app.formapp()+'&ajax=1",
 					data: {
 						authcode: app.getAuthCode()
 					},
-					success: function (data) {
+					success: function (res) {
 						that.pageLoad = true;
-						that.pageData = data.data.data;
+						that.pageData = res.data.data;
 						
 					}
 				})
@@ -113,7 +117,7 @@
 					var ksid=ksid==undefined?0:ksid;
 					amount++;
 					uni.request({
-					url: app.apiHost +'/index.php?m=order_cart&a=Num_plus&fromapp=wxapp&ajax=1',
+					url: app.apiHost +'/index.php?m=order_cart&a=Num_plus&formapp='+app.formapp()+'&ajax=1',
 					data: {
 						authcode:uni.getStorageSync("authcode"),
 						id:id,
@@ -140,7 +144,7 @@
 						isdelete=1
 					}
 					uni.request({
-						url: app.apiHost +'?m=order_cart&a=num_minus&fromapp=wxapp&ajax=1',
+						url: app.apiHost +'?m=order_cart&a=num_minus&formapp='+app.formapp()+'&ajax=1',
 						data: {
 							authcode:uni.getStorageSync("authcode"),
 							amount:amount,
@@ -167,7 +171,7 @@
 					 success:function(res){
 						 if(res.confirm){
 							uni.request({
-								url: app.apiHost+'?m=order_cart&a=delete&ajax=1&id='+id,
+								url: app.apiHost+'?m=order_cart&a=delete&formapp='+app.formapp()+'&ajax=1&id='+id,
 								data: {
 									authcode:uni.getStorageSync("authcode") 
 								},
@@ -186,6 +190,4 @@
 	}
 </script>
 
-<style>
-@import "../../common/cart.css";
-</style>
+  

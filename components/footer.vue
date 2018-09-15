@@ -1,23 +1,23 @@
 <template>
 	<view>
-		<view class="mfooter-row"></view>
-		<view class="mfooter">
-			<view @click="goHome()" class="mfooter-item" v-bind:class="{'mfooter-active':tab=='index'}">
-				<view class="mfooter-icon iconfont icon-home"></view>
-				首页
+		<view class="footer-row"></view>
+		<view class="footer">
+			<view @click="goHome()" class="footer-item footer-active icon-home">
+				 首页
+				 
 			</view>
-			<view @click="goProduct()"  class="mfooter-item" v-bind:class="{'mfooter-active':tab=='product'}">
-				<view class="mfooter-icon iconfont icon-goods"></view>
+			<view @click="goCategory()" class="footer-item icon-goods">
 				分类
 			</view>
-			<view @click="goCart()"  class="mfooter-item" v-bind:class="{'mfooter-active':tab=='cart'}">
-				<view class="mfooter-icon iconfont icon-cart"></view>
+			<view @click="goCart()" class="footer-item icon-cart">
 				购物车
 			</view>
-			<view @click="goUser()"  class="mfooter-item" v-bind:class="{'mfooter-active':tab=='user'}">
-				<view class="mfooter-icon iconfont icon-my"></view>
-				我的
+			 
+		
+			<view @click="goUser()" class="footer-item icon-my_light">
+				 我的 
 			</view>
+		
 		</view>
 	</view>
 </template>

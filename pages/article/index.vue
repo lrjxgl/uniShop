@@ -13,7 +13,7 @@
 							<image class="flexlist-img" :src="item.imgurl+'.100x100.jpg'"></image>
 							<view class="flex-1">
 								<view class="flexlist-title f16">{{item.title}}</view>
-								<view class="flexlist-desc cor2 f14">{{item.description}}</view>
+								<view class="flexlist-desc cl2 f14">{{item.description}}</view>
 							</view>
 					 
 					</view>
@@ -36,13 +36,16 @@
 		components:{
 			mtFooter
 		},
-		data:{
-			pageLoad:false, 
-			pageData:{},
-			winHeight:600,
-			defaultActive:"list-side-item-active",
+		data:function(){
+			return {
+				pageLoad:false, 
+				pageData:{},
+				winHeight:600,
+				defaultActive:"list-side-item-active",
+			}
 		},
 		onLoad:function(option){
+			console.log("文章");
 			var win=uni.getSystemInfoSync();
 			this.winHeight=win.windowHeight-50;
 			uni.setNavigationBarTitle({

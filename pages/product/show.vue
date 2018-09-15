@@ -1,6 +1,6 @@
 <template>
 	<view>
-		<view v-if="pageLoad">
+		<view class="main-body"  v-if="pageLoad">
 			<view v-if="pageData.imgsdata.length>0">
 				<swiper :indicator-dots="true" :autoplay="true" :interval="3000" :duration="1000">
 					<swiper-item v-for="(img,index) in pageData.imgsdata" :key="index">
@@ -15,31 +15,33 @@
 				<image class="d-img" :src="pageData.data.imgurl"></image>
 				
 			</view>
-			<view class="d-title">{{pageData.data.title}}</view>
-			<view class="d-row-border flex">
-				<view class="flex flex-1">
-					<view class="f18 cor-money">￥{{pageData.data.price}}</view>
-					<view class="market-price">￥{{pageData.data.market_price}}</view>
+			<view class="pd-10 bg-fff">
+				<view class="d-title">{{pageData.data.title}}</view>
+				<view class="d-row-border flex">
+					<view class="flex flex-1">
+						<view class="f18 clmoney">￥{{pageData.data.price}}</view>
+						<view class="market-price">￥{{pageData.data.market_price}}</view>
+					</view>
+
+					<view v-if="pageData.data.cart_num>0" class="numbox">
+						<view @click="minusCart(pageData.data.id,pageData.data.cart_num)" class="numbox-minus">-</view>
+						<input class="numbox-num" type="text" :value="pageData.data.cart_num" />
+						<view @click="plusCart(pageData.data.id,pageData.data.cart_num)" class="numbox-plus">+</view>
+					</view>
+					<view @click="addCart(pageData.data.id)" v-if="pageData.data.cart_num==0" class="btn-buy">买</view>
+
 				</view>
 
-				<view v-if="pageData.data.cart_num>0" class="numbox">
-					<view @click="minusCart(pageData.data.id,pageData.data.cart_num)" class="numbox-minus">-</view>
-					<input class="numbox-num" type="text" :value="pageData.data.cart_num" />
-					<view @click="plusCart(pageData.data.id,pageData.data.cart_num)" class="numbox-plus">+</view>
+				<view class="d-content">
+					<rich-text type="text" :nodes="pageData.data.content"></rich-text>
 				</view>
-				<view @click="addCart(pageData.data.id)" v-if="pageData.data.cart_num==0" class="buy-btn">买</view>
-
-			</view>
-
-			<view class="d-content">
-				<rich-text type="text" :nodes="pageData.data.content"></rich-text>
 			</view>
 			<view class="flcart">
 				<view @click="goHome()" class="flcart-f1" >
-					<view class="iconfont icon-home"></view>
+					<view class="iconfont flcart-icon icon-home"></view>
 					首页</view>
 				<view @click="goCart()" class="flcart-f1" href="/index.php?m=order_cart">
-					<view class="iconfont icon-cart"></view>
+					<view class="iconfont flcart-icon icon-cart"></view>
 					购物车</view>
 				 
 				<view @click="goBuy()" class="flcart-f2"  >立即购买</view>
@@ -52,9 +54,11 @@
 	var app = require("../../common/common.js");
 	var id;
 	export default {
-		data: {
-			pageLoad: false,
-			pageData: {}
+		data:function(){
+			return {
+				pageLoad:false, 
+				pageData:{}
+			}
 		},
 		onLoad: function (option) {
 			id = option.id;
@@ -160,14 +164,10 @@
 				})
 			},
 			goHome:function(){
-				uni.redirectTo({
-					url:"/pages/index/index",
-				})
+				app.goHome();
 			},
 			goCart:function(){
-				uni.navigateTo({
-					url:"/pages/cart/index",
-				})
+				app.goCart();
 			},
 			goBuy:function(){
 				uni.navigateTo({
@@ -207,5 +207,8 @@
     background-color: #f30;
     color: #fff;
     font-size: 29px;
+}
+.flcart-icon{
+	font-size: 32px;
 }
 </style>

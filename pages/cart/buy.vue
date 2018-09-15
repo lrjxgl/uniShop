@@ -3,11 +3,12 @@
 		 <form @submit="formSubmit" class="bg-a" v-if="pageLoad">
 		 	<view class="row-box">
 		 		<view class="row-box-hd">收货地址
-		 			<view class="fr f14 cor2">新增地址</view>
+					<view class="flex-1"></view>
+		 			<view class="fr f14 cor2" @click="goAddress()">新增地址</view>
 		 		</view>
-		 		<radio-group class="radio-group" @change="setAddress">
-		 			<view class="mgb-10 flex" v-for="(item,index) in pageData.address" :key="index">
-		 				<radio :value="item.id" /> {{item.truename}} {{item.telephone}} {{item.pct_address}}
+		 		<radio-group class="radio-group" @change="setAddress" >
+		 			<view class="mgb-10 flex" v-for="(item,key,index) in pageData.address" :key="key">
+		 				<radio :value="item.id" :checked="index==0"  /> {{index}} {{item.truename}} {{item.telephone}} {{item.pct_address}}
 		 			</view>
 		 		</radio-group>
 		 	</view>
@@ -20,8 +21,8 @@
 		 					<view class="flexlist-title">{{pageData.data.title}}</view>
 		 					<view v-if="pageData.data.ks_title!=''" class="f14 cor2">{{pageData.data.ks_title}}</view>
 		 					<view class="">
-		 						价格：<text class="cor-money f18"> {{pageData.data.price}}</text>
-		 						<text class="cor-num"> {{pageData.data.amount}} </text>
+		 						价格：<text class="clmoney f18"> {{pageData.data.price}}</text>
+		 						<text class="clnum"> {{pageData.data.amount}} </text>
 		 					</view>
 		 				</view>
 		 			</view>
@@ -30,13 +31,13 @@
 		 	
 		 	<view class="row-box">
 		 		<view class="flex cart-stat mgb-10">
-		 			商品：￥<text class="cor-money">{{pageData.goods_money}}</text>元 
-		 				邮费：￥<text class="cor-money">{{pageData.express_fee}}</text>元  
-		 				总价：￥<text class="cor-money">{{pageData.total_money}}</text>
+		 			商品：￥<text class="clmoney">{{pageData.goods_money}}</text>元 
+		 				邮费：￥<text class="clmoney">{{pageData.express_fee}}</text>元  
+		 				总价：￥<text class="clmoney">{{pageData.total_money}}</text>
 		 		</view>
 		 		<view class="cart-stat flex">
 		 		
-		 			账户余额：<text class="cor-money">{{pageData.user.money}}</text>元
+		 			账户余额：<text class="clmoney">{{pageData.user.money}}</text>元
 		 		</view>
 		 	</view>
 		 	
@@ -62,9 +63,11 @@
 	var app= require("../../common/common.js"); 
 	var object_id;
 	export default{
-		data:{
-			pageLoad:false, 
-			pageData:{}
+		data:function(){
+			return {
+				pageLoad:false, 
+				pageData:{}
+			}
 		},
 		onLoad:function(option){
 			object_id=option.object_id;
@@ -85,7 +88,12 @@
 						 
 					}
 				})
-			} 
+			},
+			goAddress:function(){
+				uni.navigateTo({
+					url:"/pages/user_address/add",
+				})
+			}
 		},
 	}
 </script>

@@ -20,6 +20,12 @@ module.exports = {
 	setAuthCode:function($authcode){
 		uni.setStorageSync("authcode",$authcode);
 	},
+	setOpenid:function(openid){
+		uni.setStorageSync("openid",openid)
+	},
+	getOpenid:function(openid){
+		uni.getStorageSync("openid")
+	},
 	fromapp:function(){
 		//var $paltform= uni.platform();
 		return "wxapp";
@@ -28,6 +34,27 @@ module.exports = {
 		uni.switchTab({
 			url:"/pages/index/index",
 		})
+	},
+	goCart:function(){
+		uni.switchTab({
+			url:"/pages/cart/index",
+		})
+	},
+	goUser:function(){
+		uni.switchTab({
+			url:"/pages/user/index",
+		})
+	},
+	goProduct:function(){
+		uni.switchTab({
+			url:"/pages/product/index",
+		})
+	},
+	html:function(html){
+		html=html.replace(/<img /g,'<img style="max-width:100%;height:auto;"');
+		html=html.replace(/&hellip;/g,'');
+		return html;
 	}
+	
 	
 }

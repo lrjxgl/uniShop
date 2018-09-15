@@ -52,12 +52,14 @@
 		components:{
 			mtFooter
 		},
-		data:{
-			pageLoad:false, 
-			pageHide:false,
-			pageData:{},
-			winHeight:600,
-			defaultActive:"list-side-item-active",
+		data:function(){
+			return {
+				pageLoad:false, 
+				pageHide:false,
+				pageData:{},
+				winHeight:600,
+				defaultActive:"list-side-item-active",
+			}
 		},
 		onLoad:function(option){
 			var win=uni.getSystemInfoSync();

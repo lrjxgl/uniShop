@@ -8,7 +8,7 @@
 					<view  class="row-box"  v-for="(item,index) in pageData.list" :key="index">	 
 							<view class="row-box-hd">
 								<view class="btn-small btn-outline-primary mgr-10">{{item.status_name}}</view>
-								<view class="cor-money">￥{{item.money}}</view>
+								<view class="clmoney">￥{{item.money}}</view>
 								<view class="flex-1"></view>
 								<view class="time cor2">{{item.orderno}}</view>
 							</view>
@@ -32,9 +32,11 @@
 	var catid=0;
 	export default{
  
-		data:{
-			pageLoad:false, 
-			pageData:{},
+		data:function(){
+			return {
+				pageLoad:false, 
+				pageData:{}
+			}
 		},
 		onLoad:function(option){
 			uni.setNavigationBarTitle({

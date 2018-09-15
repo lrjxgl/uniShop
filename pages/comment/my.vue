@@ -25,10 +25,11 @@
 	 
 	export default{
 		 
-		data:{
-			pageLoad:false, 
-			pageData:{}
-			 
+		data:function(){
+			return {
+				pageLoad:false, 
+				pageData:{}
+			}
 		},
 		onLoad:function(option){
 			var win=uni.getSystemInfoSync();

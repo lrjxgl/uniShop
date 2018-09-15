@@ -39,11 +39,13 @@
 	var app= require("../../common/common.js"); 
 	var id;
 	export default{
-		data:{
-			pageLoad:false, 
-			pageData:{},
-			yzm:"",
-			telephone:""
+		data:function(){
+			return {
+				pageLoad:false, 
+				pageData:{},
+				yzm:"",
+				telephone:""
+			};
 		},
 		onLoad:function(option){
 			id=option.id;

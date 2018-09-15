@@ -8,7 +8,7 @@
 			 	<view class="flex-1">
 			 		<view @click="goProduct(item.object_id)" class="flexlist-title">{{item.title}}</view>
 			 		<view class="flex">
-			 			价格：<text class="cor-money">￥{{item.price}}</text>
+			 			价格：<text class="clmoney">￥{{item.price}}</text>
 			 			<view class="flex-1"></view>
 			 			<view class="fr cor2">{{item.buy_num}}件已售</view>
 			 			
@@ -26,10 +26,11 @@
 
 	export default{
  
-		data:{
-			pageLoad:false, 
-			pageData:{},
-		 
+		data:function(){
+			return {
+				pageLoad:false, 
+				pageData:{}
+			}
 		},
 		onLoad:function(option){
  

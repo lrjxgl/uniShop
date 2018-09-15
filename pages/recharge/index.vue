@@ -14,9 +14,11 @@
 	var app= require("../../common/common.js"); 
 	var id;
 	export default{
-		data:{
-			pageLoad:false, 
-			pageData:{}
+		data:function(){
+			return {
+				pageLoad:false, 
+				pageData:{}
+			}
 		},
 		onLoad:function(option){
 			id=option.id;

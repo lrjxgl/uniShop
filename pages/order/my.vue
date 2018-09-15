@@ -1,5 +1,5 @@
 <template>
-	<view v-if="pageLoad" class="bg-a">
+	<view v-if="pageLoad" class="bg-ef">
 		<view class="tabs-border">
 			<view @click="setCat(0)" class="tabs-border-item" v-bind:class="{'tabs-border-active':status==0}">全部</view>
 			<view @click="setCat(1)" class="tabs-border-item" v-bind:class="{'tabs-border-active':status==1}">待付款</view>
@@ -10,16 +10,16 @@
 			<view class="emptyData">暂无消息</view>
 		</view>
 		<view v-else>
-			<view class="morderlist">
-				<view class="morderlist-item pdb-10 mgb-10 bg-fff" v-for="(item,index) in pageData.data" :key="index">
+			<view class="list">
+				<view class="item row-box mgb-10" v-for="(item,index) in pageData.data" :key="index">
 
-					<view class="flex bdb-1 mgb-10  pd-10">
-						<text class="flex-1 cora">{{item.status_name}}</text>
-						<text class="corb">{{item.ispay_name}} </text>
+					<view class="flex bd-mp-5">
+						<text class="flex-1 cl2">{{item.orderno}}</text>
+						<text class="cl-primary">{{item.ispay_name}} </text>
 					</view>
 
 
-					<view class="flexlist">
+					 
 						<view v-for="($p,pkey) in item.product" :key="pkey" class="flexlist-item">
 
 							<image class="flexlist-img" :src="$p.imgurl+'.100x100.jpg'"></image>
@@ -30,24 +30,24 @@
 										{{$p.ks_title}}
 									</view>
 								</view>
-								<view class="flexlist-price">
-									<text class="cor-money mgr-10">￥{{$p.price}}</text>
-									<text class="market-price ">￥{{$p.market_price}}</text>
+								<view class="flex">
+									<text class="cl-money flex-1">￥{{$p.price}}</text>
+									<text class="market-price ">x{{$p.amount}}</text>
 								</view>
 							</view>
 						</view>
-					</view>
+					 
 
 					<view class="flex pd-10">
 						共
-						<text class="cor-money">{{item.total_num}}</text>件商品， 合计：￥
-						<text class="cor-money">{{item.money}}</text>
+						<text class="clmoney">{{item.total_num}}</text>件商品， 合计：￥
+						<text class="clmoney">{{item.money}}</text>
 					</view>
 
-					<view class="flex pdr-10">
+					<view class="flex flex-jc-end">
 						<view class="flex-1"></view>
-						<view class="btn mgr-10" @click="goPay(item.order_id)">去支付</view>
-						<view class="btn" @click="goOrder(item.order_id)">查看</view>
+						<view class="btn-small btn-outline-danger mgr-10" @click="goPay(item.order_id)">去支付</view>
+						<view class="btn-small  btn-outline-danger" @click="goOrder(item.order_id)">查看</view>
 					</view>
 
 				</view>
@@ -67,12 +67,14 @@
 	var activeClass = "list-side-item-active";
 	export default {
 
-		data: {
-			pageLoad: false,
-			pageData: {},
-			winHeight: 600,
-			status: 0,
-			defaultActive: "list-side-item-active",
+		data: function(){
+			return {
+				pageLoad: false,
+				pageData: {},
+				winHeight: 600,
+				status: 0,
+				defaultActive: "list-side-item-active",
+			}
 		},
 		onLoad: function (option) {
 			var win = uni.getSystemInfoSync();

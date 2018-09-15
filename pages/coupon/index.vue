@@ -36,11 +36,13 @@
 		components:{
 			mtFooter
 		},
-		data:{
-			pageLoad:false, 
-			pageData:{},
-			winHeight:600,
-			defaultActive:"list-side-item-active",
+		data:function(){
+			return {
+				pageLoad:false, 
+				pageData:{},
+				winHeight:600,
+				defaultActive:"list-side-item-active",
+			}
 		},
 		onLoad:function(option){
 			var win=uni.getSystemInfoSync();

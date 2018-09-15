@@ -1,11 +1,7 @@
 <template>
 	<view>
 		<view v-if="pageLoad">
-		<view class="d-title">{{pageData.data.title}}</view>
-		 
-		<view class="d-content">
-		<rich-text type="text" :nodes="pageData.data.content"></rich-text>
-		</view>
+			<view>开发中</view>
 		</view>
 	</view>
 </template>
@@ -14,12 +10,15 @@
 	var app= require("../../common/common.js"); 
 	var id;
 	export default{
-		data:{
-			pageLoad:false, 
-			pageData:{}
+		data:function(){
+			return {
+				pageLoad:false, 
+				pageData:{},
+				order_id:0
+			}
 		},
 		onLoad:function(option){
-			id=option.id;
+			this.order_id=option.order_id;
 			this.getPage();
 		},
 		onReady:function(){
@@ -31,7 +30,7 @@
 			getPage:function(){
 				var that=this;
 				uni.request({
-					url:app.apiHost+"?m=article",
+					url:app.apiHost+"?m=recharge&a=order&order_id="+this.order_id,
 					data:{
 						authcode: app.getAuthCode()
 					},

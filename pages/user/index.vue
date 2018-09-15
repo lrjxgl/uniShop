@@ -1,84 +1,100 @@
 <template>
 	<view class="body">
-		<view class="uhead" v-if="pageLoad">
+		<view v-if="pageLoad">
+			<view class="header">
+				<view class="header-back"></view>
+				<view class="header-title">个人中心</view>
+			</view>
+			<view class="header-row"></view>
+			<view class="main-body">
+				<view class="uhead">
 
-			<image @click="gourl('/pages/user/user_head')" class="uhead-img" :src="pageData.data.user_head+'.100x100.jpg'"></image>
+					<image @click="gourl('/pages/user/user_head')" class="uhead-img" :src="pageData.data.user_head+'.100x100.jpg'"></image>
 
-			<view class="uhead-box">
-				<view class="uhead-nick">{{pageData.data.nickname}}</view>
-				<view class="uhead-rnum flex">
-					 余额 ￥
-						<text class="f14 cor-money mgl-5">{{pageData.data.money}} </text>
-					 
+					<view class="uhead-box">
+						<view class="uhead-nick">{{pageData.data.nickname}}</view>
+						<view class="uhead-rnum flex">
+							余额 ￥
+							<text class="f14 cl-money mgl-5">{{pageData.data.money}} </text>
 
+
+						</view>
+						<view class="uhead-rnum flex">
+
+							金币
+							<text class="cl-money mgl-5 mgr-5">{{pageData.data.gold}}</text>
+
+							积分
+							<text class="cl-money mgl-5">{{pageData.data.grade}}</text>
+
+						</view>
+
+					</view>
+					<navigator url="/pages/user/set" class="flex-center btn-small btn-link iconfont icon-settings"></navigator>
 				</view>
-				<view class="uhead-rnum flex">
-					 
-						金币
-						<text class="cor-money mgl-5">{{pageData.data.gold}}</text> 
+				<view class="order-box">
+					<view class="order-box-hd">
+						我的订单
 						<view class="flex-1"></view>
-						积分
-						<text class="cor-money mgl-5">{{pageData.data.grade}}</text>
-					 
+						<view @click="gourl('/pages/order/my')" class="fr cor2 flex">全部订单
+							<text class="iconfont icon-right"></text>
+						</view>
+					</view>
+					<view class="order-box-status flex">
+						<view @click="gourl('/pages/order/my?status=1')" class="order-box-item">
+							<text class="iconfont icon-moneybag"></text> 待付款</view>
+						<view @click="gourl('/pages/order/my?status=2')" class="order-box-item">
+							<text class="iconfont icon-deliver"></text> 待收货</view>
+						<view @click="gourl('/pages/order/my?status=3')" class="order-box-item">
+							<text class="iconfont icon-comment"></text> 待评价</view>
+					</view>
 				</view>
-			</view>
-		</view>
 
+				<view class="row-box mgb-5">
 
-		<view class="order-box">
-			<view class="order-box-hd">
-				我的订单
-				<view class="flex-1"></view>
-				<view @click="gourl('/pages/order/my')" class="fr cor2 flex">全部订单
-					<text class="iconfont icon-right"></text>
+					<navigator url="/pages/notice/my" class="row-item">
+						<view class="row-item-icon icon-text"></view>
+						<view class="flex-1">我的消息</view>
+					</navigator>
+					<navigator url="/pages/coupon/my" class="row-item">
+						<view class="row-item-icon icon-text"></view>
+						<view class="flex-1">我的优惠券</view>
+					</navigator>
+
+					<navigator url="/pages/forum/my" class="row-item">
+						<view class="row-item-icon icon-text"></view>
+						<view class="flex-1">我的帖子</view>
+					</navigator>
+					<navigator url="/pages/comment/my" class="row-item">
+						<view class="row-item-icon icon-comment"></view>
+						<view class="flex-1">我的评论</view>
+					</navigator>
 				</view>
+				<view class="row-box mgb-5">
+					<navigator url="/pages/fav/my" class="row-item">
+						<view class="row-item-icon icon-favor"></view>
+						<view class="flex-1">我的收藏</view>
+					</navigator>
+					<navigator url="/pages/user_address/my" class="row-item">
+						<view class="row-item-icon icon-text"></view>
+						<view class="flex-1">收货地址</view>
+					</navigator>	
+					<navigator url="/pages/pay_log/my" class="row-item">
+						<view class="row-item-icon icon-text"></view>
+						<view class="flex-1">消费记录</view>
+					</navigator>
+					<navigator url="/pages/recharge/my" class="row-item">
+						<view class="row-item-icon icon-text"></view>
+						<view class="flex-1">充值记录</view>
+					</navigator>
+				</view>
+
+				 
+
 			</view>
-			<view class="order-box-status flex">
-				<view @click="gourl('/pages/order/my?status=1')" class="order-box-item">
-					<text class="iconfont icon-redpacket"></text> 待付款</view>
-				<view  @click="gourl('/pages/order/my?status=2')"  class="order-box-item">
-					<text class="iconfont icon-express"></text> 待收货</view>
-				<view  @click="gourl('/pages/order/my?status=3')"  class="order-box-item">
-					<text class="iconfont icon-comment"></text> 待评价</view>
-			</view>
+			 
 		</view>
 
-		<view class="row-box">
-
-			<view @click="gourl('/pages/notice/my')" class="row-item">
-				<text class="row-icon iconfont icon-message_light"></text>我的消息</view>
-			<view @click="gourl('/pages/comment/my')"  class="row-item">
-				<text class="row-icon iconfont icon-comment"></text>我的评论</view>		
-			<view @click="gourl('/pages/coupon/my')" class="row-item">
-				<text class="row-icon iconfont icon-coupon"></text> 优惠券
-			</view>
-			<view @click="gourl('/pages/fav/my')" class="row-item">
-				<text class="row-icon iconfont icon-favor_fill_light"></text> 我的收藏
-			</view>
-
-
-		</view>
-		<view class="row-box">
-			<view @click="gourl('/pages/pay_log/my')"  class="row-item">
-				<text class="row-icon iconfont icon-moneybag"></text>消费记录</view>
-			<view @click="gourl('/pages/recharge/my')"  class="row-item">
-				<text class="row-icon iconfont icon-moneybag"></text>充值记录</view>
- 
-			<view @click="gourl('/pages/user_address/my')" class="row-item" >
-				<text class="row-icon iconfont icon-addressbook"></text> 收货地址
-			</view>
-
-
-
-		</view>
-
-		<view class="row-box">
-
-			<view @click="gourl('/pages/user/set')" class="row-item">
-				<text class="row-icon iconfont icon-settings"></text> 设置</view>
-
-		</view>
-		 
 	</view>
 </template>
 
@@ -86,28 +102,30 @@
 	import app from "../../common/common.js";
 	import mtFooter from "../../components/footer.vue";
 	export default {
-		components:{
+		components: {
 			mtFooter
 		},
-		data: {
-			pageLoad: false,
-			pageHide:false,
-			pageData: {}
+		data: function(){
+			return {
+				pageLoad: false,
+				pageHide: false,
+				pageData: {}
+			}
 		},
 		onLoad: function (option) {
 			uni.setNavigationBarTitle({
-				title:"个人中心",
+				title: "个人中心",
 			})
 			this.getPage();
 		},
-		onShow:function(){
-			if(this.pageHide){
-				this.pageHide=false;
+		onShow: function () {
+			if (this.pageHide) {
+				this.pageHide = false;
 				this.getPage();
-			}			
+			}
 		},
-		onHide:function(){
-			this.pageHide=true;
+		onHide: function () {
+			this.pageHide = true;
 		},
 		methods: {
 			gourl: function (url) {
@@ -123,15 +141,15 @@
 						authcode: app.getAuthCode()
 					},
 					success: function (res) {
-						if(res.data.error==1000){
+						if (res.data.error == 1000) {
 							uni.navigateTo({
-								url:"/pages/login/index",
+								url: "/pages/login/index",
 							})
-						}else{
+						} else {
 							that.pageLoad = true;
 							that.pageData = res.data.data;
 						}
-						
+
 
 					}
 				})
@@ -209,7 +227,8 @@
 		color: #666;
 		font-size: 42px;
 	}
-	.row-item{
+
+	.row-item {
 		display: flex;
 		flex-direction: row;
 		padding: 10px 16px;
@@ -218,12 +237,12 @@
 		color: #555;
 		border-bottom: 2px solid #eee;
 	}
-	.row-icon{
+
+	.row-icon {
 		position: relative;
 		top: -5px;
 		font-size: 40px;
 		margin-right: 10px;
 		color: #555;
 	}
-	 
 </style>

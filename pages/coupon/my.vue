@@ -14,9 +14,9 @@
 							<view class="flexlist-title f16">{{item.title}}</view>
 							<view class="flexlist-desc cor2 f14">截止时间:{{item.end_day}}</view>
 						 
-							<view class="cor-money flex">
-								满 <text class="cor-money">￥{{item.lower_money}} </text>
-								减 <text class="cor-money">￥{{item.money}}</text>
+							<view class="clmoney flex">
+								满 <text class="clmoney">￥{{item.lower_money}} </text>
+								减 <text class="clmoney">￥{{item.money}}</text>
 							</view>
 						</view>
 						<view class="btn btn-primary" @click="goPros(item.money)">去购买</view> 
@@ -37,11 +37,11 @@
  
 	export default {
 
-		data: {
-			pageLoad: false,
-			pageData: {}
-		 
-		 
+		data:function(){
+			return {
+				pageLoad:false, 
+				pageData:{}
+			}
 		},
 		onLoad: function (option) {
 			uni.setNavigationBarTitle({

@@ -1,0 +1,337 @@
+/**forumlist***/
+.flist {}
+
+.flist-item {
+    padding: 11px;
+    background-color: #fff;
+    margin-bottom: 11px;
+    display:flex;
+	flex-direction: column;
+    text-decoration: none;
+    color: #444;
+}
+
+.flist-user {
+    display: flex;
+	flex-direction: row;
+    margin-bottom: 11px;
+}
+
+.flist-head {
+    width: 88px;
+    height: 88px;
+    margin-right: 22px;
+    border-radius: 50%;
+}
+
+.flist-nick {
+    font-size: 30.8px;
+    color: #333;
+}
+
+.flist-time {
+    font-size: 26.4px;
+    color: #666;
+}
+
+ 
+
+.flist-title {
+    color: #323232;
+    font-size: 30.8px;
+    margin-bottom: 22px;
+}
+.flist-desc{
+	color: #646464;
+	font-size: 30.8px;
+	margin-bottom: 22px;
+}
+.flist-vd {
+    position: relative;
+	clear: both;
+	margin-bottom: 11px;
+	align-items: center;
+}
+
+.flist-vd-bg {
+    max-width: 100%;
+    max-height: 440px;
+}
+
+.flist-vd-play {
+    
+    background-size: 100%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 132px;
+    height: 132px;
+    margin-left: -66px;
+    margin-top: -66px;
+}
+
+.flist-imgs {
+	flex-direction: row;
+	flex-wrap: wrap;
+}
+
+.flist-imgs-img {
+    width: 132px;
+	height: 132px;
+	margin-bottom: 22px;
+    margin-right: 22px;
+}
+
+.flist-ft {
+    text-align: center;
+    display: flex;
+	flex-direction: row;
+    padding: 13.2px 13.2px;
+    font-size: 30.8px;
+}
+.flist-ft-love,
+.flist-ft-cm,
+.flist-ft-view{
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+}
+
+.flist-ft-love:before,
+.flist-ft-cm:before,
+.flist-ft-view:before {
+    font-family: "iconfont" !important;
+    display: inline-block;
+    margin-right: 8.8px;
+    font-size: 30.8px; 
+	
+}
+
+.flist-ft-love:before {
+    content: "\e669";
+}
+
+.flist-ft-cm:before {
+    content: "\e667";
+}
+
+.flist-ft-view:before {
+    content: "\e819";
+}
+
+.flist-ft-love,
+.flist-ft-cm {
+    flex: 1;
+    border-right: 2.2px solid #eee;
+}
+
+.flist-ft-view {
+    flex: 1;
+}
+
+.flist-tools{
+	display:flex;
+	height: 79.2px;
+	line-height: 79.2px;
+}
+.flist-tools a{
+	flex: 1;
+	color: #0062CC;
+	text-align: center;
+}
+
+ 
+ page{
+	background-color: #fff;
+}
+.fixtop {
+    display: block;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    padding: 22px;
+    height: 110px;
+    z-index: 999;
+    background-color: #f7f7f7;
+}
+.list-side {
+	position: fixed;
+	left: 0px;
+	top: 132px;
+	bottom: 132px;
+	width: 154px;
+	border-right: 2.2px solid #eee;
+	text-align: center;
+}
+
+.list-side-item {
+	color: #707070;
+	margin-bottom: 22px;
+	font-size: 30.8px;
+	display: block;
+	cursor: pointer;
+}
+
+.list-side-item.active {
+	color: #ff842b;
+	border-left: 6.6px solid #ff842b;
+}
+
+.list-main {
+	margin-left: 176px;
+	padding-top: 132px;
+}
+
+.list-cat-img {
+	max-width: 100%;
+	padding-right: 11px;
+}
+
+.list-cat-hd {
+	text-align: center;
+	padding: 22px 0;
+	color: #666;
+	font-size: 30.8px;
+	position: relative;
+}
+
+.list-cat-hd:before {
+	display: block;
+	width: 44px;
+	height: 2.2px;
+	background-color: #e0e0e0;
+	position: absolute;
+	right: 60%;
+	top: 50%;
+	content: "-";
+	overflow: hidden;
+	color: #666;
+}
+
+.list-cat-hd:after {
+	display: block;
+	width: 44px;
+	height: 2.2px;
+	background-color: #e0e0e0;
+	position: absolute;
+	left: 60%;
+	top: 50%;
+	content: "-";
+	overflow: hidden;
+	color: #666;
+}
+
+.list-child {
+	margin-bottom: 22px;
+	flex-direction: row;
+	flex-wrap: wrap;
+}
+
+.list-child-item {
+	float: left;
+	display: block;
+	width: 33.333%;
+	margin-bottom: 22px;
+	padding: 0 22px;
+	box-sizing: border-box;
+	font-size: 30.8px;
+	color: #666;
+	text-align: center;
+}
+
+.list-child-img {
+	width: 100%;
+	display: block;
+	margin-bottom: 11px;
+}
+
+.list-child-title {
+	height: 66px;
+	line-height: 66px;
+	overflow: hidden;
+}
+
+ /*********购物车************/
+
+.cart-list {
+	padding-top: 22px;
+	background-color: #fff;
+}
+
+.cart-list-item {
+	margin-bottom: 22px;
+	padding-bottom: 22px;
+	border-bottom: 2.2px solid #ccc;
+	display: flex;
+	flex-direction: row;
+}
+
+.cart-list-item:after {
+	clear: both;
+	visibility: hidden;
+	content: ".";
+	height: 0px;
+}
+
+.cart-list-title {
+	margin-bottom: 11px;
+	display: block;
+}
+.cart-list-row{
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	padding-bottom: 11px;
+}
+.cart-list-imgbox {
+ 
+	width: 132px;
+	margin-right: 22px;
+}
+
+.cart-list-img {
+	width: 100%;
+}
+
+ 
+.cart-list-price{
+	color: #f60;
+	font-size: 39.6px;
+}
+ 
+ 
+
+.cart-list-delete {
+	color: red;
+	line-height: 66px;
+}
+
+ 
+
+.cart-list-ks-title {
+	color: red;
+	font-size: 26.4px;
+}
+
+.cart-list-stat{
+	padding: 22px 22px 132px 22px;
+	color: #646464;
+	display: flex;
+	flex-direction: row;
+	background-color: #fff;
+} 
+.cart-list-stat-num{
+	color: #f60;
+}
+.cart-list-btn{
+	line-height: 79.2px;
+	padding: 0px 44px;
+	background-color: #007AFF;
+	color: #fff;
+	font-size: 30.8px;
+	display: inline-flex;
+	border-radius: 44px;
+	cursor: pointer;
+}

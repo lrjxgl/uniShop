@@ -3,6 +3,9 @@
 		onLaunch: function () {
 			
 		},
+		onLoad:function(){
+			console.log("App load");
+		},
 		onShow: function () {
 			console.log('App Show')
 		},
@@ -14,9 +17,14 @@
 
 <style>
 @import "./common/iconfont.css";
-@import "./common/uni.css";
+@import "./common/dt-ui-uni.css";
  
-@import "./common/app.css";
-
+@import "./common/shop.css";
+page{
+	background-color: #efefef;
+}
+.header,.header-row{
+	display:none;
+}
 
 </style>

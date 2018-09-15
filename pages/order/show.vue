@@ -1,7 +1,7 @@
 <template>
 	<view>
 		<view class="bg-a" v-if="pageLoad">
-			<view class="row-box">
+			<view class="row-box mgb-5">
 				<view class="row-box-hd">商品详情</view>
 				<view class="flexlist">
 					<view class="flexlist-item" v-for="($p,index) in pageData.order_product" :key="index">
@@ -23,7 +23,7 @@
 				</view>
 			</view>
 
-			<view class="row-box">
+			<view class="row-box mgb-5">
 				<view class="flex-table">
 					<view class="flex-table-label">收货信息</view>
 					<view class="flex-table-box">
@@ -47,12 +47,13 @@
 
 			</view>
 			
-			<view class="row-box">
+			<view class="row-box mgb-5">
     	<view class="flex-table">
     		<view class="flex-table-label">支付情况</view>
-    		<view class="flex-table-box">
-    			<text>{{pageData.data.ispay_name}}</text> 
-				<text>{{pageData.data.pay_type_name}}</text>							
+    		<view class="flex-table-box flex">
+    			<text class="mgr-10">{{pageData.data.ispay_name}}</text> 
+					<text v-if="pageData.data.ispay==2">{{pageData.data.pay_type_name}}</text>
+					<navigator class="btn-small btn-outline-primary" v-if="pageData.data.ispay==1 && pageData.data.status==0" :url="'/pages/recharge/order?order_id='+pageData.data.order_id">去支付</navigator>
 			</view>
     	</view>
     	<view class="flex-table">
@@ -82,9 +83,11 @@
 	var app = require("../../common/common.js");
 	var order_id;
 	export default {
-		data: {
-			pageLoad: false,
-			pageData: {}
+		data:function(){
+			return {
+				pageLoad:false, 
+				pageData:{}
+			}
 		},
 		onLoad: function (option) {
 			order_id = option.order_id;

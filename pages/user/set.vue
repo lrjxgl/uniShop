@@ -1,24 +1,19 @@
 <template>
 	<view>
 		<view v-if="pageLoad">
-			 
-			<view class="uni-list flex-col">
+			<view class="row-box">
 				 
-				<view class="uni-list-cell "  @click="gourl('/pages/user/info')">
-					<view class="uni-list-cell-navigate uni-navigate-right" >
-						{{pageData.data.nickname}}
-					</view>
+				<view class="row-item-text"  @click="gourl('/pages/user/info')">
+					<view class="flex-1"> {{pageData.data.nickname}}</view>
 					 
 				</view>
 				
-				<view class="uni-list-cell " @click="gourl('/pages/user/password')" >
-					 
-					<view  class="uni-list-cell-navigate uni-navigate-right" >
-						修改密码
-					</view>
+				<view class="row-item-text" @click="gourl('/pages/user/password')" >
+					<view class="flex-1">修改密码</view>
 				</view>
 				 
 			</view>
+			 
 			 <view class="btn-row-submit bg-danger" @click="loginOut()">注销</view>
 		</view>
 	</view>
@@ -28,9 +23,11 @@
 	var app= require("../../common/common.js"); 
 	var id;
 	export default{
-		data:{
-			pageLoad:false, 
-			pageData:{}
+		data:function(){
+			return {
+				pageLoad:false, 
+				pageData:{}
+			}
 		},
 		onLoad:function(option){
 			id=option.id;
