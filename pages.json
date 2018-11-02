@@ -42,7 +42,7 @@
 					"navigationBarTitleText":"用户中心"
 			}
 		},
-		{"path":"pages/user/set" },
+		 
 		{"path":"pages/user/info"},
 		{"path":"pages/user/user_head"},
 		{"path":"pages/user/password"},

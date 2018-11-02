@@ -8,7 +8,7 @@
 				</view>
 				<radio-group class="radio-group" @change="setAddress" >
 					<view class="mgb-10 flex" v-for="(item,key,index) in pageData.address" :key="key">
-						<radio :value="item.id" :checked="index==0"  /> {{index}} {{item.truename}} {{item.telephone}} {{item.pct_address}}
+						<radio   :value="item.id" :checked="index==0"  /> {{index}} {{item.truename}} {{item.telephone}} {{item.pct_address}}
 					</view>
 				</radio-group>
 			</view>
@@ -26,9 +26,10 @@
 					<view class="flex-1">					 
 						<view class="flexlist-title">{{item.title}}</view>
 						 
-						<view class="cl2"  v-if="item.ks_title!=''">{{item.ks_title}}</view>
+						
 						<view class="flex">
-							<view class="cl-num mgr-10">￥ {{item.price}} </view> 
+							<view class="cl2 mgr-10"  v-if="item.ks_title!=''">{{item.ks_title}}</view>
+							<view class="cl-money mgr-10">￥ {{item.price}} </view> 
 							<view class="cl2">x {{item.amount}}</view>
 							
 						</view>
@@ -59,11 +60,11 @@
 				<view class="none">
 				<input type="hidden" name="pay_type" id="pay_type" :value="pay_type">
 				</view>
-				<view class="paylist-item"  v-for="(item,key) in pageData.pay_type_list" v-bind:class="(key==pay_type)?'paylist-item-active':''"   :key="key">{{item}}</view>
+				<view class="paylist-item" @click="setPayType(key)"  v-for="(item,key) in pageData.pay_type_list" v-bind:class="(key==pay_type)?'paylist-item-active':''"   :key="key">{{item}}</view>
 			</view>
 		</view>
 			<view class="row-box">
-				<view class="mgb-10"><textarea name="comment" placeholder="请输入订单需求"></textarea></view>
+				<view class="mgb-10"><textarea class="h60" name="comment" placeholder="请输入订单需求"></textarea></view>
 				<button type="primary" form-type="submit" class="btn-row-submit">确认下单</button>
 			</view>
 		 
@@ -77,13 +78,13 @@
 	var address_id=0;
 	var cart_id=[];
 	var comment="";
-	var pay_type="";
+  
 	export default{
 		data:function(){
 			return {
 				pageLoad:false, 
 				pageData:{},
-				payIndex:0,
+				 
 				pay_type:"wxpay",
 			}
 		},
@@ -117,8 +118,8 @@
 			setAddress:function(e){
 				address_id=e.detail.value;
 			},
-			setPayType:function(e){
-				pay_type=e.detail.value;
+			setPayType:function(pay_type){
+				this.pay_type=pay_type;
 			},
 			formSubmit:function(e){
 				console.log("wwwwwww")
@@ -132,7 +133,7 @@
 					data:{
 						cart_id:cart_id, 
 						user_address_id:address_id,
-						pay_type:pay_type,
+						pay_type:this.pay_type,
 						comment:comment
 					},
 					method:"POST",
