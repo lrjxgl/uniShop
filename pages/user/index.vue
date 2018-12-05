@@ -77,6 +77,13 @@
 			</view>
 			 
 		</view>
+		<view v-else class="bg-fff pd-10">
+				<div class="flex flex-center mgb-10 cl2">您还未登录,请先登录</div>
+				<div class="flex flex-center">
+					<navigator  class="btn-small" url="../login/index">前往登录</navigator>
+				</div>
+			
+		</view>
 
 	</view>
 </template>
@@ -125,9 +132,7 @@
 					},
 					success: function (res) {
 						if (res.data.error == 1000) {
-							uni.navigateTo({
-								url: "../login/index",
-							})
+							 
 						} else {
 							that.pageLoad = true;
 							that.pageData = res.data.data;
