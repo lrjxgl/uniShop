@@ -2,7 +2,7 @@
 	<view class="bg-ef">
 		<form @submit="formSubmit" v-if="pageLoad">
 			<view class="row-box mgb-10">
-				<view class="row-box-hd">收货地址
+				<view class="row-box-hd mgb-10">收货地址
 				<view class="flex-1"></view>
 					<view class=" f14 cor2"  @click="goAddress()">新增地址</view>
 				</view>
@@ -89,8 +89,7 @@
 			}
 		},
 		onLoad:function(option){
-			id=option.id;
-			this.getPage();
+			this.getPage(option.cart_id);
 		},
 		 
 		methods:{
@@ -99,12 +98,13 @@
 					url:"/pages/user_address/add",
 				})
 			},
-			getPage:function(){
+			getPage:function(cartid){
 				var that=this;
 				uni.request({
 					url:app.apiHost+"?m=order&a=confirm&ajax=1",
 					data:{
-						authcode: app.getAuthCode()
+						authcode: app.getAuthCode(),
+						cart_id:cartid
 					},
 					success:function(res){
 						that.pageLoad=true;
@@ -141,7 +141,7 @@
 						uni.showToast({
 							title:res.data.message,
 						})
-						 
+						  
 						if(!res.data.error){
 							if(1==1 || res.data.data.ispay==2){
 									uni.redirectTo({

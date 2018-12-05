@@ -1,27 +1,25 @@
 <template>
 	<view>
 		<view v-if="pageLoad">
-		<view class="d-title">{{pageData.data.title}}</view>
-		 
-		<view class="d-content">
-		<rich-text type="text" :nodes="pageData.data.content"></rich-text>
-		</view>
+			<view class="flex flex-center mgt-10 mgb-10">
+				<image @click="upload()" class="wh-200 pointer" :src="user_head"></image>
+			</view>
 		</view>
 	</view>
 </template>
 
 <script>
-	var app= require("../../common/common.js"); 
-	var id;
+	 
 	export default{
 		data:function(){
 			return {
 				pageLoad:false, 
-				pageData:{}
+				pageData:{},
+				user_head:"",
 			}
 		},
 		onLoad:function(option){
-			id=option.id;
+			 
 			this.getPage();
 		},
 		 
@@ -29,17 +27,48 @@
 			getPage:function(){
 				var that=this;
 				uni.request({
-					url:app.apiHost+"?m=article",
+					url:that.app.apiHost+"?m=user&a=user_head&ajax=1",
 					data:{
-						authcode: app.getAuthCode()
+						authcode: that.app.getAuthCode()
 					},
-					success:function(data){
+					success:function(res){
 						that.pageLoad=true;
-						that.pageData=data.data.data;
-						 
+						that.pageData=res.data.data;
+						that.user_head=res.data.data.data.user_head; 
 					}
 				})
-			} 
+			},
+			upload:function(){
+				var that=this;
+				uni.chooseImage({
+					success: (chooseImageRes) => {
+						const tempFilePaths = chooseImageRes.tempFilePaths;
+						uni.uploadFile({
+							url: that.app.apiHost+"?m=upload&a=img&ajax=1&authcode="+that.app.getAuthCode(), //仅为示例，非真实的接口地址
+							filePath: tempFilePaths[0],
+							name: 'upimg',
+							
+							success: function(res){
+								var data=JSON.parse(res.data);
+								
+								uni.request({
+									url:that.app.apiHost+"?m=user&a=user_head_save&ajax=1&authcode="+that.app.getAuthCode(),
+									data:{
+										user_head:data.data.imgurl
+									},
+									method:"POST",
+									header:{
+										"content-type":"application/x-www-form-urlencoded"
+									},
+									success:function(res){
+										that.user_head=data.data.trueimgurl;
+									}
+								})
+							}
+						});
+					}
+				});
+			}
 		},
 	}
 </script>

@@ -8,7 +8,7 @@
 				<div @click="search()" form-type="submit" class="header-search-btn">搜</div>
 			</view>
 		</view>
-		<view class="header-row flex-col"></view>
+		 
 		<view class="main-body" v-if="pageLoad">
 			<swiper :indicator-dots="true" :autoplay="true" :interval="3000" :duration="1000">
 				<swiper-item v-for="(item,key) in pageData.flashlist" :key="key">
@@ -18,30 +18,43 @@
 				</swiper-item>
 
 			</swiper>
+			<view class="m-navPic mgt-5 mgb-5">
+				<navigator v-for="(item,index) in pageData.navList" :key="index" :url="item.link_url" class="m-navPic-item">
+					<img class="m-navPic-img" :src="item.logo">
+					<view class="m-navPic-title">{{item.title}}</view>
+				</navigator>
+				 
+			</view>
 
 
-
-			<view class="bg-fff pd-10">
+			<view class="bg-fff pd-10 mgb-5">
 				<view class="row-item" @click="goArticle(item.id)" v-if="index<4" v-for="(item,index) in pageData.articlelist" :key="index">
 					<view class="flex-1">{{item.title}}</view>
 				</view>
 			</view>
-			 
-
-			<view @click="goProduct(item.id)" class="flexlist-item" v-for="(item,key) in pageData.productlist" :key="key">
-
-				<image class="flexlist-img" :src="item.imgurl+'.100x100.jpg'"></image>
-
-				<view class="flexlist-flex-1">
-					<view class="flexlist-title">{{item.title}}</view>
-					<view class="flexlist-row">
-						价格：
-						<text class="cl-money mgr-10"> {{item.price}}</text>
-						市场价：
-						<text class="f14 market-price"> {{item.price}}</text>
+			
+			<view class="row-box-hd pdl-10 bg-fff">
+				<div class="flex-1 f16 fw-600">有品推荐</div>
+				<div class="row-box-more">更多</div>
+			</view> 
+			<view class="mtlist">
+				<view @click="goProduct(item.id)" class="mtlist-item" v-for="(item,key) in pageData.productlist" :key="key">
+					<view class="mtlist-item-bd">
+					<view class="mtlist-imgbox">	
+					<image class="mtlist-img" mode="widthFix" :src="item.imgurl+'.small.jpg'"></image>
+					</view>
+					<view class="mtlist-item-pd">
+						<view class="mtlist-item-money">
+							<view class="mtlist-item-money-flex">￥<text class="mtlist-item-money_money">{{item.price}}</text></view>
+							<view class="mtlist-item-money_num">月销{{item.month_buy_num}}件</view>
+						</view>
+					 
+						<view class="mtlist-title">{{item.title}}</view>
+						<view class="mtlist-desc">{{item.description}}</view>
+					</view>
 					</view>
 				</view>
-			</view>
+			</view>	
 		</view>
 	</view>
 </template>

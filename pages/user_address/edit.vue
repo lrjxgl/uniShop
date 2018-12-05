@@ -2,7 +2,7 @@
 	<view>
 		<view v-if="pageLoad">
 			<form @submit="formSubmit">
-
+				<input class="none" type="text" name="id" :value="pageData.data.id" />
 
 
 				<view class="input-flex">
@@ -15,7 +15,7 @@
 				</view>
 				<view class="input-flex">
 					<view class="input-flex-label">省市</view>
-
+ 
 					<picker-region :defaultProvinceid="pageData.data.province_id" :defaultCityid="pageData.data.city_id" :defaultTownid="pageData.data.town_id"></picker-region>
 
 				</view>
@@ -32,9 +32,9 @@
 </template>
 
 <script>
-	var app = require("../../common/common.js");
+	 
 	import pickerRegion from "../../components/pickerregion.vue";
-	var id;
+	var id; 
 	export default {
 		components: {
 			pickerRegion
@@ -48,7 +48,10 @@
 			
 		},
 		onLoad: function (option) {
-			id = option.id;
+			uni.setNavigationBarTitle({
+				title: '收货地址编辑'
+			});
+			id=option.id; 
 			this.getPage();
 		},
 
@@ -56,10 +59,10 @@
 			getPage: function () {
 				var that = this;
 				uni.request({
-					url: app.apiHost + "?m=user_address&a=add&ajax=1&id=" + id,
+					url: that.app.apiHost + "?m=user_address&a=add&ajax=1&id=" + id,
 					data: {
-						authcode: app.getAuthCode(),
-						fromapp: app.fromapp()
+						authcode: that.app.getAuthCode(),
+						fromapp: that.app.fromapp()
 					},
 					success: function (data) {
 						that.pageLoad = true;
@@ -69,23 +72,23 @@
 				})
 			},
 			formSubmit: function (e) {
-
+				var that=this;
 				uni.request({
-					url: app.apiHost + "?m=user_address&a=save&ajax=1&fromapp=" + app.fromapp() + "&authcode=" + app.getAuthCode(),
+					url: that.app.apiHost + "?m=user_address&a=save&ajax=1&fromapp=" + that.app.fromapp() + "&authcode=" + that.app.getAuthCode(),
 					method: "POST",
 					header: {
 						"content-type": "application/x-www-form-urlencoded"
 					},
 					data: e.detail.value,
 					success: function (res) {
-						var data = res.data;
-						if (res.data.error) {
-							uni.showToast({
-								"title": res.data.message
-							})
-						} else {
-
-							uni.navigateBack()
+						uni.showToast({
+							"title":res.data.message
+						})
+						if(!res.data.error){
+							setTimeout(function(){
+								uni.navigateBack()
+							},600)
+							
 						}
 
 					}

@@ -63,17 +63,26 @@
 				saddr:""
 			}
 		},
-		onLoad: function () {
-			
-			var pholder="";
+		 
+		created: function () {
+		 
+			 
+			var pholder="请选择";
 			var m=0,n=0,z=0;
 		 
 			if(this.defaultProvinceid==0){
 				this.child=this.data[m]['children'];
+				this.lastchild=this.data[m]['children'][n]['children'];
 				this.value=[m,n,z]; 
+				this.spid=this.data[m].value;
+				this.scid=this.child[n].value;
+				this.stid=this.lastchild[z].value;
+				this.saddr=this.data[m].text+" "+this.child[n].text+" "+this.lastchild[z].text;
+				
 				return ;
+				
 			}
- 
+			
 			for(var i in this.data){
 				if(this.data[i].value==this.defaultProvinceid){
 					m=i;
@@ -111,7 +120,7 @@
 			
 		},
 		methods: {
-			
+			 
 			bindChange: function (e) {
 				 
 				var m = e.detail.value[0];

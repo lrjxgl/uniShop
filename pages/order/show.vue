@@ -1,92 +1,96 @@
 <template>
 	<view>
 		<view class="bg-a" v-if="pageLoad">
+			<div class="row-box bdb">
+				<div class="cl3 f16 mgb-5">{{pageData.data.status_name}}</div>
+				<div v-if="pageData.data.status==2">
+					<div class="cl2 f12">物流公司：顺丰(厦门)</div>
+					<div class="cl2 f12">物流单号：123123123123</div>
+				</div>
+			</div>
+			<div class="row-box mgb-5">
+					<div class="flex">
+						<div class="mgl-10 mgr-10">
+							<div class="iconfont icon-location_light"></div>
+						</div>
+						<div class="flex-1">
+							<div class="cl1">{{pageData.addr.truename}} {{pageData.addr.telephone}}</div>
+							<div class="cl3">{{pageData.addr.address}}</div>
+						</div>
+					</div>
+			</div>
 			<view class="row-box mgb-5">
-				<view class="row-box-hd">商品详情</view>
+				 
 				<view class="flexlist">
 					<view class="flexlist-item" v-for="($p,index) in pageData.order_product" :key="index">
 						<image :src="$p.imgurl+'.100x100.jpg'" class="flexlist-img"></image>
 						<view class="flex-1">
 							<view class="flexlist-title">{{$p.title}}</view>
+							<view class="flexlist-ks">{{$p.ks_title}}</view>
 							<view class="flexlist-price pdr-10 flex">
-								￥
-								<text class="f18 cor-money mgr-10"> {{$p.price}}</text>
+								
+								<text class="f18 cl-money mgr-10"> ￥{{$p.price}}</text>
 								
 								<text class="market-price">{{$p.market_price}}</text>
 								<view class="flex-1"></view>
-								*
-								<text class="f16 cor-num">{{$p.amount}}</text>
+								
+								<text class="f16 cl-num">x {{$p.amount}}</text>
 							</view>
 						</view>
 					</view>
 
 				</view>
-			</view>
-
-			<view class="row-box mgb-5">
-				<view class="flex-table">
-					<view class="flex-table-label">收货信息</view>
-					<view class="flex-table-box">
-						<view> 联系人：{{pageData.addr.truename}} </view>
-						<view> 手机：{{pageData.addr.telephone}} </view>
-						<view> 地址:{{pageData.addr.pct_address}} </view> 
-					</view>
-				</view>
-				<view class="flex-table">
-					<view class="flex-table-label">收货状态</view>
-					<view class="flex-table-box">
-						{{pageData.data.isreceived_name}}
-					</view>
-				</view>
-				<view class="flex-table">
-					<view class="flex-table-label">订单评价</view>
-					<view class="flex-table-box">
-						<view >未评价 </view>
-					</view>
-				</view>
-
+				<div class="flex">
+					<div class="flex-1 cl-money">实付金额：</div>
+					<div class="cl-money">￥{{pageData.data.money}}</div>
+				</div>
+				
 			</view>
 			
+	 
+			
 			<view class="row-box mgb-5">
-    	<view class="flex-table">
-    		<view class="flex-table-label">支付情况</view>
-    		<view class="flex-table-box flex">
-    			<text class="mgr-10">{{pageData.data.ispay_name}}</text> 
-					<text v-if="pageData.data.ispay==2">{{pageData.data.pay_type_name}}</text>
-					<navigator class="btn-small btn-outline-primary" v-if="pageData.data.ispay==1 && pageData.data.status==0" :url="'/pages/recharge/order?order_id='+pageData.data.order_id">去支付</navigator>
-			</view>
-    	</view>
-    	<view class="flex-table">
-    		<view class="flex-table-label">订单状态</view>
-    		<view class="flex-table-box">{{pageData.data.status_name}}</view>
-    	</view>
-    	<view class="flex-table">
-    		<view class="flex-table-label">订单编号</view>
-    		<view class="flex-table-box">{{pageData.data.orderno}}</view>
-    	</view>
-    	<view class="flex-table">
-    		<view class="flex-table-label">订单价格</view>
-    		<view class="flex-table-box">{{pageData.data.money}}</view>
-    	</view>
-    	<view class="flex-table">
-    		<view class="flex-table-label">下单时间</view>
-    		<view class="flex-table-box">{{pageData.data.createtime}}</view>
-    	</view>
+    	
+     
+				<view class="flex-table">
+					<view class="flex-table-label">下单时间</view>
+					<view class="flex-table-box">{{pageData.data.createtime}}</view>
+				</view>
+				<view class="flex-table">
+					<view class="flex-table-label">订单编号</view>
+					<view class="flex-table-box">{{pageData.data.orderno}}</view>
+				</view>
+			 <view class="flex-table">
+				<view class="flex-table-label">收货时间</view>
+				<view class="flex-table-box">{{pageData.data.createtime}}</view>
+			 </view>
+    	
     	 
     	  
     </view>
+		<div class="pd-10 flex flex-center">
+			<div v-if="pageData.data.status==0" class="flex">
+					<div @click="goPay" v-if="pageData.data.ispay==1" class="btn-small mgr-10">去支付</div>
+					<div @click="cancelOrder" class="btn-small">取消订单</div>
+			</div>
+			 
+			 <div @click="receiveOrder" v-if="pageData.data.status==2" class="btn-small">确认收货</div>
+			 <div v-if="pageData.data.status==3">
+				<div @click="goComment" v-if="pageData.data.iscomment==0" class="btn-small">评价订单</div>
+			 </div> 
+		</div>
 		</view>
 	</view>
 </template>
 
 <script>
-	var app = require("../../common/common.js");
 	var order_id;
 	export default {
 		data:function(){
 			return {
 				pageLoad:false, 
-				pageData:{}
+				pageData:{},
+				
 			}
 		},
 		onLoad: function (option) {
@@ -98,9 +102,9 @@
 			getPage: function () {
 				var that = this;
 				uni.request({
-					url: app.apiHost + "?m=order&a=show&ajax=1&order_id=" + order_id,
+					url: that.app.apiHost + "?m=order&a=show&ajax=1&order_id=" + order_id,
 					data: {
-						authcode: app.getAuthCode()
+						authcode: that.app.getAuthCode()
 					},
 					success: function (data) {
 						that.pageLoad = true;
@@ -108,11 +112,44 @@
 
 					}
 				})
+			},
+			goPay:function(){
+				
+			},
+			cancelOrder:function(){
+				var that=this;
+				uni.request({
+					url:that.app.apiHost+"?m=order&a=cancel&ajax=1",
+					data:{
+						authcode: that.app.getAuthCode(),
+						order_id:order_id
+					},
+					success:function(res){
+						if(res.data.error){
+							uni.showToast({
+								title:res.data.message
+							})
+						}
+					}
+				})
+			},
+			receiveOrder:function(){
+				
+			},
+			goComment:function(){
+				
 			}
 		},
 	}
 </script>
 
 <style>
-
+.statusBox{
+	background-color: #f17d30;
+	color: #fff;
+	padding: 20px;
+}
+.cl-e0{
+	color: #e0e0e0 ;
+}
 </style>

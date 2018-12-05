@@ -69,49 +69,49 @@
 <style>
 	.list-side {
 		position: fixed;
-		left: 0px;
-		top: 132px;
-		bottom: 132px;
-		width: 154px;
-		border-right: 2px solid #eee;
+		left: 0upx;
+		top: 132upx;
+		bottom: 132upx;
+		width: 154upx;
+		border-right: 2upx solid #eee;
 		text-align: center;
 	}
 
 	.list-side-item {
 		color: #707070;
-		margin-bottom: 22px;
-		font-size: 29px;
+		margin-bottom: 22upx;
+		font-size: 29upx;
 		display: block;
 	}
 
 	.list-side-item.active {
 		color: #ff842b;
-		border-left: 6px solid #ff842b;
+		border-left: 6upx solid #ff842b;
 	}
 
 	.list-main {
-		margin-left: 176px;
-		padding-top: 132px;
+		margin-left: 176upx;
+		padding-top: 132upx;
 	}
 
 	.list-cat-img {
 		max-width: 100%;
-		height: 220px;
-		padding-right: 11px;
+		height: 220upx;
+		padding-right: 11upx;
 	}
 
 	.list-cat-hd {
 		text-align: center;
-		padding: 22px 0;
+		padding: 22upx 0;
 		color: #666;
-		font-size: 29px;
+		font-size: 29upx;
 		position: relative;
 	}
 
 	.list-cat-hd:before {
 		display: block;
-		width: 44px;
-		height: 2px;
+		width: 44upx;
+		height: 2upx;
 		background-color: #e0e0e0;
 		position: absolute;
 		right: 60%;
@@ -123,8 +123,8 @@
 
 	.list-cat-hd:after {
 		display: block;
-		width: 40px;
-		height: 2px;
+		width: 40upx;
+		height: 2upx;
 		background-color: #e0e0e0;
 		position: absolute;
 		left: 60%;
@@ -135,31 +135,31 @@
 	}
 
 	.list-child {
-		margin-bottom: 22px;
+		margin-bottom: 22upx;
 	}
 
 	.list-child-item {
 		float: left;
 		display: block;
 		width: 33.333%;
-		margin-bottom: 22px;
-		padding: 0 22px;
+		margin-bottom: 22upx;
+		padding: 0 22upx;
 		box-sizing: border-box;
-		font-size: 29px;
+		font-size: 29upx;
 		color: #666;
 		text-align: center;
 	}
 
 	.list-child-img {
-		width: 160px;
-		height: 160px; 
+		width: 160upx;
+		height: 160upx; 
 		display: block;
-		margin-bottom: 11px;
+		margin-bottom: 11upx;
 	}
 
 	.list-child-title {
-		height: 66px;
-		line-height: 66px;
+		height: 66upx;
+		line-height: 66upx;
 		overflow: hidden;
 	}
 
@@ -169,8 +169,8 @@
 		top: 0;
 		left: 0;
 		right: 0;
-		padding: 22px;
-		height: 110px;
+		padding: 22upx;
+		height: 110upx;
 		z-index: 999;
 		background-color: #efefef;
 	}

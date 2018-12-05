@@ -1,10 +1,11 @@
 <template>
 	<view v-if="pageLoad" class="bg-ef">
 		<view class="tabs-border">
-			<view @click="setCat(0)" class="tabs-border-item" v-bind:class="{'tabs-border-active':status==0}">全部</view>
-			<view @click="setCat(1)" class="tabs-border-item" v-bind:class="{'tabs-border-active':status==1}">待付款</view>
-			<view @click="setCat(2)" class="tabs-border-item" v-bind:class="{'tabs-border-active':status==2}">待收货</view>
-			<view @click="setCat(3)" class="tabs-border-item" v-bind:class="{'tabs-border-active':status==3}">待评价</view>
+			<view @click="setCat('all')" class="tabs-border-item" v-bind:class="{'tabs-border-active':status=='all'}">全部</view>
+			<view @click="setCat('unpay')" class="tabs-border-item" v-bind:class="{'tabs-border-active':status=='unpay'}">待付款</view>
+			<view @click="setCat('unconfirm')" class="tabs-border-item" v-bind:class="{'tabs-border-active':status=='unconfirm'}">待确认</view>
+			<view @click="setCat('unreceive')" class="tabs-border-item" v-bind:class="{'tabs-border-active':status=='unreceive'}">待收货</view>
+			<view @click="setCat('uncomment')" class="tabs-border-item" v-bind:class="{'tabs-border-active':status=='uncomment'}">待评价</view>
 		</view>
 		<view v-if="pageData.rscount==0">
 			<view class="emptyData">暂无消息</view>
@@ -26,7 +27,7 @@
 							<view class="flex-1">
 								<view class="flexlist-title">
 									{{$p.title}}
-									<view class="f14 cora">
+									<view class="flexlist-ks">
 										{{$p.ks_title}}
 									</view>
 								</view>
@@ -63,7 +64,7 @@
 
 	var per_page = 0;
 	var isfirst = true;
-	var status = 0;
+	var status = 'all';
 	var activeClass = "list-side-item-active";
 	export default {
 
@@ -72,7 +73,7 @@
 				pageLoad: false,
 				pageData: {},
 				winHeight: 600,
-				status: 0,
+				status: 'all',
 				defaultActive: "list-side-item-active",
 			}
 		},
@@ -82,7 +83,7 @@
 			uni.setNavigationBarTitle({
 				title: '我的订单'
 			});
-			this.status = status = (option.status == undefined ? 0 : option.status)
+			this.status = status = (option.status == undefined ? 'all' : option.status)
 			this.getPage();
 		},
 		onReachBottom: function () {

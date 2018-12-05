@@ -12,11 +12,11 @@
 
 
 			<view v-else class="mgt-10">
-				<view class="cart-list">
+				<view class="cart-list pdl-10">
 					
 					<view v-for="($c,key) in pageData.list" :key="key" class="cart-list-item js-cart-item">
 						<view class="cart-list-imgbox"> 
-						<image class="cart-list-img" mode="widthFix" :src="$c.imgurl+'.100x100.jpg'" ></image>
+						<image class="cart-list-img wh-100" mode="widthFix" :src="$c.imgurl+'.100x100.jpg'" ></image>
 						</view> 
 						<view class="flex-1">
 
@@ -98,8 +98,9 @@
 		methods: {
 			getPage: function () {
 				var that = this;
+				console.log("getCart");
 				uni.request({
-					url: app.apiHost + "?m=order_cart&formapp='+app.formapp()+'&ajax=1",
+					url: app.apiHost + "?m=order_cart&fromapp="+app.fromapp()+"&ajax=1",
 					data: {
 						authcode: app.getAuthCode()
 					},
@@ -117,7 +118,7 @@
 					var ksid=ksid==undefined?0:ksid;
 					amount++;
 					uni.request({
-					url: app.apiHost +'/index.php?m=order_cart&a=Num_plus&formapp='+app.formapp()+'&ajax=1',
+					url: app.apiHost +'?m=order_cart&a=Num_plus&fromapp='+app.fromapp()+'&ajax=1',
 					data: {
 						authcode:uni.getStorageSync("authcode"),
 						id:id,
@@ -144,7 +145,7 @@
 						isdelete=1
 					}
 					uni.request({
-						url: app.apiHost +'?m=order_cart&a=num_minus&formapp='+app.formapp()+'&ajax=1',
+						url: app.apiHost +'?m=order_cart&a=num_minus&fromapp='+app.fromapp()+'&ajax=1',
 						data: {
 							authcode:uni.getStorageSync("authcode"),
 							amount:amount,
@@ -171,7 +172,7 @@
 					 success:function(res){
 						 if(res.confirm){
 							uni.request({
-								url: app.apiHost+'?m=order_cart&a=delete&formapp='+app.formapp()+'&ajax=1&id='+id,
+								url: app.apiHost+'?m=order_cart&a=delete&fromapp='+app.fromapp()+'&ajax=1&id='+id,
 								data: {
 									authcode:uni.getStorageSync("authcode") 
 								},

@@ -26,5 +26,16 @@ page{
 .header,.header-row{
 	display:none;
 }
-
+uni-page-head .uni-page-head-hd{
+		flex-direction: row;
+	}
+	.uni-tabbar{
+		flex-direction: row !important;
+	}
+.uni-page-head__title{
+	color: #fff;
+}
+.uni-swiper .uni-swiper-dots-horizontal{
+	flex-direction: row;
+}
 </style>

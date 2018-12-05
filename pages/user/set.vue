@@ -3,15 +3,20 @@
 		<view v-if="pageLoad">
 			<view class="row-box">
 				 
-				<view class="row-item-text"  @click="gourl('/pages/user/info')">
+				<view class="row-item"  @click="gourl('../user/info')">
+					<view class="row-item-icon icon-people"></view>
 					<view class="flex-1"> {{pageData.data.nickname}}</view>
 					 
 				</view>
 				
-				<view class="row-item-text" @click="gourl('/pages/user/password')" >
-					<view class="flex-1">修改密码</view>
+				<view class="row-item" @click="gourl('../user/password')" >
+					<view class="row-item-icon icon-password"></view>
+					<view class="flex-1">登录密码</view>
 				</view>
-				 
+				<view class="row-item" @click="gourl('../user/paypwd')" >
+					<view class="row-item-icon icon-password"></view>
+					<view class="flex-1">支付密码</view>
+				</view> 
 			</view>
 			 
 			 <view class="btn-row-submit bg-danger" @click="loginOut()">注销</view>
@@ -20,8 +25,7 @@
 </template>
 
 <script>
-	var app= require("../../common/common.js"); 
-	var id;
+	 
 	export default{
 		data:function(){
 			return {
@@ -30,7 +34,7 @@
 			}
 		},
 		onLoad:function(option){
-			id=option.id;
+		 
 			this.getPage();
 		},
 		 
@@ -38,14 +42,14 @@
 			getPage:function(){
 				var that=this;
 				uni.request({
-					url:app.apiHost+"?m=user&a=set&ajax=1",
+					url:that.app.apiHost+"?m=user&a=set&ajax=1",
 					data:{
-						authcode: app.getAuthCode(),
-						fromapp:app.fromapp()
+						authcode: that.app.getAuthCode(),
+						fromapp:that.app.fromapp()
 					},
 					success:function(data){
 						if(data.data.error){
-							app.goHome();
+							that.app.goHome();
 						}else{
 							that.pageLoad=true;
 							that.pageData=data.data.data;
@@ -61,19 +65,20 @@
 				})
 			},
 			loginOut:function(){
-				 
+				var that=this; 
 				uni.request({
-					url:app.apiHost+"?m=login&a=logout&ajax=1",
+					url:that.app.apiHost+"?m=login&a=logout&ajax=1",
 					data:{
-						"authcode":app.getAuthCode(),
-						"fromapp":app.fromapp()
+						"authcode":that.app.getAuthCode(),
+						"fromapp":that.app.fromapp()
 					},
 					success:function(res){
-						app.setAuthCode("");
-						app.goHome();	
+						that.app.setAuthCode("");
+						that.app.setAuthCodeLong("");
+						that.app.goHome();	
 					}
 				})
-			}
+			} 
 		},
 	}
 </script>

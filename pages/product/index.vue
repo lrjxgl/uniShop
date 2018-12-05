@@ -2,10 +2,10 @@
 	<view v-if="pageLoad" class="flex">
 		<view class="list-side">
 			<view  @click="setCat(0)" class="list-side-item" v-bind:class="defaultActive">推荐</view>
-			<view @click="setCat(item.catid)" v-bind:class="{ 'list-side-item-active':item.isactive }" v-for="(item,key) in pageData.catlist" :key="key" class="list-side-item">{{item.cname}}</view>
+			<view @click="setCat(item.id)" v-bind:class="{'list-side-item-active':item.isactive}" v-for="(item,key) in pageData.catlist" :key="key" class="list-side-item">{{item.title}}</view>
 			 
 		</view>
-		<view class="flex-main">
+		<view class="flex-main bg-fff">
 			
 				<view  class="prolist-item" v-for="(item,key) in pageData.list" :key="key">
 					 
@@ -93,11 +93,11 @@
 					data:{
 						authcode:app.getAuthCode()
 					},
-					success:function(data){
+					success:function(res){
 						isfirst=false;
 						that.pageLoad=true;
-						that.pageData=data.data.data;
-						per_page=data.data.data.per_page; 
+						that.pageData=res.data.data;
+						per_page=res.data.data.per_page; 
 					}
 				})
 			},
@@ -112,7 +112,7 @@
 				}
 				var catlist=this.pageData.catlist;
 				for(var i in catlist){
-					if(catlist[i].catid==catid){
+					if(catlist[i].id==catid){
 						catlist[i].isactive=1;
 					}else{
 						catlist[i].isactive=0;
@@ -128,7 +128,7 @@
 					url:app.apiHost+"?m=product&ajax=1",
 					data:{
 						per_page:per_page,
-						catid:catid,
+						shop_cid:catid,
 						authcode:app.getAuthCode()
 					},
 					success:function(data){
@@ -175,10 +175,11 @@
 					},
 					method: 'GET', 
 					success: function(res){
+						console.log(res.data.data.product_amount);
 						var list= that.pageData.list;
 						 for(var i=0;i<list.length;i++){
 						   if(list[i].id==id){
-							  list[i].cart_num=res.data.product_amount;
+							  list[i].cart_num=res.data.data.product_amount;
 							  break;
 						   }
 						 }
@@ -193,7 +194,7 @@
 				 var ksid=ksid==undefined?0:ksid;
 				 amount++;
 				 uni.request({
-					url: app.apiHost +'/index.php?m=order_cart&a=add&fromapp=wxapp&ajax=1',
+					url: app.apiHost +'?m=order_cart&a=add&fromapp=wxapp&ajax=1',
 					data: {
 					  authcode:app.getAuthCode(),
 					  object_id:id,
@@ -207,7 +208,7 @@
 					 var list= that.pageData.list;
 					 for(var i=0;i<list.length;i++){
 					   if(list[i].id==id){
-						  list[i].cart_num=res.data.product_amount;
+						  list[i].cart_num=res.data.data.product_amount;
 						  break;
 					   }
 					 }
@@ -242,7 +243,7 @@
 					 var list= that.pageData.list;
 					 for(var i=0;i<list.length;i++){
 					   if(list[i].id==id){
-						  list[i].cart_num=res.data.product_amount;
+						  list[i].cart_num=res.data.data.product_amount;
 						  break;
 					   }
 					 }
@@ -271,33 +272,34 @@
 	}
 	.list-side {
 		position: fixed;
-		left: 0px;
-		top: 0px;
-		bottom: 132px;
-		width: 154px;
-		padding-top: 20px;
-		border-right: 2px solid #eee;
+		left: 0upx;
+		top: 0upx;
+		bottom: 132upx;
+		width: 184upx;
+		padding-top: 20upx;
+		border-right: 2upx solid #eee;
+		padding-left:10upx;
 		text-align: center;
 	}
 
 	.list-side-item {
 		color: #707070;
-		margin-bottom: 22px;
-		padding-bottom: 22px;
-		border-bottom:1px solid #eee;
-		font-size: 36px;
+		margin-bottom: 22upx;
+		padding-bottom: 22upx;
+		border-bottom:1upx solid #eee;
+		font-size: 36upx;
 		display: block;
 	}
 
 	.list-side-item-active {
 		color: #ff842b;
-		border-left: 6px solid #ff842b;
+		border-left: 6upx solid #ff842b;
 	}
 
 
 .flex-main {
  flex: 1;
- margin-left: 200px;
+ margin-left: 200upx;
 }
  
 
@@ -305,9 +307,9 @@
 
 .prolist-item{
   position: relative;
-  padding: 5px 10px 5px 0px;
-  border-bottom: 1px solid #e4e4e4;
-	margin-bottom: 5px;
+  padding: 5upx 10upx 5upx 0upx;
+  border-bottom: 1upx solid #e4e4e4;
+	margin-bottom: 5upx;
   display: flex;
 	flex-direction: row;
 }
@@ -315,9 +317,9 @@
  
 
 .prolist-img {
-  width: 110px;
-  height: 110px;
-  margin-right: 22px;
+  width: 110upx;
+  height: 110upx;
+  margin-right: 22upx;
 }
 
 .prolist-flex-1 {
@@ -327,63 +329,63 @@
 	
 }
 .prolist-title {
-  height: 76px;
-  line-height: 76px;
-  font-size: 30px;
+  height: 76upx;
+  line-height: 76upx;
+  font-size: 30upx;
   color: #333;
   overflow: hidden;
   text-overflow: ellipsis;
-  margin-bottom: 12px;
+  margin-bottom: 12upx;
 }
 
 .prolist-row-price {
-  line-height: 22px;
-  font-size: 32px;
-  margin-bottom: 20px;
+  line-height: 22upx;
+  font-size: 32upx;
+  margin-bottom: 20upx;
   flex-direction: row;
 }
 .prolist-price{
   color: #fa215f;
-  margin-right: 5px;
+  margin-right: 5upx;
   display: inline-block;
  
 }
 
 .prolist-cart{
-	padding-right: 5px;
+	padding-right: 5upx;
 	flex-direction: row;
 }
 
 .prolist-sold-num {
   color: #999;
-  font-size: 12px;
+  font-size: 12upx;
   display: inline-block;
 }
 
 .prolist-numbox{
 	float: right;
-	margin-right: 10px;
+	margin-right: 10upx;
 } 
 
 .prolist-buy-btn {
   display: block;
-  height: 66px;
-  line-height: 66px;
+  height: 66upx;
+  line-height: 66upx;
   text-align: center;
-  width: 66px;
+  width: 66upx;
   background-color: #83c44e;
   color: #fff;
   border-radius: 50%;
   float: right;
-  margin-right: 10px;
+  margin-right: 10upx;
   cursor: pointer;
 }
 
  
 
 .prolist-row-sold {
-  line-height: 30px;
-  height: 30px;
+  line-height: 30upx;
+  height: 30upx;
   color: #aaa;
 }
 

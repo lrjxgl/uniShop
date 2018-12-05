@@ -1,7 +1,7 @@
 
 module.exports = {
 	//apiHost:"http://skyshop.skymvc.com/",
-	apiHost:"http://skyshop.deitui.com/", 
+	apiHost:"http://all.w.deitui.com/", 
     json_add:function(a,b){
         if(a==undefined || a.length==0) return b;
 		if(b==undefined || b.length==0) return a;
@@ -20,6 +20,12 @@ module.exports = {
 	setAuthCode:function($authcode){
 		uni.setStorageSync("authcode",$authcode);
 	},
+	getAuthCodeLong:function(){
+		return uni.getStorageSync("authcodeLong");
+	},
+	setAuthCodeLong:function($authcode){
+		uni.setStorageSync("authcodeLong",$authcode);
+	},
 	setOpenid:function(openid){
 		uni.setStorageSync("openid",openid)
 	},
@@ -28,7 +34,7 @@ module.exports = {
 	},
 	fromapp:function(){
 		//var $paltform= uni.platform();
-		return "wxapp";
+		return "uniapp";
 	},
 	goHome:function(){
 		uni.switchTab({

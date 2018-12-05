@@ -1,12 +1,21 @@
 {
 	"pages": [ //pages数组中第一项表示应用启动页,
-	 
 		{
 			"path": "pages/index/index",
 			"style": {
 				"navigationBarTitleText": "skyShop" 
 			}
-		},{
+		},
+		{
+			"path":"pages/product/index",
+			"style":{
+					"navigationBarTitleText":"产品大全",
+					"onReachBottomDistance":"60px",
+					"enablePullDownRefresh":true
+			}
+		},
+		{"path":"pages/user_address/my"},
+		{
 			"path":"pages/article/index",
 			"style":{
 				"navigationBarTitleText":"文章",
@@ -15,13 +24,6 @@
 			}
 		},{
 			"path":"pages/article/show"
-		},{
-			"path":"pages/product/index",
-			"style":{
-					"navigationBarTitleText":"产品大全",
-					"onReachBottomDistance":"60px",
-					"enablePullDownRefresh":true
-			}
 		},{
 			"path":"pages/product/show"
 		},{
@@ -53,7 +55,9 @@
 			"style":{
 					"navigationBarTitleText":"登录"
 			}
-		},{
+		},
+		{"path":"pages/login/findpwd"},
+		{
 			"path":"pages/order/confirm"
 		},{
 			"path":"pages/order/my"
@@ -70,7 +74,7 @@
 		{"path":"pages/recharge/index"},
 		{"path":"pages/recharge/order"},
 		{"path":"pages/pay_log/my"},
-		{"path":"pages/user_address/my"},
+		
 		{"path":"pages/user_address/add"},
 		{"path":"pages/user_address/edit"},
 		{"path":"pages/user_address/orderadd"},
@@ -109,7 +113,7 @@
 		] 
 	},
 	"globalStyle": {
-		"navigationBarTextStyle": "white",
+		"navigationBarTextStyle": "#fff",
 		"navigationBarTitleText": "微站云",
 		"navigationBarBackgroundColor": "#0faeff",
 		"backgroundColor": "#fbf9fe"

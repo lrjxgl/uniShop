@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import App from './App'
- 
+import $app from "./common/common.js";
+Vue.prototype.app=$app; 
  
 Vue.config.productionTip = false
  

@@ -15,7 +15,7 @@
 				<view class="input-flex">
 					<view class="input-flex-label">省市</view>
 					
-					<picker-region></picker-region>
+					<picker-region :defaultProvinceid="0"></picker-region>
 				
 				</view>
 			  <view class="input-flex">
@@ -31,9 +31,9 @@
 </template>
 
 <script>
-	var app= require("../../common/common.js"); 
+	
 	import pickerRegion from "../../components/pickerregion.vue";
-	var id;
+ 
 	export default{
 		components:{
 			pickerRegion
@@ -47,7 +47,9 @@
 			
 		},
 		onLoad:function(option){
-			 
+			uni.setNavigationBarTitle({
+				title: '收货地址添加'
+			}); 
 			this.getPage();
 		},
 		 
@@ -56,10 +58,10 @@
 			getPage:function(){
 				var that=this;
 				uni.request({
-					url:app.apiHost+"?m=user_address&ajax=1&a=add",
+					url:that.app.apiHost+"?m=user_address&ajax=1&a=add",
 					data:{
-						authcode: app.getAuthCode(),
-						fromapp:app.fromapp()
+						authcode: that.app.getAuthCode(),
+						fromapp:that.app.fromapp()
 					},
 					success:function(data){
 						that.pageLoad=true;
@@ -69,23 +71,23 @@
 				})
 			},
 			 		formSubmit: function (e) {
-			 							
+			 			var that=this;				
 			 			uni.request({
-			 				url: app.apiHost + "?m=user_address&a=save&ajax=1&fromapp=" + app.fromapp() + "&authcode=" + app.getAuthCode(),
+			 				url: that.app.apiHost + "?m=user_address&a=save&ajax=1&fromapp=" + that.app.fromapp() + "&authcode=" + that.app.getAuthCode(),
 			 				method: "POST",
 			 				header: {
 			 					"content-type": "application/x-www-form-urlencoded"
 			 				},
 			 				data: e.detail.value,
 			 				success: function (res) {
-			 					var data = res.data;
-			 					if (res.data.error) {
-			 						uni.showToast({
-			 							"title": res.data.message
-			 						})
-			 					} else {
-			 
-			 						uni.navigateBack()
+			 					uni.showToast({
+			 						"title":res.data.message
+			 					})
+			 					if(!res.data.error){
+			 						setTimeout(function(){
+			 							uni.navigateBack()
+			 						},600)
+			 						
 			 					}
 			 
 			 				}

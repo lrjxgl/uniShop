@@ -1,5 +1,5 @@
 <template>
-	<view class="bg-a">
+	<view>
 			<view class="fixBt" @click="goAdd()">添加</view>
 			<view v-if="pageData.rscount==0">
 				<view class="emptyData">暂无地址
@@ -8,7 +8,7 @@
 				
 			</view>
 			<view v-else>
-				<view class="row-box" v-for="(item,index) in pageData.list" :key="index">
+				<view class="row-box mgb-10" v-for="(item,index) in pageData.list" :key="index">
 					<view class="flex-table">
 							<view class="flex-table-label">姓名</view>
 							<view class="flex-table-box">{{item.truename}}</view>
@@ -26,8 +26,8 @@
 	
 					<view class="pd-10 flex flex-center">
 						 
-							<view class="btn btn-outline-primary mgr-10" @click="goEdit(item.id)">编辑</view> 
-							<view class="btn btn-outline-danger" @click="del(item.id)">删除</view>
+							<view class="btn-small btn-outline-primary mgr-10" @click="goEdit(item.id)">编辑</view> 
+							<view class="btn-small btn-outline-danger" @click="del(item.id)">删除</view>
 						 
 					</view>
 				</view>
@@ -36,7 +36,7 @@
 </template>
 
 <script> 
-	var app= require("../../common/common.js"); 
+	 
  
 	var per_page=0;
 	var isfirst=true;
@@ -76,10 +76,10 @@
 			getPage:function(){
 				var that=this;
 				uni.request({
-					url:app.apiHost+"?m=user_address&a=my&ajax=1",
+					url:that.app.apiHost+"?m=user_address&a=my&ajax=1",
 					data:{
-						fromapp:app.fromapp(),
-						authcode:app.getAuthCode()
+						fromapp:that.app.fromapp(),
+						authcode:that.app.getAuthCode()
 					},
 					success:function(data){
 						isfirst=false;
@@ -93,11 +93,11 @@
 				var that=this;
 				if(!isfirst && per_page==0) return false;
 				uni.request({
-					url:app.apiHost+"?m=user_address&a=my&ajax=1",
+					url:that.app.apiHost+"?m=user_address&a=my&ajax=1",
 					data:{
 						per_page:per_page,
-						fromapp:app.fromapp(),
-						authcode:app.getAuthCode()
+						fromapp:that.app.fromapp(),
+						authcode:that.app.getAuthCode()
 					},
 					success:function(data){
 						
@@ -107,7 +107,7 @@
 								isfirst=false;
 							}else{
 								
-								that.pageData.list=app.json_add(that.pageData.list,data.data.data.list);
+								that.pageData.list=that.app.json_add(that.pageData.list,data.data.data.list);
 							}
 							per_page=data.data.data.per_page;  
 							
@@ -129,12 +129,12 @@
 			},
 			goAdd:function(){
 				uni.navigateTo({
-					url:'/pages/user_address/add',
+					url:'../user_address/add',
 				})
 			},
 			goEdit:function(id){
 				uni.navigateTo({
-					url:"/pages/user_address/edit?id="+id,
+					url:"../user_address/edit?id="+id,
 				})
 			},
 			del:function(id){
@@ -147,10 +147,10 @@
 					}
 				})
 				uni.request({
-					url:app.apiHost+"?m=user_address&a=delete&ajax=1&id="+id,
+					url:that.app.apiHost+"?m=user_address&a=delete&ajax=1&id="+id,
 					data:{
-						fromapp:app.fromapp(),
-						authcode:app.getAuthCode()
+						fromapp:that.app.fromapp(),
+						authcode:that.app.getAuthCode()
 					},
 					success:function(res){
 						if(!res.data.error){
@@ -178,14 +178,14 @@
 <style>
  .fixBt{
 	 position: fixed;
-	 width: 120px;
-	 height: 120px;
+	 width: 120upx;
+	 height: 120upx;
 	 text-align: center;
-	 line-height: 120px;
+	 line-height: 120upx;
 	 border-radius: 50%;
 	 background-color: #007AFF;
 	 color: #fff;
-	 right: 5px;
-	 bottom: 10px;
+	 right: 5upx;
+	 bottom: 10upx;
  }
 </style>

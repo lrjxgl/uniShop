@@ -28,5 +28,13 @@
 		"setting":{
 			"urlCheck":false
 		}
+    },
+	"h5": {
+        "title": "uniShop", //页面标题，默认使用 manifest.json 的 name
+        "template": "index.html", //index.html模板路径，相对于应用根目录，可定制生成的 html 代码
+        "router": {
+            "mode": "hash", //路由跳转模式，支持 hash|history ,默认 hash
+            "base": "/" //应用基础路径，例如，如果整个单页应用服务在 /app/ 下，然后 base 就应该设为 "/app/"
+        }
     }
 }
