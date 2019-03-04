@@ -5,4 +5,6 @@
 * 本demo还在完善中
 # 其它说明
 * ui采用dt-ui模板库  https://github.com/lrjxgl/dt-ui 
-* 商城后台使用 得推云微站  http://weizhan.deitui.com/
+* 商城后台使用 得推云微站  http://weizhan.deitui.com/ 
+# 得推B2c商城
+* http://www.deituicms.com
