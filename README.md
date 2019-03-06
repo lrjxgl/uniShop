@@ -8,3 +8,4 @@
 * 商城后台使用 得推云微站  http://weizhan.deitui.com/ 
 # 得推B2c商城
 * http://www.deituicms.com
+* 得推B2C商城uniApp开发教程 http://www.deituicms.com/module.php?m=book&a=show&bookid=5
