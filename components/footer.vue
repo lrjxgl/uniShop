@@ -6,13 +6,17 @@
 				 首页
 				 
 			</view>
-			<view @click="goCategory()" class="footer-item icon-goods">
-				分类
+			<view @click="goForum()" class="footer-item icon-news">
+				福鼎论坛
 			</view>
-			<view @click="goCart()" class="footer-item icon-cart">
-				购物车
-			</view>
+			<view @click="goAdd()" class="footer-item footer-add">
 			 
+				发布帖子
+			</view>
+			<view @click="goFenlei()" class="footer-item icon-activity">
+				分类服务
+			</view>
+			
 		
 			<view @click="goUser()" class="footer-item icon-my_light">
 				 我的 
@@ -29,73 +33,43 @@
 		},
 		methods:{
 			goHome:function(){
-				 
-				uni.navigateBack({
-					delta:50,
+				uni.redirectTo({
+					url:"../index/index"
+				}) 
+			},
+			goArticle:function(){
+				uni.navigateTo({
+					url:"../article/index",
 				})
 			},
-			goCategory:function(){
+			goForum:function(){
 				uni.navigateTo({
-					url:"/pages/category/index",
+					url:"../forum/index",
 				})
 			},	
-			goProduct:function(){
+			goAdd:function(){
 				uni.navigateTo({
-					url:"/pages/product/index",
+					url:"../forum/add",
 				})
 			},
-			goCart:function(){
+			goGroup:function(){
 				uni.navigateTo({
-					url:"/pages/cart/index",
+					url:"../forum_group/index",
 				})
-			},	
+			},
+			goFenlei: function () {
+				uni.navigateTo({
+					url: "../fenlei/index"
+				})
+			},
 			goUser:function(){
-				if(wx.getStorageSync("authcode")){
-					uni.navigateTo({
-						url:"/pages/user/index",
-					})
-				}else{
-					uni.navigateTo({
-						url:"/pages/login/index",
-					})
-				}
+				uni.navigateTo({
+					url:"../user/index",
+				})
 				
 			},	
 		}
 	}
 </script>
 
-<style>
-/***mfooter***/
-.mfooter-row{
-	height: 120px;
-}
-.mfooter{
-	display: flex;
-	flex-direction: row;
-	position: fixed;
-	bottom: 0;
-	left: 0;
-	right: 0;
-	background-color: #eee;
-	height: 120px;
-	align-items:center;
-	z-index: 99;
-}
-.mfooter-item{
-	flex: 1;
-	text-align: center;
-	text-decoration: none;
-	color: #555;
-	font-size: 36px;
-	cursor: pointer;
-	display: block;
-}
-.mfooter-icon{
-	display: block;
-	font-size: 35px;
-}
-.mfooter-active{
-	color: #0069CD;
-}
-</style>
+ 

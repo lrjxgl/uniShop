@@ -3,9 +3,9 @@
 		<view @click="pickerBoxShow()" class="input-flex-select  flex flex-ai-center">
 			<view class="cl3">{{pholder}}</view>
 		</view>
-		<view :class="showClass">
-			<view class="pickerBox-mark"></view>
-			<view class="pickerBox">
+		 
+			<view class="pickerBox-mark" v-bind:class="showClass"></view>
+			<view class="pickerBox" v-bind:class="showClass">
 				<view class="flex mgt-10">
 					<view class="cl2" @click="cancel">取消</view>
 					<view class="flex-1"></view>
@@ -25,7 +25,7 @@
 
 				</picker-view>
 			</view>
-		</view>
+		 
 	</view>
 </template>
 
@@ -35,53 +35,60 @@
 			data: {},
 			defaultGid: 0,
 			defaultCatid: 0,
-			placeholder: "请选择"
+			placeholder: ""
 		},
 		data: function () {
 			return {
-				showClass: "none",
+				showClass: "pickerBoxHide",
 				child: {},
-				"pholder":this.placeholder,
+				pholder:this.placeholder,
 				gid:this.defaultGid,
 				catid:this.defaultCatid,
 				value:[0,0]
 			}
 		},
-		onLoad: function () {
-			var pholder="";
+		created: function () {
+			var pholder="请选择";
 			var m=0,n=0;
 			for(var i in this.data){
 				if(this.data[i].gid==this.gid){
 					m=i;
-					pholder=this.data[i].title;
 				}
+				pholder=this.data[m].title;
 			}
-			if(this.data[m]['child']!=undefined){
+			if(this.data[m]['child']!=null){
 				for(var i in this.data[m]['child']){
 					if(this.data[m]['child'][i].catid==this.catid){
 						n=i;
-						pholder=pholder+" "+this.data[m]['child'][i].title;
+						
 					}
 				}
+				this.catid=this.data[m]['child'][n].catid;
+				pholder=pholder+" "+this.data[m]['child'][n].title;
 			}
 			this.child = this.data[m]['child'];
 			this.value=[m,n];
+			this.gid=this.data[m].gid;
 			this.pholder=pholder;
 			console.log(this.value);
 		},
 		methods: {
 			bindChange: function (e) {
 				console.log(e.detail.value);
-				var index = e.detail.value[0];
-				this.child = this.data[index]['child'];
-				var pholder=this.data[index]['title'];
-				this.gid = this.data[index].gid;
-				if (this.child != undefined) {
-					this.catid = this.child[e.detail.value[1]].catid;
-					pholder=pholder+" "+this.child[e.detail.value[1]].title;
-				} else {
-					this.catid = 0;
+				var m = e.detail.value[0];
+				var n=e.detail.value[1];
+				this.value=[m,n];
+				this.child = this.data[m]['child'];
+				var pholder=this.data[m].title;
+				
+				if(this.data[m]['child']!=null){
+					pholder+=this.data[m]['child'][n].title;
+					this.catid=this.data[m]['child'][n].catid;
+				}else{
+					this.catid=0;
 				}
+				this.gid=this.data[m].gid;
+				
 				this.pholder=pholder;
 				
 			},
@@ -89,10 +96,11 @@
 				this.showClass = "";
 			},
 			choiceSelect: function () {
-				this.showClass = "none";
+				console.log("selected")
+				this.showClass = "pickerBoxHide";
 			},
 			cancel: function () {
-				this.showClass = "none";
+				this.showClass = "pickerBoxHide";
 			}
 		}
 	}
@@ -112,7 +120,7 @@
 		opacity: 0.1;
 		z-index: 98;
 	}
-
+	
 	.pickerBox {
 		position: fixed;
 		left: 0;
@@ -121,5 +129,9 @@
 		z-index: 99;
 		padding: 10px 20px;
 		background-color: #fff;
+	}
+	.pickerBoxHide{
+		position: absolute;
+		transform: translate3d(-100%, 0, 0);
 	}
 </style>

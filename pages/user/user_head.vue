@@ -2,7 +2,7 @@
 	<view>
 		<view v-if="pageLoad">
 			<view class="flex flex-center mgt-10 mgb-10">
-				<image @click="upload()" class="wh-200 pointer" :src="user_head"></image>
+				<image @click="upload()" mode="widthFix" class="wh-200 pointer" :src="user_head"></image>
 			</view>
 		</view>
 	</view>

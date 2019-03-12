@@ -1,17 +1,17 @@
 <template>
 	<view>
-		<view v-if="user" class="d-userbox">
-			<image class="d-userbox-head" :src="user.user_head+'.100x100.jpg'"></image>
+		<view v-if="muser" class="d-userbox">
+			<image class="d-userbox-head" :src="muser.user_head+'.100x100.jpg'"></image>
 			<view class="flex-1">
-				<view class="d-userbox-nick">{{user.nickname}}</view>
+				<view class="d-userbox-nick">{{muser.nickname}}</view>
 				<view class="d-userbox-follows">
 					粉丝
-					<text class="cl-num mgr-5 flex-center">{{user.followed_num}}</text> 
+					<text class="cl-num mgr-5 flex-center">{{muser.followed_num}}</text> 
 					关注
-					<text class="cl-num flex-center">{{user.follow_num}}</text>
+					<text class="cl-num flex-center">{{muser.follow_num}}</text>
 				</view>
 			</view>
-			<view class="btn-small btn-outline-success">关注</view>
+			<view class="btn-small btn-outline-success" @click="followToggle(muser.userid)">{{followStr}}</view>
 		</view>
 	</view>
 </template>
@@ -21,6 +21,39 @@
 		props:{
 			user:false
 		},
+		data:function(){
+			return {
+				muser:{},
+				followStr:"已关注"
+			}
+		},
+		created:function(){
+			this.muser=this.user;
+			if(!this.user.isFollow){
+				this.followStr="关注";
+			}
+		},
+		methods:{
+			followToggle:function(userid){
+				var that=this;
+				uni.request({
+					url:this.app.apiHost+"/index.php?m=follow&a=toggle&ajax=1&t_userid="+userid,
+					data:{
+						authcode:this.app.getAuthCode(),
+						fromapp:this.app.fromapp()
+					},
+					success:function(res){
+						if(res.data.error==0){
+							if(res.data.status==0){
+								that.followStr="关注";
+							}else{
+								that.followStr="已关注";
+							}
+						}
+					}
+				})
+			}
+		}
 	}
 </script>
 

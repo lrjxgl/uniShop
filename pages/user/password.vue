@@ -1,23 +1,23 @@
 <template>
-	<view>
-		<view v-if="pageLoad">
+	<div>
+		<div v-if="pageLoad">
 		 <form @submit="submit">
-		 	<view class="input-flex">
-		 		<view class="input-flex-label">旧密码</view>
+		 	<div class="input-flex">
+		 		<div class="input-flex-label">旧密码</div>
 		 		<input password="password" class="input-flex-text" name="oldpassword"   >
-		 	</view>
-			<view class="input-flex">
-				<view class="input-flex-label">新密码</view>
+		 	</div>
+			<div class="input-flex">
+				<div class="input-flex-label">新密码</div>
 				<input password="password" class="input-flex-text" name="password"   >
-			</view>
-			<view class="input-flex">
-				<view class="input-flex-label">重复密码</view>
+			</div>
+			<div class="input-flex">
+				<div class="input-flex-label">重复密码</div>
 				<input password="password" class="input-flex-text" name="password2"   >
-			</view>
+			</div>
 		 	<button type="submit" form-type="submit" class="btn-row-submit">保存</button>
 		 </form>
-		</view>
-	</view>
+		</div>
+	</div>
 </template>
 
 <script>

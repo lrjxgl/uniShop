@@ -32,8 +32,10 @@
 		data:function(){
 			return {
 				pageLoad:false, 
-				pageData:{}
+				pageHide:false,
+				pageData:{},
 			}
+			
 		},
 		onLoad:function(option){
 

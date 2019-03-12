@@ -33,8 +33,7 @@
 </template>
 
 <script>
-	var app= require("../../common/common.js"); 
-	var id;
+	 
 	var yzmTimer=60,yzmTime=59,yzmEnable=true;
 	export default{
 		data:function(){
@@ -73,10 +72,10 @@
 					if(!yzmEnable) return false;
 					var that=this;
 					uni.request({
-						url:app.apiHost+"?m=register&a=SendSms&ajax=1",
+						url:that.app.apiHost+"?m=register&a=SendSms&ajax=1",
 						data:{
 							telephone:this.telephone,
-							fromapp:app.fromapp()
+							fromapp:that.app.fromapp()
 						},
 						success:function(res){
 							uni.showToast({
@@ -91,9 +90,9 @@
 			},
 			 
 			formSubmit:function(e){
-				console.log(JSON.stringify(e.detail.value));
+				var that=this;
 				uni.request({
-					url:app.apiHost+"?m=register&a=regsave&ajax=1",
+					url:that.app.apiHost+"?m=register&a=regsave&ajax=1",
 					method:"POST",
 					header:{
 						"content-type":"application/x-www-form-urlencoded"
@@ -106,8 +105,8 @@
 								"title":res.data.message
 							})
 						}else{
-							app.setAuthCode(data.data.authcode);
-							app.goHome();
+							that.app.setAuthCode(data.data.authcode);
+							that.app.goHome();
 						}
 						
 					}

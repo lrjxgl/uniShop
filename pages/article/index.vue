@@ -1,12 +1,17 @@
 <template>
-	<view class="flex-col">
-		
-		<view class="tabs-border">
-			<view  @click="setCat(0)" class="tabs-border-item" v-bind:class="defaultActive">推荐</view>
-			<view @click="setCat(item.id)" v-bind:class="{ 'tabs-border-active':item.isactive }" v-for="(item,key) in pageData.catlist" :key="key" class="tabs-border-item">{{item.title}}</view>
-			 
+	<view >
+		<view v-if="!pageLoad" class="">
+			<page-loading></page-loading>
 		</view>
-		<view class="flex-main">
+		<view v-if="pageLoad">
+		<scroll-view class="bg-fff" scroll-x="true">
+			<view class="tabs-border">
+				<view @click="setCat(0)"  v-bind:class="defaultActive" class="tabs-border-item-inner ">全部</view>
+				<view class="tabs-border-item-inner" v-bind:class="{ 'tabs-border-active':item.isactive }" v-for="(item,key) in pageData.catlist" :key="key" @click="setCat(item.catid)"  >{{item.cname}}</view>				 
+			</view>	 
+		</scroll-view>
+		 
+		<view class="main-body">
 				<view class="flexlist">
 					<view @click="goArticle(item.id)" class="flexlist-item pdb-10"  v-for="(item,index) in pageData.list" :key="index">
 					 
@@ -21,17 +26,18 @@
 			 
  
 		</view>
+		</view>
 		<mt-footer></mt-footer>
 	</view> 
 </template>
 
 <script> 
-	var app= require("../../common/common.js"); 
+  
 	import mtFooter from "../../components/footer.vue";
 	var per_page=0;
 	var isfirst=true;
 	var catid=0;
-	var activeClass="tabs-border-active";
+	var activeClass="tabs-border-active"; 
 	export default{
 		components:{
 			mtFooter
@@ -42,14 +48,15 @@
 				pageData:{},
 				winHeight:600,
 				defaultActive:"tabs-border-active",
+				 
 			}
 		},
 		onLoad:function(option){
-			console.log("文章");
+			 
 			var win=uni.getSystemInfoSync();
 			this.winHeight=win.windowHeight-50;
 			uni.setNavigationBarTitle({
-				title: '资讯'
+				title: '福鼎头条新闻'
 			});
 			this.getPage();
 		},
@@ -63,9 +70,10 @@
 			getPage:function(){
 				var that=this;
 				uni.request({
-					url:app.apiHost+"?m=article&ajax=1",
+					url:that.app.apiHost+"?m=article&ajax=1",
 					success:function(data){
 						isfirst=false;
+						that.pageLoad=true;
 						that.pageData=data.data.data;
 						per_page=data.data.data.per_page; 
 					}
@@ -82,7 +90,7 @@
 				}
 				var catlist=this.pageData.catlist;
 				for(var i in catlist){
-					if(catlist[i].id==catid){
+					if(catlist[i].catid==catid){
 						catlist[i].isactive=1;
 					}else{
 						catlist[i].isactive=0;
@@ -95,9 +103,9 @@
 				var that=this;
 				if(!isfirst && per_page==0) return false;
 				uni.request({
-					url:app.apiHost+"?m=article&ajax=1",data:{
+					url:that.app.apiHost+"?m=article&ajax=1",data:{
 						per_page:per_page,
-						shop_cid:catid
+						catid:catid
 					},
 					success:function(data){
 						
@@ -107,7 +115,7 @@
 								isfirst=false;
 							}else{
 								
-								that.pageData.list=app.json_add(that.pageData.list,data.data.data.list);
+								that.pageData.list=that.app.json_add(that.pageData.list,data.data.data.list);
 							}
 							per_page=data.data.data.per_page;  
 							
@@ -119,7 +127,7 @@
 			},
 			goArticle:function(id){
 				uni.navigateTo({
-					url:"/pages/article/show?id="+id
+					url:"../article/show?id="+id
 				})
 			},
 			refresh:function(){
@@ -135,4 +143,7 @@
 	}
 </script>
 
- 
+<style>
+
+
+</style>

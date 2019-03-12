@@ -54,7 +54,12 @@
 											trueimgurl:rs.data.trueimgurl
 										}];
 										that.imgsList=app.json_add(that.imgsList,json);
-										that.imgsData=that.imgsData+","+rs.data.imgurl;
+										if(that.imgsData!=""){
+											that.imgsData=that.imgsData+","+rs.data.imgurl;
+										}else{
+											that.imgsData=rs.data.imgurl;
+										}
+										
 										 
 									}
 								}
@@ -74,8 +79,12 @@
 					}
 				}
 				for(var i=0;i<imgslist.length;i++){
-					imgsData=imgsData+","+imgslist[i].imgurl;
+					if(i>0){
+						imgsData+=",";
+					}
+					imgsData+=imgslist[i].imgurl;
 				}
+				console.log(imgsData);
 				this.imgsData=imgsData;
 				this.imgsList=imgslist;
 				

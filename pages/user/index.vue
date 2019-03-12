@@ -28,50 +28,35 @@
 					</view>
 					<navigator url="../user/set" class="flex-center btn-small btn-link iconfont icon-settings"></navigator>
 				</view>
-				<view class="order-box" >
+				<view class="order-box">
 					<view class="order-box-hd">
 						我的订单
 						<view class="flex-1"></view>
-						<view @click="gourl('../order/my')" class="fr cor2 flex flex-center">全部订单
+						<view @click="gourl('../b2c_order/my')" class="fr cor2 flex flex-center">全部订单
 							<text class="iconfont icon-right"></text>
 						</view>
 					</view>
 					<view class="order-box-status flex">
-						<view @click="gourl('../order/my?status=1')" class="order-box-item">
+						<view @click="gourl('../b2c_order/my?type=unpay')" class="order-box-item">
 							<text class="iconfont icon-moneybag"></text> 待付款</view>
-						<view @click="gourl('../order/my?status=2')" class="order-box-item">
+						<view @click="gourl('../b2c_order/my?type=unreceive')" class="order-box-item">
 							<text class="iconfont icon-deliver"></text> 待收货</view>
-						<view @click="gourl('../order/my?status=3')" class="order-box-item">
+						<view @click="gourl('../b2c_order/my?type=unraty')" class="order-box-item">
 							<text class="iconfont icon-comment"></text> 待评价</view>
 					</view>
 				</view>
 				 
-				<div class="m-navPic mgb-10">
-					<navigator url="../notice/my" class="m-navPic-item">
-						<view class="m-navPic-icon icon-notice"></view>
-						<view class="m-navPic-title">我的消息</view>
-					</navigator>
-					<navigator url="../pay_log/my" class="m-navPic-item">
-						<view class="m-navPic-icon icon-moneybag"></view>
-						<view class="m-navPic-title">消费记录</view>
-					</navigator>
-					<navigator url="../recharge/my" class="m-navPic-item">
-						<view class="m-navPic-icon icon-moneybag"></view>
-						<view class="m-navPic-title">充值记录</view>
-					</navigator>
-					<navigator url="../fav/my" class="m-navPic-item">
-						<view class="m-navPic-icon icon-favor"></view>
-						<view class="m-navPic-title">我的收藏</view>
-					</navigator>
-					<navigator url="../comment/my" class="m-navPic-item">
-						<view class="m-navPic-icon icon-comment"></view>
-						<view class="m-navPic-title">我的评论</view>
-					</navigator>
-					<navigator url="../user_address/my" class="m-navPic-item">
-						<view class="m-navPic-icon icon-addressbook"></view>
-						<view class="m-navPic-title">收货地址</view>
-					</navigator>
-				</div>
+				<div v-for="(item,index) in pageData.navList" :key="index">
+					<div class="m-navPic mgb-5">
+						 
+						<navigator v-for="(cc,ccindex) in item.child" :url="cc.link_url" :key="ccindex" class="m-navPic-item">
+							<div class="m-navPic-icon" v-bind:class="cc.icon"></div>
+							<div class="m-navPic-title">{{cc.title}}</div>
+						</navigator>
+						 
+					</div>
+				</div>	
+				 
 
 
 			</view>
@@ -84,7 +69,6 @@
 				</div>
 			
 		</view>
-
 	</view>
 </template>
 
@@ -128,11 +112,16 @@
 				uni.request({
 					url: that.app.apiHost + "?m=user&ajax=1",
 					data: {
-						authcode: that.app.getAuthCode()
+						authcode: that.app.getAuthCode(),
+						fromapp:that.app.fromapp()
 					},
 					success: function (res) {
 						if (res.data.error == 1000) {
-							 
+							/*
+							uni.navigateTo({
+								url: "../login/index",
+							})
+							*/
 						} else {
 							that.pageLoad = true;
 							that.pageData = res.data.data;

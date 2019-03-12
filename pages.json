@@ -1,129 +1,76 @@
 {
-	"pages": [ //pages数组中第一项表示应用启动页,
+	"pages": [ //pages数组中第一项表示应用启动页
+		
 		{
 			"path": "pages/index/index",
 			"style": {
-				"navigationBarTitleText": "skyShop" 
-			}
-		},
-		{
-			"path":"pages/product/index",
-			"style":{
-					"navigationBarTitleText":"产品大全",
-					"onReachBottomDistance":"60px",
-					"enablePullDownRefresh":true
-			}
-		},
-		{"path":"pages/user_address/my"},
-		{
-			"path":"pages/article/index",
-			"style":{
-				"navigationBarTitleText":"文章",
-				"onReachBottomDistance":"60px",
+				"navigationBarTitleText": "得推B2C商城",
+				"onReachBottomDistance":60,
 				"enablePullDownRefresh":true
 			}
 		},{
+			"path":"pages/article/index"
+		},{
+			"path":"pages/article/list"
+		},{
 			"path":"pages/article/show"
 		},{
-			"path":"pages/product/show"
-		},{
-			"path":"pages/category/index",
-			"style":{
-					"navigationBarTitleText":"产品分类"
-			}
-		},{
-			"path":"pages/cart/index",
-			"style":{
-					"navigationBarTitleText":"购物车"
-			}
-		},{
-			"path":"pages/cart/buy"
-		},{
-			"path":"pages/user/index",
-			"style":{
-					"navigationBarTitleText":"用户中心"
-			}
+			"path":"pages/login/index"
 		},
-		 
+		{
+			"path":"pages/login/findpwd"
+		},
+		{
+			"path":"pages/register/index"
+		},{
+			"path":"pages/user/index"
+		},
 		{"path":"pages/user/info"},
 		{"path":"pages/user/user_head"},
 		{"path":"pages/user/password"},
-		{"path":"pages/user/paypwd"},
-		{"path":"pages/register/index"},
+		{"path":"pages/user/paypwd"},{
+			"path":"pages/notice/my"
+		},
 		{
-			"path":"pages/login/index",
-			"style":{
-					"navigationBarTitleText":"登录"
+			"path":"pages/comment/my",
+			"style": {
+				"navigationBarTitleText": "我的评论",
+				"onReachBottomDistance":60,
+				"enablePullDownRefresh":true
 			}
 		},
-		{"path":"pages/login/findpwd"},
-		{
-			"path":"pages/order/confirm"
-		},{
-			"path":"pages/order/my"
-		},{
-			"path":"pages/order/show"
-		},{
-			"path":"pages/order/success"
-		},
-		{"path":"pages/notice/my"},
-		{"path":"pages/comment/my"},
-		{"path":"pages/coupon/my"},
+		 
 		{"path":"pages/fav/my"},
 		{"path":"pages/recharge/my"},
 		{"path":"pages/recharge/index"},
 		{"path":"pages/recharge/order"},
 		{"path":"pages/pay_log/my"},
-		
+		{"path":"pages/user_address/my"},
 		{"path":"pages/user_address/add"},
 		{"path":"pages/user_address/edit"},
 		{"path":"pages/user_address/orderadd"},
+		
 		{"path":"pages/user/set","style":{"navigationBarTitleText":"用户设置"}},
-		{"path":"pages/search/index"}
+		 
+		{"path":"pages/b2c/index"},
+		{"path":"pages/b2c_category/index"},
+		{"path":"pages/b2c_product/index"},
+		{"path":"pages/b2c_product/list"},
+		{"path":"pages/b2c_product/show"},
+		{"path":"pages/b2c_cart/index"},	 
+		{"path":"pages/b2c_order/confirm"},
+		{"path":"pages/b2c_order/success"},
+		{"path":"pages/b2c_order/my"},
+		{"path":"pages/b2c_order/raty"},
+		{"path":"pages/b2c_order/show"},
+		{"path":"pages/b2c_order/pay"},
+		{"path":"pages/b2c_user/index"}
 	],
-	"tabBar":{
-		"color":"#555",
-		"selectedColor":"#0069CD",
-		"list":[
-			{
-				"pagePath":"pages/index/index",
-				"text":"首页",
-				"iconPath":"static/tabbar/home.png",
-				"selectedIconPath":"static/tabbar/home-active.png"
-			},
-			{
-				"pagePath":"pages/product/index",
-				"text":"分类",
-				"iconPath":"static/tabbar/product.png",
-				"selectedIconPath":"static/tabbar/product-active.png"
-			},
-			{
-				"pagePath":"pages/cart/index",
-				"text":"购物车",
-				"iconPath":"static/tabbar/cart.png",
-				"selectedIconPath":"static/tabbar/cart-active.png"
-			},
-			{
-				"pagePath":"pages/user/index",
-				"text":"我的",
-				"iconPath":"static/tabbar/user.png",
-				"selectedIconPath":"static/tabbar/user-active.png"
-			}
-			
-		] 
-	},
 	"globalStyle": {
-		"navigationBarTextStyle": "#fff",
-		"navigationBarTitleText": "微站云",
-		"navigationBarBackgroundColor": "#0faeff",
-		"backgroundColor": "#fbf9fe"
-	},
-	"condition":{
-		"current":0,
-		"list":[{
-			"name":"proshow",
-			"path":"pages/product/show",
-			"query":"&id=7064"
-		}]
+		"navigationBarTextStyle": "black",
+		"navigationBarTitleText": "得推B2C商城",
+		"navigationBarBackgroundColor": "#F8F8F8",
+		"backgroundColor": "#F8F8F8"
 	}
+	 
 }

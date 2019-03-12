@@ -1,47 +1,49 @@
 <template>
-	<view>
-		<view id="comment-list" class="comment-list">
-			<view class="comment-item" v-for="(item,key) in cmData.data" :key="key">
+	<div>
+		<div v-if="cmData.rscount==0" class="emptyData">暂无评论</div>
+		<div v-else id="comment-list" class="comment-list">
+			
+			<div class="comment-item" v-for="(item,key) in cmData.list" :key="key">
 				<image class="comment-item-head" :src="item.user_head+'.100x100.jpg'"></image>
-				<view class="flex-1">
-					<view class="comment-item-nick">
+				<div class="flex-1">
+					<div class="comment-item-nick">
 						{{item.nickname}}
-					</view>
-					<view class="comment-item-tools">
-						<view class="comment-item-addr">
+					</div>
+					<div class="comment-item-tools">
+						<div class="comment-item-addr">
 							{{item.ip_city}}
-						</view>
-						<view class="comment-item-time">
+						</div>
+						<div class="comment-item-time">
 							{{item.timeago}}
-						</view>
-					</view>
-					<view class="comment-item-content" :pid="item.id" :title="'回复@'+item.nickname" :reply_text="'回复@'+item.nickname">
+						</div>
+					</div>
+					<div class="comment-item-content" :pid="item.id" :title="'回复@'+item.nickname" :reply_text="'回复@'+item.nickname">
 						{{item.content}}
-					</view>
-				</view>
-			</view>
-		</view>
-		<view class="h60"></view>
-		<view class="comment-formbox">
-			<view class="comment-input-btn js-write" @click="cmFormShow()" v-bind:class="cmBtnClass">写跟帖</view>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="h60"></div>
+		<div class="comment-formbox">
+			<div class="comment-input-btn js-write" @click="cmFormShow()" v-bind:class="cmBtnClass">写跟帖</div>
 			<form @submit="cmFormSubmit" class="comment-formbox-form js-form" v-bind:class="cmFormClass">
-				<view class="none">
+				<div class="none">
 					<input type="text" name="tablename" :value="tablename" />
 					<input type="text" name="objectid" :value="objectid" />
-				</view>
+				</div>
 				<textarea name="content" class="comment-formbox-textarea"></textarea>
-				<view class="comment-formbox-btns">
+				<div class="comment-formbox-btns">
 					<button formType="submit" class="comment-formbox-bt  js-submit">评论</button>
-					<view class="w60"></view>
-					<view @click="cmFormHide()" class="comment-formbox-bt js-cancel">取消</view>
-				</view>
+					<div class="w60"></div>
+					<div @click="cmFormHide()" class="comment-formbox-bt js-cancel">取消</div>
+				</div>
 			</form>
-		</view>
-	</view>
+		</div>
+	</div>
 </template>
 
 <script>
-	var app = require("../common/common.js");
+	 
 	export default {
 		props:{
 			tablename:"",
@@ -54,14 +56,14 @@
 				cmBtnClass:""
 			}
 		},
-		onLoad:function(){
+		created:function(){
 			this.getList();
 		},
 		methods:{
 			getList:function(){
 				var that=this;
 				uni.request({
-					url:app.apiHost+"?fromapp=wxapp&m=comment&ajax=1&tablename="+this.tablename+"&objectid="+this.objectid,
+					url:that.app.apiHost+"?fromapp=wxapp&m=comment&ajax=1&tablename="+this.tablename+"&objectid="+this.objectid,
 					success:function(res){
 						that.cmData=res.data.data;
 					}
@@ -80,7 +82,7 @@
 			cmFormSubmit:function(e){
 				var that=this;
 				uni.request({
-					url:app.apiHost+"?fromapp=wxapp&m=comment&a=save&ajax=1&authcode="+app.getAuthCode(),
+					url:that.app.apiHost+"?fromapp=wxapp&m=comment&a=save&ajax=1&authcode="+that.app.getAuthCode(),
 					data:e.detail.value,
 					method:"POST",
 					header:{

@@ -1,7 +1,11 @@
 <template>
 	<view>
 		<view v-if="pageLoad">
-			<view>开发中</view>
+		<view class="d-title">{{pageData.data.title}}</view>
+		 
+		<view class="d-content">
+		<rich-text type="text" :nodes="pageData.data.content"></rich-text>
+		</view>
 		</view>
 	</view>
 </template>
@@ -13,12 +17,13 @@
 		data:function(){
 			return {
 				pageLoad:false, 
+				pageHide:false,
 				pageData:{},
-				order_id:0
 			}
+			
 		},
 		onLoad:function(option){
-			this.order_id=option.order_id;
+			id=option.id;
 			this.getPage();
 		},
 		onReady:function(){
@@ -30,7 +35,7 @@
 			getPage:function(){
 				var that=this;
 				uni.request({
-					url:app.apiHost+"?m=recharge&a=order&order_id="+this.order_id,
+					url:app.apiHost+"?m=article",
 					data:{
 						authcode: app.getAuthCode()
 					},
