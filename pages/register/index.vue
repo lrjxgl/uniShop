@@ -91,6 +91,7 @@
 			 
 			formSubmit:function(e){
 				var that=this;
+				e.detail.value.password2=e.detail.value.password;
 				uni.request({
 					url:that.app.apiHost+"?m=register&a=regsave&ajax=1",
 					method:"POST",

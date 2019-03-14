@@ -31,16 +31,7 @@
 				<button open-type="getUserInfo" @getuserinfo="wxLogin" class="btn-round bg-success icon-weixin"></button>
 			</div>
 			<!-- #endif -->
-			<!-- #ifdef APP-PLUS -->
-			<div class="otherBox mgb-20">
-				<div class="otherBox-line"></div>
-				<div class="otherBox-text">其它方式登录</div>
-			</div>
-			<div class="flex flex-center">
-				<div class="btn-round bg-success icon-weixin mgr-10"></div>
-				<div class="btn-round bg-primary icon-qq"></div>
-			</div>
-			<!-- #endif -->
+			
 			<!-- #ifdef H5 -->
 			<div class="otherBox mgb-20" v-if="isWeixin">
 				<div class="otherBox-line"></div>
