@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<div class="side">
+		<div class="side" :style="{'top':sideTop+'px'}">
 			<div @click="setCat(0)" v-bind:class="catActive" class="side-menu">推荐</div>
 			<div @click="setCat(item.catid)" v-bind:class="item.isactive?'cl-money':''" class="side-menu" v-for="(item,index) in pageData.catList" :key="index">{{item.title}}</div>
 		</div>
@@ -27,7 +27,7 @@
 									<input type="text" name="amount" :value="item.cart_amount" class="numbox-num" />
 									<div @click="plusCart(item.id,item.cart_amount)" class="numbox-plus">+</div>	
 								</div>
-								<div @click="addCart(item.id)"  class="btn-buy" v-else>买</div>
+								<div @click="addCart(item.id)"  class="btn-buy  iconfont icon-cart" v-else></div>
 							</div>
 					</div>
 					</div>
@@ -60,7 +60,7 @@
 								<input type="text" name="amount" :value="ksproduct.cart_amount" class="numbox-num" />
 								<div @click="ksPlusCart(ksproduct.id,ksproduct.cart_amount)" class="numbox-plus">+</div>	
 							</div>
-							<div @click="ksAddCart(ksproduct.id)"  class="btn-buy" v-else>买</div>
+							<div @click="ksAddCart(ksproduct.id)"  class="btn-buy iconfont icon-cart" v-else></div>
 						</div>
 					</div>
 				</div>
@@ -81,6 +81,7 @@
 			return {
 				pageData: {},
 				pageLoad:false,
+				sideTop:44,
 				show:"flex",
 				catActive:"cl-money",
 				ksShow:false,
@@ -96,6 +97,9 @@
 			uni.setNavigationBarTitle({
 				title:"点餐"
 			})
+			// #ifndef H5
+			this.sideTop=0;
+			// #endif
 			this.getPage();
 		},
 		methods: {
@@ -464,7 +468,7 @@
 			position: fixed;
 			top: 96upx;
 			left: 0upx;
-			width: 180upx;
+			width: 200upx;
 			bottom: 110upx;
 			background-color: #fff;
 		}
@@ -473,9 +477,9 @@
 			padding: 22upx 11upx;
 			border-bottom: 2upx solid #eee;
 			color: #646464;
-			font-size: 36upx;
+			font-size: 16px;
 		}
 		.main{
-			margin-left: 190upx;
+			margin-left: 205upx;
 		}
 	</style>

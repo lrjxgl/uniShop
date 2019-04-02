@@ -9,7 +9,7 @@
 			</view>
 			<view class="input-flex">
 				<view class="input-flex-label">验证码</view>
-				<input type="text" class="input-flex-text" name="yzm" v-model="yzm" :value="yzm" >
+				<input type="text" class="input-flex-text" name="yzm" v-model="yzm"  >
 				<view class="input-flex-btn" v-bind:class="yzmClass" @click="getYzm()">{{yzmStatus}}</view>
 			</view>
 			<view class="input-flex">

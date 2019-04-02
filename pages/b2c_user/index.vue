@@ -5,7 +5,7 @@
 			<view class="main-body">
 				<view class="uhead">
 
-					<image @click="gourl('../user/user_head')" class="uhead-img" :src="pageData.data.user_head+'.100x100.jpg'"></image>
+					<image @click="gourl('../../pages/user/user_head')" class="uhead-img" :src="pageData.data.user_head+'.100x100.jpg'"></image>
 
 					<view class="uhead-box">
 						<view class="uhead-nick">{{pageData.data.nickname}}</view>
@@ -26,7 +26,7 @@
 						</view>
 
 					</view>
-					<navigator url="../user/set" class="flex-center btn-small btn-link iconfont icon-settings"></navigator>
+					<navigator url="../../pages/user/set" class="flex-center btn-small btn-link iconfont icon-settings"></navigator>
 				</view>
 				<view class="order-box">
 					<view class="order-box-hd">
@@ -47,27 +47,27 @@
 				</view>
 				 
 				<div class="m-navPic mgb-10">
-					<navigator url="../notice/my" class="m-navPic-item">
+					<navigator url="../../pages/notice/my" class="m-navPic-item">
 						<view class="m-navPic-icon icon-notice"></view>
 						<view class="m-navPic-title">我的消息</view>
 					</navigator>
-					<navigator url="../pay_log/my" class="m-navPic-item">
+					<navigator url="../../pages/pay_log/my" class="m-navPic-item">
 						<view class="m-navPic-icon icon-moneybag"></view>
 						<view class="m-navPic-title">消费记录</view>
 					</navigator>
-					<navigator url="../recharge/my" class="m-navPic-item">
+					<navigator url="../../pages/recharge/my" class="m-navPic-item">
 						<view class="m-navPic-icon icon-moneybag"></view>
 						<view class="m-navPic-title">充值记录</view>
 					</navigator>
-					<navigator url="../fav/my" class="m-navPic-item">
+					<navigator url="../../pages/fav/my" class="m-navPic-item">
 						<view class="m-navPic-icon icon-favor"></view>
 						<view class="m-navPic-title">我的收藏</view>
 					</navigator>
-					<navigator url="../comment/my" class="m-navPic-item">
+					<navigator url="../../pages/comment/my" class="m-navPic-item">
 						<view class="m-navPic-icon icon-comment"></view>
 						<view class="m-navPic-title">我的评论</view>
 					</navigator>
-					<navigator url="../user_address/my" class="m-navPic-item">
+					<navigator url="../../pages/user_address/my" class="m-navPic-item">
 						<view class="m-navPic-icon icon-addressbook"></view>
 						<view class="m-navPic-title">收货地址</view>
 					</navigator>
@@ -80,7 +80,7 @@
 		<view v-else class="bg-fff pd-10">
 				<div class="flex flex-center mgb-10 cl2">您还未登录,请先登录</div>
 				<div class="flex flex-center">
-					<navigator  class="btn-small" url="../login/index">前往登录</navigator>
+					<navigator  class="btn-small" url="../../pages/login/index">前往登录</navigator>
 				</div>
 			
 		</view>

@@ -20,7 +20,7 @@
 			</div>
 			 
 			<div class="flexlist-item" v-for="(item,index) in pageData.cartList" :key="index">
-				<input type="hidden" class="none" name="cartid[]" :value="item.id" />
+				<input type="hidden" class="none" :name="'cartid['+index+']'" :value="item.id" />
 				<img :src="item.imgurl+'.100x100.jpg'" class="flexlist-img" />
 				<div class="flex-1">
 					<div class="flexlist-title">{{item.title}}</div>

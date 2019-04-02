@@ -64,7 +64,8 @@
 		{"path":"pages/b2c_order/raty"},
 		{"path":"pages/b2c_order/show"},
 		{"path":"pages/b2c_order/pay"},
-		{"path":"pages/b2c_user/index"}
+		{"path":"pages/b2c_user/index"},
+		{"path":"pages/b2c_search/index"}
 	],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",

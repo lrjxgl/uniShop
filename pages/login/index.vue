@@ -9,11 +9,11 @@
 		<form class="loginBox"  id="login-form" @submit="formSubmit" >
 			<view class="flexIcon">
       	<view class="flexIcon-icon iconfont icon-phone_light"></view>
-        <input type="text" class="flexIcon-text" @click="tel()" @blur="tel()" v-model="notephone" name="telephone" :value="notephone" />
+        <input type="text" class="flexIcon-text"    name="telephone" placeholder="请输入手机号码" />
       </view>
       <view class="flexIcon"> 
       	<view class="flexIcon-icon iconfont icon-password"></view>
-        <input type="password" class="flexIcon-text"  @click="pass()" @blur="pass()" v-model="notepwd" name="password" :value="notepwd" />
+        <input type="password" class="flexIcon-text"     name="password" placeholder="请输入登录密码" />
       </view>
 			<div></div>
       <button type="primary" formType="submit"  class="btn-row-submit">登陆</button>

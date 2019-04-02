@@ -65,7 +65,7 @@
 						if(res.error==1000){
 							uni.showToast({
 								title:"请先登录"
-							})
+							})	
 							return false;
 						}
 						that.pageLoad=true;

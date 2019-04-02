@@ -26,7 +26,7 @@
 					价格 <div class="flex-1 cl-money f22 mgl-5" id="price">￥{{price}}</div>
 					<div class="numbox">
 						<div @click="dMinus" class="numbox-minus">-</div>
-						<input class="numbox-num" id="cart-amount" v-model="cart_amount" readonly="" :value="cart_amount" />
+						<input class="numbox-num" id="cart-amount" v-model="cart_amount" readonly=""  /> 
 						<div @click="dPlus" class="numbox-plus">+</div>
 					</div>
 
@@ -215,7 +215,7 @@
 		left: 0upx;
 		right: 0upx;
 		bottom: 0upx;
-		font-size: 29upx;
+		font-size: 14px;
 		line-height: 1.2;
 		border-top: 1upx solid #eee;
 		background-color: #fff;
@@ -226,7 +226,7 @@
 		padding-top: 10upx;
 		clear: both;
 		display: block;
-		font-size: 29upx;
+		font-size: 14px;
 		line-height: 1.2;
 	}
 
@@ -240,7 +240,7 @@
 		display: inline-block;
 
 		line-height: 50upx;
-		font-size: 29upx;
+		font-size: 14px;
 	}
 
 	.flcart-f2 {
@@ -248,7 +248,7 @@
 		line-height: 100upx;
 		background-color: #f90;
 		color: #fff;
-		font-size: 29upx;
+		font-size: 14px;
 	}
 
 	.flcart .f3 {

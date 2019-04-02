@@ -1,7 +1,7 @@
 <template>
 	<div>
 		<div class="main-body bg-white mh100" >
-			<div class="list-side">
+			<div class="list-side" :style="{'top':sideTop+'px'}">
 
 				<div @click="setCat(item.catid)" v-for="(item,index) in pageData.catList"  :key="index" class="list-side-item" v-bind:class="{'list-side-item-active':catid==item.catid}">{{item.title}}</div>
 
@@ -44,12 +44,17 @@
 				pageData: {},
 				catid:0,
 				height:440,
+				sideTop:44
 			}
 		},
 		onLoad: function(ops) {
 			var win=uni.getSystemInfoSync();
 			this.height=win.windowHeight-50;
+			// #ifndef H5
+			this.sideTop=0;
+			// #endif
 			this.getPage();
+			
 		},
 		methods: {
 			setCat:function(catid){
@@ -87,14 +92,15 @@
 	top: 110upx;
 	bottom: 130upx;
 	width: 170upx;
-	border-right: 2upx solid #eee;
+	border-right: 1px solid #eee;
 	text-align: center;
+	background-color: #fff;
 }
 
 .list-side-item {
 	color: #707070;
 	padding: 22upx 11upx;
-	font-size: 32upx;
+	font-size: 14px;
 	display: block;
 	cursor: pointer;
 }
@@ -118,7 +124,7 @@
 	text-align: center;
 	padding: 22upx 0;
 	color: #666;
-	font-size: 30upx;
+	font-size: 14px;
 	position: relative;
 }
 
@@ -161,7 +167,7 @@
 	margin-bottom: 22upx;
 	padding: 0 22upx;
 	box-sizing: border-box;
-	font-size: 30upx;
+	font-size: 14px;
 	color: #666;
 	text-align: center;
 }
