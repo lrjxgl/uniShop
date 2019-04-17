@@ -8,4 +8,5 @@
 * 商城后台使用 得推B2C商城  http://www.deituicms.com/ 
 # 技术支持
 * QQ：362606856 
-* QQ交流群:277542543
+* uniAPP实战群:277542543
+* deituiCMS交流群：48353999
