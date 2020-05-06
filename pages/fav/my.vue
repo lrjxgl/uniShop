@@ -1,10 +1,10 @@
 <template>
 	<view v-if="pageLoad">
-		<div class="tabs-border">
-			<div @click="setTable('article')" class="tabs-border-item tabs-border-active">文章</div>
-			<div @click="setTable('forum')" class="tabs-border-item">帖子</div>
+		<view class="tabs-border">
+			<view @click="setTable('article')" class="tabs-border-item tabs-border-active">文章</view>
+			<view @click="setTable('forum')" class="tabs-border-item">帖子</view>
 			 
-		</div>
+		</view>
 		<view v-if="pageData.list.length==0">
 			<view class="emptyData">暂无收藏</view>
 		</view>
@@ -12,19 +12,19 @@
 			<view v-for="(item,key) in pageData.list" :key="key">
 				<view v-if="tablename=='article'">
 					<view @click="goArticle(item.id)" class="row-item bg-fff">
-						<div class="flex-1">
-						<div class="cl1 f18">{{item.title}}</div> 
-						<div class="cl2">{{item.description}}</div>
-						</div>
+						<view class="flex-1">
+						<view class="cl1 f18">{{item.title}}</view> 
+						<view class="cl2">{{item.description}}</view>
+						</view>
 					</view>
 				</view>	
 				 
 				<view v-else-if="tablename=='forum'">
 					<view @click="goForum(item.id)" class="row-item bg-fff">
-						<div class="flex-1">
-						<div class="cl1 f18">{{item.title}}</div> 
+						<view class="flex-1">
+						<view class="cl1 f18">{{item.title}}</view> 
 						 
-						</div>
+						</view>
 					</view>
 				</view> 
 			</view>

@@ -5,13 +5,13 @@
 			</view>
 			<view v-else>
 				 
-					<view  class="row-box"  v-for="(item,index) in pageData.list" :key="index">	 
-							<view class="row-box-hd">
-								<view class="cor1">{{item.timeago}}</view>
+					<view  class="row-box mgb-5"  v-for="(item,index) in pageData.list" :key="index">	 
+							<view class="flex mgb-5">
+								<view class="cl1">{{item.timeago}}</view>
 								<view class="flex-1"></view>
-								<view class="time cor-money">{{item.money}}</view>
+								<view class="cl-money">{{item.money}}元</view>
 							</view>
-							<view class="cor2">{{item.content}}</view>
+							<view class="cl2 f12">{{item.content}}</view>
  
 					</view>
 		</view>		 

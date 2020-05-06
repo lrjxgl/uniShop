@@ -1,32 +1,32 @@
 <template>
-	<div v-if="pageLoad" class="bg-a">	
-		<div class="header">
-			<div class="header-back"></div>
-			<div class="header-title">我的评论</div>
-		</div>
-		<div class="header-row"></div>
-		<div class="main-body">
-			<div class="tabs-border mgb-5">
-				<div @click="setTab('mod_forum')" class="tabs-border-item" v-bind:class="tablename=='mod_forum'?'tabs-border-active':''">论坛</div>
-				<div @click="setTab('article')" class="tabs-border-item " v-bind:class="tablename=='article'?'tabs-border-active':''">文章</div>
+	<view v-if="pageLoad" class="bg-a">	
+		<view class="header">
+			<view class="header-back"></view>
+			<view class="header-title">我的评论</view>
+		</view>
+		<view class="header-row"></view>
+		<view class="main-body">
+			<view class="tabs-border mgb-5">
+				<view @click="setTab('mod_forum')" class="tabs-border-item" v-bind:class="tablename=='mod_forum'?'tabs-border-active':''">论坛</view>
+				<view @click="setTab('article')" class="tabs-border-item " v-bind:class="tablename=='article'?'tabs-border-active':''">文章</view>
 				
-			</div>
-			<div v-if="pageData.rscount==0">
-				<div class="emptyData">暂无评论</div>
-			</div>
-			<div v-else>
-				<div class="row-box mgb-5"  v-for="(item,index) in pageData.list" :key="index">
-					<div class="cl3 bd-mp-5"><rich-text :nodes="item.content"></rich-text></div>
-					<div class="flex ">
-						<div class="flex-1 cl2 f12 flex-jc-center">{{item.timeago}}</div>
-						<div @click="goShow(item.objectid)" class="cl-success pointer mgr-10" >查看</div>
-						<div class="cl-danger pointer" @click="del(item.id)">删除</div>
-					</div>
-				</div>	
+			</view>
+			<view v-if="pageData.rscount==0">
+				<view class="emptyData">暂无评论</view>
+			</view>
+			<view v-else>
+				<view class="row-box mgb-5"  v-for="(item,index) in pageData.list" :key="index">
+					<view class="cl3 bd-mp-5"><rich-text :nodes="item.content"></rich-text></view>
+					<view class="flex ">
+						<view class="flex-1 cl2 f12 flex-jc-center">{{item.timeago}}</view>
+						<view @click="goShow(item.objectid)" class="cl-success pointer mgr-10" >查看</view>
+						<view class="cl-danger pointer" @click="del(item.id)">删除</view>
+					</view>
+				</view>	
 					 
-			</div>
-		</div>			
-	</div> 
+			</view>
+		</view>			
+	</view> 
 </template>
 
 <script> 
@@ -53,7 +53,9 @@
 			uni.setNavigationBarTitle({
 				title: '我的评论'
 			});
-			this.tablename=ops.tablename;
+			if(ops.tablename!=undefined){
+					this.tablename=ops.tablename; 
+			}
 			this.getPage();
 		},
 		onReachBottom:function(){

@@ -4,11 +4,12 @@
 			<image class="d-userbox-head" :src="muser.user_head+'.100x100.jpg'"></image>
 			<view class="flex-1">
 				<view class="d-userbox-nick">{{muser.nickname}}</view>
-				<view class="d-userbox-follows">
-					粉丝
+				<view class="d-userbox-follows flex-ai-center">
+					<view>粉丝</view>
 					<text class="cl-num mgr-5 flex-center">{{muser.followed_num}}</text> 
-					关注
+					<view>关注</view>
 					<text class="cl-num flex-center">{{muser.follow_num}}</text>
+					<view class="cl3 f12  mgl-10" v-if="timeago">{{timeago}}</view>
 				</view>
 			</view>
 			<view class="btn-small btn-outline-success" @click="followToggle(muser.userid)">{{followStr}}</view>
@@ -19,11 +20,13 @@
 <script>
 	export default {
 		props:{
-			user:false
+			user:false,
+			timeago:"",
 		},
 		data:function(){
 			return {
 				muser:{},
+				
 				followStr:"已关注"
 			}
 		},

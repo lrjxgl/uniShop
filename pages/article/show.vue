@@ -1,27 +1,27 @@
 <template>
-	<div>
-		<div class="pd-10 bg-fff" v-if="pageLoad">
-			<div class="d-title">{{pageData.data.title}}</div>
+	<view>
+		<view class="pd-10 bg-fff" v-if="pageLoad">
+			<view class="d-title">{{pageData.data.title}}</view>
 			 
-			<div class="d-content">
+			<view class="d-content">
 				<rich-text type="text" :nodes="pageData.data.content"></rich-text>
-			</div>
-			<div class="flex flex-center mgb-10">
-				<div class="btn-love  mgr-10" @click="loveToggle(pageData.data.id)" v-bind:class="pageData.islove?'btn-love-active':''">
+			</view>
+			<view class="flex flex-center mgb-10">
+				<view class="btn-love  mgr-10" @click="loveToggle(pageData.data.id)" v-bind:class="pageData.islove?'btn-love-active':''">
 					喜欢
-				</div>
+				</view>
 				 
-				<div class="btn-fav mgr-10" @click="favToggle(pageData.data.id)" v-bind:class="pageData.isfav?'btn-fav-active':''">收藏</div>
+				<view class="btn-fav mgr-10" @click="favToggle(pageData.data.id)" v-bind:class="pageData.isfav?'btn-fav-active':''">收藏</view>
 				 
 				<button style="margin: 0;" open-type="share" class="btn-share " @click="share()">分享</button>
-			</div>
-			<div class="comment-hd">回复列表</div>
+			</view>
+			<view class="comment-hd">回复列表</view>
 			<cmform tablename="article" :objectid="pageData.data.id"></cmform>
-			<div v-if="skyShareShow">
+			<view v-if="skyShareShow">
 				<sky-share :title="pageData.data.title" :imgurl="pageData.data.imgurl" :link="shareLink" :desc="pageData.data.description"  :isshow="1"></sky-share>
-			</div>
-		</div>
-	</div>
+			</view>
+		</view>
+	</view>
 </template>
 
 <script> 

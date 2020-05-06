@@ -2,7 +2,7 @@
 	<view>
 		<view class="upimg-box bg-fff">
 			<view class="none">
-				<input type="text" maxlength="-1" name="imgsdata" :value="imgsData" />
+				<input type="text" maxlength="-1"  name="imgsdata" :value="imgsData" />
 			</view>
 			<view class="upimg-item" v-for="(img,imgIndex) in imgsList" :key="imgIndex">
 				<image class="upimg-img" :src="img.trueimgurl+'.100x100.jpg'"></image>
@@ -40,7 +40,7 @@
 						const len=tempFilePaths.length;
 						for(var i=0;i<len;i++){
 							uni.uploadFile({
-								url: app.apiHost+'?fromapp=wxapp&m=upload&a=img&ajax=1&authcode='+app.getAuthCode(), //仅为示例，非真实的接口地址
+								url: app.apiHost+'/index.php?m=upload&a=img&ajax=1&authcode='+app.getAuthCode(), //仅为示例，非真实的接口地址
 								filePath: tempFilePaths[i],
 								name: 'upimg',
 								dataType:"json",
@@ -54,10 +54,10 @@
 											trueimgurl:rs.data.trueimgurl
 										}];
 										that.imgsList=app.json_add(that.imgsList,json);
-										if(that.imgsData!=""){
-											that.imgsData=that.imgsData+","+rs.data.imgurl;
+										if(that.imgsData=="" || that.imgsData==undefined ){
+											that.imgsData=rs.data.imgurl;											
 										}else{
-											that.imgsData=rs.data.imgurl;
+											that.imgsData=that.imgsData+","+rs.data.imgurl;
 										}
 										
 										 
@@ -70,7 +70,7 @@
 			},
 			delImg:function(index){
 				var len=this.imgsList.length;
-				var imgslist=[];
+				var imgslist=new Array();
 				var imgsData="";
 				var mgs=this.imgsList;
 				for(var i in mgs){

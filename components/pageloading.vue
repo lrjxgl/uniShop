@@ -1,6 +1,6 @@
 <template>
 	<view >
-		<div class="pageLoading iconfont icon-loading"></div>
+		<view class="pageLoading iconfont icon-loading"></view>
 	</view>
 </template>
 

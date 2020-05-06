@@ -1,77 +1,322 @@
 {
 	"pages": [ //pages数组中第一项表示应用启动页
-		
+
 		{
 			"path": "pages/index/index",
 			"style": {
-				"navigationBarTitleText": "得推B2C商城",
-				"onReachBottomDistance":60,
-				"enablePullDownRefresh":true
+				"navigationBarTitleText": "福鼎口福白茶",
+				"onReachBottomDistance": 60,
+				"enablePullDownRefresh": true
 			}
-		},{
-			"path":"pages/article/index"
-		},{
-			"path":"pages/article/list"
-		},{
-			"path":"pages/article/show"
-		},{
-			"path":"pages/login/index"
 		},
 		{
-			"path":"pages/login/findpwd"
+			"path": "pages/hello",
+			"style": {
+				"navigationBarTitleText": "hello uniApp",
+				"onReachBottomDistance": 60,
+				"enablePullDownRefresh": true
+			}
 		},
 		{
-			"path":"pages/register/index"
-		},{
-			"path":"pages/user/index"
-		},
-		{"path":"pages/user/info"},
-		{"path":"pages/user/user_head"},
-		{"path":"pages/user/password"},
-		{"path":"pages/user/paypwd"},{
-			"path":"pages/notice/my"
+			"path": "pages/article/index",
+			"style": {
+				"navigationBarTitleText": "资讯中心"
+			}
+		}, {
+			"path": "pages/article/list",
+			"style": {
+				"navigationBarTitleText": "资讯列表"
+			}
+		}, {
+			"path": "pages/article/show",
+			"style": {
+				"navigationBarTitleText": "资讯中心"
+			}
+		}, {
+			"path": "pages/login/index",
+			"style": {
+				"navigationBarTitleText": "登录"
+			}
 		},
 		{
-			"path":"pages/comment/my",
+			"path": "pages/login/findpwd",
+			"style": {
+				"navigationBarTitleText": "找回密码"
+			}
+		},
+		{
+			"path": "pages/register/index",
+			"style": {
+				"navigationBarTitleText": "注册"
+			}
+		}, {
+			"path": "pages/user/index",
+			"style": {
+				"navigationBarTitleText": "个人中心"
+			}
+		},
+		{
+			"path": "pages/user/info",
+			"style": {
+				"navigationBarTitleText": "资料编辑"
+			}
+		},
+		{
+			"path": "pages/user/user_head",
+			"style": {
+				"navigationBarTitleText": "头像编辑"
+			}
+		},
+		{
+			"path": "pages/user/password",
+			"style": {
+				"navigationBarTitleText": "密码修改"
+			}
+		},
+		{
+			"path": "pages/user/paypwd",
+			"style": {
+				"navigationBarTitleText": "支付密码"
+			}
+		},
+		{
+			"path": "pages/notice/my",
+			"style": {
+				"navigationBarTitleText": "通知"
+			}
+		},
+		{
+			"path": "pages/comment/my",
 			"style": {
 				"navigationBarTitleText": "我的评论",
-				"onReachBottomDistance":60,
-				"enablePullDownRefresh":true
+				"onReachBottomDistance": 60,
+				"enablePullDownRefresh": true
+			}
+		},
+		{
+			"path": "pages/coupon/my",
+			"style": {
+				"navigationBarTitleText": "我的优惠券"
+			}
+		},
+		{
+			"path": "pages/fav/my",
+			"style": {
+				"navigationBarTitleText": "我的收藏"
+			}
+		},
+		{
+			"path": "pages/recharge/my",
+			"style": {
+				"navigationBarTitleText": "支付记录"
+			}
+		},
+		{
+			"path": "pages/recharge/index",
+			"style": {
+				"navigationBarTitleText": "支付"
+			}
+		},
+		{
+			"path": "pages/recharge/order",
+			"style": {
+				"navigationBarTitleText": "订单支付"
+			}
+		},
+		{
+			"path": "pages/pay_log/my",
+			"style": {
+				"navigationBarTitleText": "消费记录"
+			}
+		},
+		{
+			"path": "pages/user_address/my",
+			"style": {
+				"navigationBarTitleText": "收货地址"
+			}
+		},
+		{
+			"path": "pages/user_address/add",
+			"style": {
+				"navigationBarTitleText": "收货地址添加"
+			}
+		},
+		{
+			"path": "pages/user_address/edit",
+			"style": {
+				"navigationBarTitleText": "收货地址编辑"
 			}
 		},
 		 
-		{"path":"pages/fav/my"},
-		{"path":"pages/recharge/my"},
-		{"path":"pages/recharge/index"},
-		{"path":"pages/recharge/order"},
-		{"path":"pages/pay_log/my"},
-		{"path":"pages/user_address/my"},
-		{"path":"pages/user_address/add"},
-		{"path":"pages/user_address/edit"},
-		{"path":"pages/user_address/orderadd"},
-		
-		{"path":"pages/user/set","style":{"navigationBarTitleText":"用户设置"}},
-		 
-		{"path":"pages/b2c/index"},
-		{"path":"pages/b2c_category/index"},
-		{"path":"pages/b2c_product/index"},
-		{"path":"pages/b2c_product/list"},
-		{"path":"pages/b2c_product/show"},
-		{"path":"pages/b2c_cart/index"},	 
-		{"path":"pages/b2c_order/confirm"},
-		{"path":"pages/b2c_order/success"},
-		{"path":"pages/b2c_order/my"},
-		{"path":"pages/b2c_order/raty"},
-		{"path":"pages/b2c_order/show"},
-		{"path":"pages/b2c_order/pay"},
-		{"path":"pages/b2c_user/index"},
-		{"path":"pages/b2c_search/index"}
+
+		{
+			"path": "pages/user/set",
+			"style": {
+				"navigationBarTitleText": "用户设置"
+			}
+		},
+		{
+			"path": "pages/kefu/index",
+			"style": {
+				"navigationBarTitleText": "客服"
+			}
+		},
+		{
+			"path": "pages/bankcard/index",
+			"style": {
+				"navigationBarTitleText": "银行卡"
+			}
+		},
+		{
+			"path": "pages/html/aboutus",
+			"style": {
+				"navigationBarTitleText": "关于我们"
+			}
+		},
+		{
+			"path": "pages/check",
+			"style": {
+				"navigationBarTitleText": "检查"
+			}
+		}
+
+
+
 	],
+	"subPackages": [
+
+		{
+			"root": "pageb2c",
+			"pages": [{
+					"path": "b2c/index"
+				},
+				{
+					"path": "b2c_category/index",
+					"style": {
+						"navigationBarTitleText": "分类"
+					}
+				},
+				{
+					"path": "b2c_product/index",
+					"style": {
+						"navigationBarTitleText": "热门推荐"
+					}
+				},
+				{
+					"path": "b2c_product/list"
+				},
+				{
+					"path": "b2c_product/show",
+					"style": {
+						"navigationBarTitleText": "产品详情"
+					}
+				},
+				{
+					"path": "b2c_group_product/index",
+					"style": {
+						"navigationBarTitleText": ""
+					}
+				},
+				{
+					"path": "b2c_product/raty",
+					"style": {
+						"navigationBarTitleText": "商品评论"
+					}
+				},
+				{
+					"path": "b2c_cart/index",
+					"style": {
+						"navigationBarTitleText": "购物车"
+					}
+				},
+				{
+					"path": "b2c_order/confirm",
+					"style": {
+						"navigationBarTitleText": "确认订单"
+					}
+				},
+				{
+					"path": "b2c_order/success",
+					"style": {
+						"navigationBarTitleText": "下单成功"
+					}
+				},
+				{
+					"path": "b2c_order/my",
+					"style": {
+						"navigationBarTitleText": "我的订单"
+					}
+				},
+				{
+					"path": "b2c_order/raty",
+					"style": {
+						"navigationBarTitleText": "订单评价"
+					}
+				},
+				{
+					"path": "b2c_order/show",
+					"style": {
+						"navigationBarTitleText": "订单详情"
+					}
+				},
+				{
+					"path": "b2c_order/pay",
+					"style": {
+						"navigationBarTitleText": "订单支付"
+					}
+				},
+				{
+					"path": "b2c_user/index",
+					"style": {
+						"navigationBarTitleText": "用户中心"
+					}
+				},
+				{
+					"path": "b2c_search/index",
+					"style": {
+						"navigationBarTitleText": "搜索"
+					}
+				},
+				{
+					"path": "b2c_pintuan/index",
+					"style": {
+						"navigationBarTitleText": "拼一下"
+					}
+				},
+				{
+					"path": "b2c_pintuan/invite",
+					"style": {
+						"navigationBarTitleText": "邀请"
+					}
+				}
+			]
+		}
+	],
+	"preloadRule": {
+		"pages/index/index": {
+			"network": "all",
+			"packages": ["pageb2c"]
+		}
+	},
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
-		"navigationBarTitleText": "得推B2C商城",
+		"navigationBarTitleText": "福鼎口福白茶",
 		"navigationBarBackgroundColor": "#F8F8F8",
 		"backgroundColor": "#F8F8F8"
+	},
+	"permission": {
+		"scope.userLocation": {
+			"desc": "你的位置信息将用于小程序位置接口的效果展示"
+		}
+	},
+	"condition": { //模式配置，仅开发期间生效
+		"current": 1, //当前激活的模式（list 的索引项）
+		"list": [{
+				"name": "index", //模式名称
+				"path": "pages/index/index", //启动页面，必选
+				"query": "interval=4000&autoplay=false" //启动参数，在页面的onLoad函数里面得到。
+			}
+		]
 	}
-	 
+
 }

@@ -17,7 +17,7 @@
 				</view>
 				<picker-view   style="height: 300px;" indicator-style="height: 36px; line-height:36px" :value="value" @change="bindChange">
 					<picker-view-column class="flex-col">
-						<view class="item flex-center" v-for="item in data" :key="item.gid">{{item.title}}</view>
+						<view class="item flex-center" v-for="item in sdata" :key="item.gid">{{item.title}}</view>
 					</picker-view-column>
 					<picker-view-column class="flex-col">
 						<view class="item flex-center" v-for="item in child" :key="item.catid">{{item.title}}</view>
@@ -32,12 +32,12 @@
 <script>
 	export default {
 		props: {
-			data: {},
+			sdata: {},
 			defaultGid: 0,
 			defaultCatid: 0,
 			placeholder: ""
 		},
-		data: function () {
+		sdata: function () {
 			return {
 				showClass: "pickerBoxHide",
 				child: {},
@@ -50,27 +50,28 @@
 		created: function () {
 			var pholder="请选择";
 			var m=0,n=0;
-			for(var i in this.data){
-				if(this.data[i].gid==this.gid){
+			for(var i in this.sdata){
+				if(this.sdata[i].gid==this.gid){
 					m=i;
 				}
-				pholder=this.data[m].title;
+				pholder=this.sdata[m].title;
 			}
-			if(this.data[m]['child']!=null){
-				for(var i in this.data[m]['child']){
-					if(this.data[m]['child'][i].catid==this.catid){
+			if(this.sdata[m]['child']!=null){
+				for(var i in this.sdata[m]['child']){
+					if(this.sdata[m]['child'][i].catid==this.catid){
 						n=i;
 						
 					}
 				}
-				this.catid=this.data[m]['child'][n].catid;
-				pholder=pholder+" "+this.data[m]['child'][n].title;
+				this.catid=this.sdata[m]['child'][n].catid;
+				pholder=pholder+" "+this.sdata[m]['child'][n].title;
 			}
-			this.child = this.data[m]['child'];
-			this.value=[m,n];
-			this.gid=this.data[m].gid;
+			this.child = this.sdata[m]['child'];
+			
+			this.gid=this.sdata[m].gid;
 			this.pholder=pholder;
-			console.log(this.value);
+			this.value=[parseInt(m),parseInt(n)];
+			 
 		},
 		methods: {
 			bindChange: function (e) {
@@ -78,16 +79,16 @@
 				var m = e.detail.value[0];
 				var n=e.detail.value[1];
 				this.value=[m,n];
-				this.child = this.data[m]['child'];
-				var pholder=this.data[m].title;
+				this.child = this.sdata[m]['child'];
+				var pholder=this.sdata[m].title;
 				
-				if(this.data[m]['child']!=null){
-					pholder+=this.data[m]['child'][n].title;
-					this.catid=this.data[m]['child'][n].catid;
+				if(this.sdata[m]['child']!=null){
+					pholder+=this.sdata[m]['child'][n].title;
+					this.catid=this.sdata[m]['child'][n].catid;
 				}else{
 					this.catid=0;
 				}
-				this.gid=this.data[m].gid;
+				this.gid=this.sdata[m].gid;
 				
 				this.pholder=pholder;
 				

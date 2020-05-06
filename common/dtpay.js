@@ -1,6 +1,6 @@
 module.exports={
-	apiHost:"https://www.fd175.com/",
-	appRoot:"https://www.fd175.com/uniapp/h5/", 
+	apiHost:"https://kfbc.deitui.com/",
+	appRoot:"https://kfbc.deitui.com/uniapp/h5/", 
 	urlSuccess:"../b2c_order/success",
 	urlFail:"../b2c_order/fail",
 	paytype:"alipay",
@@ -28,7 +28,7 @@ module.exports={
 					'signType': 'MD5',
 					'paySign': res.data.paySign,
 					success: function (res) {
-						
+						console.log("正在跳转："+that.urlSuccess)
 						uni.redirectTo({
 							url:that.urlSuccess
 						})
@@ -44,7 +44,31 @@ module.exports={
 			}
 		})
 		// #endif
-		 
+		// #ifdef MP-ALIPAY
+		uni.request({
+			url:that.apiHost+"/index.php?m=recharge_alipay_mini&a=PayUrl&ajax=1",
+			data:{
+				orderno:ops.orderno,
+				openid: uni.getStorageSync('openid')
+			},
+			success:function(res){
+				my.tradePay({
+				  // 调用统一收单交易创建接口（alipay.trade.create），获得返回字段支付宝交易号trade_no
+				  tradeNO: res.data.data.trade_no,
+				  success: (res) => {
+				    uni.redirectTo({
+				    	url:that.urlSuccess
+				    })
+				  },
+				  fail: (res) => {
+				    uni.redirectTo({
+				    	url:that.urlFail
+				    })
+				  }
+				});
+			}
+		})
+		// #endif 
 		// #ifdef APP-PLUS
 		uni.request({
 			url:that.apiHost+"/index.php?m=recharge_app&a=payurl&ajax=1",
@@ -53,7 +77,7 @@ module.exports={
 				paytype:that.paytype
 			},
 			success:function(p){
-				 
+				console.log(p) 
 				if(that.paytype=='alipay'){
 					var orderInfo=p.data.data;
 				}else{

@@ -15,8 +15,12 @@
 				</view>
 				<view class="input-flex">
 					<view class="input-flex-label">省市</view>
- 
-					<picker-region :defaultProvinceid="pageData.data.province_id" :defaultCityid="pageData.data.city_id" :defaultTownid="pageData.data.town_id"></picker-region>
+					<view class="none">
+						<input type="text" name="province_id" :value="provinceid" />
+						<input type="text" name="city_id" :value="cityid" />
+						<input type="text" name="town_id" :value="townid" />
+					</view>
+					<picker-region  class="flex-1" @callParent="callRegion"  :defaultProvinceid="pageData.data.province_id" :defaultCityid="pageData.data.city_id" :defaultTownid="pageData.data.town_id"></picker-region>
 
 				</view>
 				<view class="input-flex">
@@ -44,6 +48,9 @@
 				pageLoad:false, 
 				pageHide:false,
 				pageData:{},
+				provinceid:0,
+				cityid:0,
+				townid:0
 			}
 			
 		},
@@ -56,6 +63,11 @@
 		},
 
 		methods: {
+			callRegion:function(e){
+				this.provinceid=e.provinceid;
+				this.cityid=e.cityid;
+				this.townid=e.townid;
+			},
 			getPage: function () {
 				var that = this;
 				uni.request({

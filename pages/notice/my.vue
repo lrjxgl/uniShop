@@ -5,14 +5,14 @@
 			<view class="emptyData">暂无消息</view>
 		</view>
 		<view v-else>
-			<view class="row-box pdb-5 mgb-5" v-for="(item,index) in pageData.data" :key="index">
-				<view class="flex pdb-5 mgb-5 border-bottom">
-					<view class="btn-small btn-outline-success">{{item.status_name}}</view>
+			<view class="row-box  mgb-5" v-for="(item,index) in pageData.data" :key="index">
+				<view class="flex  mgb-5">
+					<view class="cl-success">{{item.status_name}}</view>
 					<view class="flex-1"></view>
-					<view class="time cora pdr-10">{{item.timeago}}</view>
+					<view class="cl3 f12 pdr-10">{{item.timeago}}</view>
 				</view>
 
-				<view class=" cor2">
+				<view class="cl2">
 					<rich-text :nodes="item.content"></rich-text>
 				</view>
 

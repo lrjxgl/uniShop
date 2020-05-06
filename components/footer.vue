@@ -2,23 +2,14 @@
 	<view>
 		<view class="footer-row"></view>
 		<view class="footer">
-			<view @click="goHome()" class="footer-item footer-active icon-home">
+			<view @click="goHome()"  v-bind:class="{'footer-active':tab=='home'}" class="footer-item icon-home">
 				 首页
 				 
 			</view>
-			<view @click="goForum()" class="footer-item icon-news">
-				福鼎论坛
-			</view>
-			<view @click="goAdd()" class="footer-item footer-add">
 			 
-				发布帖子
-			</view>
-			<view @click="goFenlei()" class="footer-item icon-activity">
-				分类服务
-			</view>
 			
 		
-			<view @click="goUser()" class="footer-item icon-my_light">
+			<view @click="goUser()"  v-bind:class="{'footer-active':tab=='user'}" class="footer-item icon-my_light">
 				 我的 
 			</view>
 		
@@ -28,8 +19,9 @@
 
 <script>
 	export default {
+		name:"default-footer",
 		props:{
-			tab:"index"
+			tab:""
 		},
 		methods:{
 			goHome:function(){

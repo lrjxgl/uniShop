@@ -1,21 +1,24 @@
 <template>
-	<div>
-		<div v-if="!pageLoad"><page-loading></page-loading></div>
-		<div v-else>
-		<div class="pd-5">
-			<div class="flex">
+	<view>
+		<view v-if="!pageLoad"><page-loading></page-loading></view>
+		<view v-else>
+		<view class="pd-5">
+			<view class="flex">
+				<image :src="pageData.site.logo" mode="widthFix" class="wh-30 mgr-5"></image>
 			<input  v-model="keyword" type="search" class="header-search pdl-5">
-			<div @click="search" class="header-search-btn  iconfont icon-search"></div>
-		</div>
-		</div>
-		<swiper :indicator-dots="true" :autoplay="true" :interval="3000" :duration="1000">
-			<swiper-item v-for="(item,key) in pageData.flashList" :key="key">
-				<view class="swiper-item">
-					<image @click="gourl(item.link1)" :src="item.imgurl" style="width:100%" mode="widthFix"></image>
-				</view>
-			</swiper-item>
-		
-		</swiper>
+			<view @click="search" class="header-search-btn  iconfont icon-search"></view>
+		</view>
+		</view>
+		<view class="scale-swiper-box" style="padding-bottom: 50%;">
+			<swiper class="scale-swiper" :indicator-dots="true" :autoplay="true" :interval="3000" :duration="1000">
+				<swiper-item v-for="(item,key) in pageData.flashList" :key="key">
+					<view class="swiper-item">
+						<image @click="gourl(item.link1)" :src="item.imgurl" style="width:100%" mode="widthFix"></image>
+					</view>
+				</swiper-item>
+			
+			</swiper>
+		</view>
 		<view class="m-navPic mgt-5 mgb-5">
 			<navigator v-for="(item,key) in pageData.navList" :key="key"  :url="item.link1" class="m-navPic-item">
 				<image class="m-navPic-img"  mode="widthFix" :src="item.imgurl"></image>
@@ -23,63 +26,97 @@
 			</navigator>
 		
 		</view>
-		<div class="row-box-hd  pdl-10" >
-			<div class="flex-1 f16">推荐</div>
-			<div class="row-box-more">更多</div>
-		</div>
-		<div class="mtlist">
-			 
-			<div v-for="(item,index) in pageData.recList" :key="index" @click="goProduct(item.id)" class="mtlist-item">
-				<div class="mtlist-item-bd">
-					<div class="mtlist-imgbox">
-						<image mode="widthFix" class="mtlist-img " :src="item.imgurl+'.small.jpg'" ></image>
-					</div>
-					<div class="mtlist-item-pd">
-						<div class="mtlist-item-money">
-							<div class="mtlist-item-money-flex">￥
-								<text class="mtlist-item-money_money">{{item.price}}</text>
-							</div>
-							<div class="mtlist-item-money_num">月销{{item.buy_num}}件</div>
-						</div>
-						<div class="mtlist-title">{{item.title}}</div>
-						 
-					</div>
+		<div @click="gourl('../../pageb2c/b2c_group_product/index?gkey=bimai')" class="row-box-hd  pdl-10">
+			<div class="iconfont mgr-10 icon-likefill cl-f30 f22"></div>
+			<div class="flex-1 ">
+				<div class="f14">必买好货</div>
+				<div class="cl3 f12">大家都会心动的产品</div>
 				</div>
-			</div>
-			 
+			<div   class="row-box-more"></div>
 		</div>
-		<div class="row-box-hd  pdl-10 mtt10" >
-			<div class="flex-1 f16">热销</div>
-			<div class="row-box-more">更多</div>
-		</div>
-		<div class="mtlist">
+		<view class="mtlist">
 			 
-			<div v-for="(item,index) in pageData.hotList" :key="index" @click="goProduct(item.id)" class="mtlist-item">
-				<div class="mtlist-item-bd">
-					<div class="mtlist-imgbox">
-						<image mode="widthFix" class="mtlist-img " :src="item.imgurl+'.small.jpg'" ></image>
-					</div>
-					<div class="mtlist-item-pd">
-						<div class="mtlist-item-money">
-							<div class="mtlist-item-money-flex">￥
+			<view v-for="(item,index) in pageData.bmList" :key="index" @click="goProduct(item.id)" class="mtlist-item">
+				<view class="mtlist-item-bd">
+					<image mode="widthFix" class="mtlist-img " :src="item.imgurl+'.small.jpg'" ></image>
+					<view class="mtlist-item-pd">
+						<view class="mtlist-item-money">
+							<view class="mtlist-item-money-flex">￥
 								<text class="mtlist-item-money_money">{{item.price}}</text>
-							</div>
-							<div class="mtlist-item-money_num">月销{{item.buy_num}}件</div>
-						</div>
-						<div class="mtlist-title">{{item.title}}</div>
+							</view>
+							<view class="mtlist-item-money_num">月销{{item.buy_num}}件</view>
+						</view>
+						<view class="mtlist-title">{{item.title}}</view>
 						 
-					</div>
-				</div>
-			</div>
+					</view>
+				</view>
+			</view>
 			 
+		</view>
+		 
+		<div  @click="gourl('../../pageb2c/b2c_product/index?type=recommend')" class="row-box-hd  pdl-10">
+			<div class="iconfont mgr-10 icon-moneybag cl-f30 f20"></div>
+			<div class="flex-1 ">
+				<div class="f14">猜你喜欢</div>
+				<div class="cl3 f12">Guess You Like It</div>
+				</div>
+			<div class="row-box-more"></div>
 		</div>
+		<view class="mtlist">
+			 
+			<view v-for="(item,index) in pageData.recList" :key="index" @click="goProduct(item.id)" class="mtlist-item">
+				<view class="mtlist-item-bd">
+					<image mode="widthFix" class="mtlist-img " :src="item.imgurl+'.small.jpg'" ></image>
+					<view class="mtlist-item-pd">
+						<view class="mtlist-item-money">
+							<view class="mtlist-item-money-flex">￥
+								<text class="mtlist-item-money_money">{{item.price}}</text>
+							</view>
+							<view class="mtlist-item-money_num">月销{{item.buy_num}}件</view>
+						</view>
+						<view class="mtlist-title">{{item.title}}</view>
+						 
+					</view>
+				</view>
+			</view>
+			 
+		</view>
+		 
+		<div @click="gourl('../../pageb2c/b2c_product/index?type=hot')" class="row-box-hd  pdl-10 mtt10">
+			<div class="iconfont mgr-10 icon-hot_light cl-f30 f20"></div>
+			<div class="flex-1 ">
+				<div class="f14">热销商品</div>
+				<div class="cl3 f12">Hot Goods</div>
+				</div>
+			<div class="row-box-more"></div>
 		</div>
+		<view class="mtlist">
+			 
+			<view v-for="(item,index) in pageData.hotList" :key="index" @click="goProduct(item.id)" class="mtlist-item">
+				<view class="mtlist-item-bd">
+					<image mode="widthFix" class="mtlist-img " :src="item.imgurl+'.small.jpg'" ></image>
+					<view class="mtlist-item-pd">
+						<view class="mtlist-item-money">
+							<view class="mtlist-item-money-flex">￥
+								<text class="mtlist-item-money_money">{{item.price}}</text>
+							</view>
+							<view class="mtlist-item-money_num">月销{{item.buy_num}}件</view>
+						</view>
+						<view class="mtlist-title">{{item.title}}</view>
+						 
+					</view>
+				</view>
+			</view>
+			 
+		</view>
+		</view>
 		<b2c-footer tab="home"></b2c-footer>
-	</div>
+	</view>
 	
 </template>
 
 <script>
+	var cacheKey = "index_index";
 	import b2cFooter from "../../components/b2cfooter.vue";
 	export default{
 		components:{
@@ -93,20 +130,54 @@
 			}
 		},
 		onLoad:function(ops){
-			uni.setNavigationBarTitle({
-				title:"福鼎商城"
-			})
-			this.getPage();
+			if (!this.getCache()) {
+				uni.showNavigationBarLoading();
+				this.getPage();
+			} 
+		},
+		onReachBottom:function(){
+			console.log("reachBottom");
+		},
+		onPullDownRefresh: function() {
+			this.refresh();
 		},
 		methods:{
+			setCache: function() {
+				var val = {
+					pageLoad: this.pageLoad,
+					pageData: this.pageData,
+					keyword: this.keyword,
+					expire: Date.parse(new Date()) / 1000 + 300
+				}
+				uni.setStorageSync(cacheKey, JSON.stringify(val));
+			},
+			getCache: function() {
+				var val = uni.getStorageSync(cacheKey);
+				if (!val) return false;
+				var time = Date.parse(new Date()) / 1000;
+				if (val.expire < time) {
+					return false;
+				}
+				var v = JSON.parse(val);
+				this.pageLoad = v.pageLoad;
+				this.pageData = v.pageData;
+				this.keyword = v.keyword;
+			
+				return true;
+			},
+			gourl:function(url){
+				uni.navigateTo({
+					url:url
+				})
+			},
 			search:function(){
 				uni.navigateTo({
-					url:"../b2c_search/index?keyword="+encodeURI(this.keyword)
+					url:"../../pageb2c/b2c_search/index?keyword="+this.keyword
 				})
 			},
 			goProduct:function(id){
 				uni.navigateTo({
-					url:"../b2c_product/show?id="+id
+					url:"../../pageb2c/b2c_product/show?id="+id
 				})
 			},
 			getPage:function(){
@@ -116,8 +187,16 @@
 					success:function(res){
 						that.pageData=res.data;
 						that.pageLoad=true;
+						uni.hideNavigationBarLoading();
+						that.setCache();
 					}
 				})
+			},
+			refresh: function() {
+				this.getPage();
+				setTimeout(function() {
+					uni.stopPullDownRefresh();
+				}, 1000)
 			},
 		}
 	}

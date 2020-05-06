@@ -1,45 +1,45 @@
 <template>
-	<div>
-		<div v-if="cmData.rscount==0" class="emptyData">暂无评论</div>
-		<div v-else id="comment-list" class="comment-list">
+	<view>
+		<view v-if="cmData.rscount==0" class="emptyData">暂无评论</view>
+		<view v-else id="comment-list" class="comment-list">
 			
-			<div class="comment-item" v-for="(item,key) in cmData.list" :key="key">
+			<view class="comment-item" v-for="(item,key) in cmData.list" :key="key">
 				<image class="comment-item-head" :src="item.user_head+'.100x100.jpg'"></image>
-				<div class="flex-1">
-					<div class="comment-item-nick">
+				<view class="flex-1">
+					<view class="comment-item-nick">
 						{{item.nickname}}
-					</div>
-					<div class="comment-item-tools">
-						<div class="comment-item-addr">
+					</view>
+					<view class="comment-item-tools">
+						<view class="comment-item-addr">
 							{{item.ip_city}}
-						</div>
-						<div class="comment-item-time">
+						</view>
+						<view class="comment-item-time">
 							{{item.timeago}}
-						</div>
-					</div>
-					<div class="comment-item-content" :pid="item.id" :title="'回复@'+item.nickname" :reply_text="'回复@'+item.nickname">
+						</view>
+					</view>
+					<view class="comment-item-content" :pid="item.id" :title="'回复@'+item.nickname" :reply_text="'回复@'+item.nickname">
 						{{item.content}}
-					</div>
-				</div>
-			</div>
-		</div>
-		<div class="h60"></div>
-		<div class="comment-formbox">
-			<div class="comment-input-btn js-write" @click="cmFormShow()" v-bind:class="cmBtnClass">写跟帖</div>
+					</view>
+				</view>
+			</view>
+		</view>
+		<view class="h60"></view>
+		<view class="comment-formbox">
+			<view class="comment-input-btn js-write" @click="cmFormShow()" v-bind:class="cmBtnClass">写跟帖</view>
 			<form @submit="cmFormSubmit" class="comment-formbox-form js-form" v-bind:class="cmFormClass">
-				<div class="none">
+				<view class="none">
 					<input type="text" name="tablename" :value="tablename" />
 					<input type="text" name="objectid" :value="objectid" />
-				</div>
+				</view>
 				<textarea name="content" class="comment-formbox-textarea"></textarea>
-				<div class="comment-formbox-btns">
+				<view class="comment-formbox-btns">
 					<button formType="submit" class="comment-formbox-bt  js-submit">评论</button>
-					<div class="w60"></div>
-					<div @click="cmFormHide()" class="comment-formbox-bt js-cancel">取消</div>
-				</div>
+					<view class="w60"></view>
+					<view @click="cmFormHide()" class="comment-formbox-bt js-cancel">取消</view>
+				</view>
 			</form>
-		</div>
-	</div>
+		</view>
+	</view>
 </template>
 
 <script>

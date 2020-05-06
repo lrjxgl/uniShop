@@ -1,0 +1,23 @@
+.blogList{
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	margin-bottom: 10px;
+	padding-top: 10px;
+}
+.blogList-item,.blogList-more{
+	font-size: 14px;
+	padding: 4px 6px;
+	border: 1px solid #eee;
+	margin: 5px;
+	background-color: #fff;
+	color: #666;
+	border-radius: 5px;
+	cursor: pointer;
+}
+.blogList-more{
+	color: #0034FF;
+}
+.blogLink{
+	color: #009688;
+}

@@ -1,8 +1,8 @@
 
 module.exports = {
 	//apiHost:"http://skyshop.skymvc.com/",
-	apiHost:"https://www.fd175.com/",
-	appRoot:"https://www.fd175.com/uniapp/h5/", 
+	apiHost:"https://kfbc.deitui.com/",
+	appRoot:"https://kfbc.deitui.com/uniapp/h5/", 
     json_add:function(a,b){
  
         if(a==undefined || a.length==0) return b;
@@ -59,10 +59,16 @@ module.exports = {
 		uni.getStorageSync("openid")
 	},
 	getLoginCode:function(){
-		return uni.getStorageInfoSync("loginCode");
+		return uni.getStorageSync("loginCode");
 	},
 	setLoginCode:function(code){
 		uni.setStorageSync("loginCode",code)
+	},
+	getS2cScid:function(){
+		return uni.getStorageSync("s2c_scid");
+	},
+	setS2cScid:function(v){
+		uni.setStorageSync("s2c_scid",v);
 	},
 	fromapp:function(){
 		//var $paltform= uni.platform();
@@ -99,7 +105,7 @@ module.exports = {
 				
 				if(rs.data.error==1000){
 					uni.navigateTo({
-						url:"../login/index"
+						url:"../../pages/login/index"
 					})
 				}else{
 					ops.success(rs.data);
@@ -126,7 +132,7 @@ module.exports = {
 			success:function(rs){
 				if(rs.data.error==1000){
 					uni.navigateTo({
-						url:"../login/index"
+						url:"../../pages/login/index"
 					})
 				}else{
 					ops.success(rs.data);
@@ -136,7 +142,7 @@ module.exports = {
 	},
 	goHome:function(){
 		uni.redirectTo({
-			url:"../index/index"
+			url:"../../pages/index/index"
 		})
 		/*
 		uni.switchTab({
@@ -144,29 +150,16 @@ module.exports = {
 		})
 		*/
 	},
-	goCart:function(){
-		uni.switchTab({
-			url:"../cart/index",
-		})
-	},
+ 
 	goUser:function(){
 		uni.switchTab({
-			url:"../user/index",
+			url:"../../pages/user/index",
 		})
 	},
-	goProduct:function(){
-		uni.switchTab({
-			url:"../product/index",
-		})
-	},
-	goFenlei:function(){
-		uni.switchTab({
-			url:"../fenlei/index",
-		})
-	},
+	 
 	goLogin:function(){
 		uni.navigateTo({
-			url:"../login/index"
+			url:"../../pages/login/index"
 		})
 	},
 	goH5WeiXin:function(backurl){
@@ -184,13 +177,13 @@ module.exports = {
 		html=html.replace(' class="brush:html;toolbar:false"'," ");
 		html=html.replace(/<pre /g,'<pre style="border:1px solid #eee;padding:10px;max-height:300px;overflow:auto;" ');
 		
-		html=html.replace(/<pre /g,"<div ");
-		html=html.replace("</pre>","</div>");
+		html=html.replace(/<pre /g,"<view ");
+		html=html.replace("</pre>","</view>");
 		html=html.replace(/\n/g,"<br />");
-		html=html.replace(/<iframe /,'<div style="display:none" ');
-		html=html.replace(/<\/iframe>/,'</div>');
-		html=html.replace("<section ","<div ");
-		html=html.replace("</section>","</div>");
+		html=html.replace(/<iframe /,'<view style="display:none" ');
+		html=html.replace(/<\/iframe>/,'</view>');
+		html=html.replace("<section ","<view ");
+		html=html.replace("</section>","</view>");
 		 
 		//console.log(html);
 		return html;

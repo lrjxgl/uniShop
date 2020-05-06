@@ -9,13 +9,13 @@
 
 					<view class="uhead-box">
 						<view class="uhead-nick">{{pageData.data.nickname}}</view>
-						<view class="uhead-rnum flex">
+						<view class="uhead-rnum flex flex-ai-center">
 							余额 ￥
 							<text class="f14 cl-money mgl-5">{{pageData.data.money}} </text>
 
 
 						</view>
-						<view class="uhead-rnum flex">
+						<view class="uhead-rnum flex flex-ai-center">
 
 							金币
 							<text class="cl-money mgl-5 mgr-5">{{pageData.data.gold}}</text>
@@ -32,30 +32,30 @@
 					<view class="order-box-hd">
 						我的订单
 						<view class="flex-1"></view>
-						<view @click="gourl('../b2c_order/my')" class="fr cor2 flex flex-center">全部订单
+						<view @click="gourl('../../pageb2c/b2c_order/my')" class="fr cor2 flex flex-center">全部订单
 							<text class="iconfont icon-right"></text>
 						</view>
 					</view>
 					<view class="order-box-status flex">
-						<view @click="gourl('../b2c_order/my?type=unpay')" class="order-box-item">
+						<view @click="gourl('../../pageb2c/b2c_order/my?type=unpay')" class="order-box-item">
 							<text class="iconfont icon-moneybag"></text> 待付款</view>
-						<view @click="gourl('../b2c_order/my?type=unreceive')" class="order-box-item">
+						<view @click="gourl('../../pageb2c/b2c_order/my?type=unreceive')" class="order-box-item">
 							<text class="iconfont icon-deliver"></text> 待收货</view>
-						<view @click="gourl('../b2c_order/my?type=unraty')" class="order-box-item">
+						<view @click="gourl('../../pageb2c/b2c_order/my?type=unraty')" class="order-box-item">
 							<text class="iconfont icon-comment"></text> 待评价</view>
 					</view>
 				</view>
 				 
-				<div v-for="(item,index) in pageData.navList" :key="index">
-					<div class="m-navPic mgb-5">
+				<view v-for="(item,index) in pageData.navList" :key="index">
+					<view class="m-navPic mgb-5">
 						 
 						<navigator v-for="(cc,ccindex) in item.child" :url="cc.link_url" :key="ccindex" class="m-navPic-item">
-							<div class="m-navPic-icon" v-bind:class="cc.icon"></div>
-							<div class="m-navPic-title">{{cc.title}}</div>
+							<view class="m-navPic-icon" v-bind:class="cc.icon"></view>
+							<view class="m-navPic-title">{{cc.title}}</view>
 						</navigator>
 						 
-					</div>
-				</div>	
+					</view>
+				</view>	
 				 
 
 
@@ -63,12 +63,13 @@
 			 
 		</view>
 		<view v-else class="bg-fff pd-10">
-				<div class="flex flex-center mgb-10 cl2">您还未登录,请先登录</div>
-				<div class="flex flex-center">
+				<view class="flex flex-center mgb-10 cl2">您还未登录,请先登录</view>
+				<view class="flex flex-center">
 					<navigator  class="btn-small" url="../login/index">前往登录</navigator>
-				</div>
+				</view>
 			
 		</view>
+		<mt-footer tab="user"></mt-footer>
 	</view>
 </template>
 
