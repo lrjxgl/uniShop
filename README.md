@@ -1,4 +1,5 @@
 # uniShop
+* 得推uniShop商城支持正常销售、拼团、限时促销模式
 # 安装说明
 * http://uniapp.dcloud.io/ 
 * 下载HBuilderX 
