@@ -2,14 +2,19 @@
 	<view>
 		<view class="main-body" id="app" >
 			<view v-if="unLogin" >
-				<div class="emptyData">您还未登录</div>
-				<div class="flex flex-center">
-					<div @click="gourl('../../pages/login/index')" class="btn">去登录</div>
-				</div>
-				
+				<view class="row-box mgb-10">
+					<div class="emptyData">您还未登录</div>
+					<div class="flex mgb-10  flex-center">
+						<div @click="gourl('../../pages/login/index')" class="btn">去登录</div>
+					</div>
+				</view>
+				<b2c-reclist></b2c-reclist>
 			</view>
 			<view v-if="pageLoad">
-				<view v-if="pageData.cartList==null" class="emptyData">购物车，暂无商品</view>
+				<view v-if="pageData.cartList==null">
+					<view class="emptyData">购物车，暂无商品</view>
+					<b2c-reclist ptitle="猜你喜欢"></b2c-reclist>
+				</view>	
 				<view v-else>
 					<view class="flexlist" >
 						<view class="flexlist-item" v-for="(item,index) in pageData.cartList" :key="index">
@@ -46,10 +51,12 @@
 </template>
 
 <script>
-	import b2cFooter from "../../components/b2cfooter.vue"; 
+	import b2cFooter from "../../components/b2cfooter.vue";
+	import b2cReclist from "../../components/b2c-reclist.vue";
 	export default{
 		components:{
-			b2cFooter
+			b2cFooter,
+			b2cReclist
 		}, 
 		data: function() {
 			return {
@@ -63,6 +70,10 @@
 		},
 		onShow:function(){
 			this.getPage();
+		},
+		onPullDownRefresh:function(){
+			this.getPage();
+			uni.stopPullDownRefresh();
 		},
 		methods: {
 			gourl:function(url){

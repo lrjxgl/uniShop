@@ -3,7 +3,7 @@
 		<view class="footer-row"></view>
 		<view class="footer">
 			<view class="footer-item icon-home" v-bind:class="{'footer-active':tab=='home'}" @click="goHome()">首页</view>
-			 
+			<view class="footer-item icon-cascades" v-bind:class="{'footer-active':tab=='category'}" @click="goFenlei()">分类</view> 
 			<view class="footer-item icon-cart" v-bind:class="{'footer-active':tab=='cart'}" @click="goCart()">购物车</view>
 			<view class="footer-item icon-my_light" v-bind:class="{'footer-active':tab=='user'}"  @click="goUser()">我的</view>
 		</view>

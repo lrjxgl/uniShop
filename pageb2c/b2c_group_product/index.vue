@@ -6,11 +6,12 @@
 				<view class="mtlist-item-bd">
 					<image class="mtlist-img" mode="widthFix" :src="item.imgurl+'.small.jpg'"></image>
 					<view class="mtlist-item-pd">
-						<view class="mtlist-item-money">
-							<view class="mtlist-item-money-flex">￥
-								<text class="mtlist-item-money_money">{{item.price}}</text>
-							</view>
-							<view class="mtlist-item-money_num">月销{{item.buy_num}}件</view>
+						<view class="flex flex-ai-center mgb-5">
+							<text class="cl-money f14">￥</text>
+							<text class="cl-money f16">{{item.price}}</text>
+							<view class="flex-1"></view>
+							 
+							<text class="cl2">月销{{item.buy_num}}件</text>
 						</view>
 						<view class="mtlist-title">{{item.title}}</view>
 						 

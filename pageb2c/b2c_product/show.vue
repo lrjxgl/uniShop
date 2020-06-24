@@ -106,7 +106,14 @@
 					<rich-text :nodes="pageData.data.content"></rich-text>
 				</view>
 			</view>
-
+			<view class="row-box mgb-5">
+				<view class="flex flex-center ">
+					<text class="iconfont icon-like cl-red mgr-5"></text>
+					<text class="cl-red">购买此商品的人还买</text> 
+				</view>	
+			</view>
+			
+			<b2c-likelist :productid="pageData.data.id"></b2c-likelist>
 			<view class="h60"></view>
 			<view v-if="ispin" class="flcart">
 				 
@@ -134,7 +141,7 @@
 					<view class="flcart-icon iconfont icon-cart"></view>
 					购物车
 				</navigator>
-				<view class="flex-1"></view>
+				 
 				<view class="flcart-f2" @click="ppBoxShow(false)">加入购物车</view>
 				<view @click="ppBoxShow(true)" class="flcart-f2 bg-f30">立即购买</view>
 			</view>
@@ -206,10 +213,12 @@
 <script>
 	import b2cProraty from "../../components/b2c-proraty.vue";
 	import tableFields from "../../components/tablefield/tablefield-show.vue";
+	import b2cLikelist from "../../components/b2c-likelist.vue";
 	export default {
 		components: {
 			b2cProraty,
-			tableFields
+			tableFields,
+			b2cLikelist
 		},
 		data: function() {
 			return {
@@ -312,7 +321,12 @@
 						orderid:that.orderid
 					},
 					success: function(res) {
-						 
+						if(res.error){
+							uni.showToast({
+								title:res.message
+							})
+							return false;
+						} 
 						if (res.data.data.pt_open > 0) {
 							that.ispin = true;
 						}

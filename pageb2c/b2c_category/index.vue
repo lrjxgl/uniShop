@@ -3,19 +3,23 @@
 		<view class="main-body bg-white mh100" >
 			<view class="list-side" :style="{'top':sideTop+'px'}">
 
-				<view @click="setCat(item.catid)" v-for="(item,index) in pageData.catList"  :key="index" class="list-side-item" v-bind:class="{'list-side-item-active':catid==item.catid}">{{item.title}}</view>
+				<view @click="setCat(item.catid)" v-for="(item,index) in pageData.catList"  :key="index" class="list-side-item" :class="{'list-side-item-active':catid==item.catid}">{{item.title}}</view>
 
 			</view>
-			<view class="list-main" v-bind:style="{'min-height':height+'upx'}">
+			<view class="list-main" :style="{'min-height':height+'px'}">
 
 				<view v-for="(item,index) in pageData.catList" :key="index" class="list-cat-item">
 					<view v-if="item.catid==catid">
 						 
-						<view  @click="goList(item.catid)" class="list-cat-hd">{{item.title}}</view>
+						<view  @click="goList(item.catid)" class="list-cat-hd">
+							<div class="list-cat-hd-line"></div>
+							<div class="mgr-5 mgl-5">{{item.title}}</div>
+							<div class="list-cat-hd-line"></div>
+						</view>
 						<view class="list-child">
 
 							<view v-for="(cc,ccIndex) in item.child" :key="ccIndex" @click="goList(cc.catid)" class="list-child-item">
-								<image class="list-child-img" mode="widthFix" :src="cc.imgurl+'.middle.jpg'"></image>
+								<image class="list-child-img" mode="widthFix" :src="cc.imgurl+'.100x100.jpg'"></image>
 								<view class="list-child-title">{{cc.title}}</view>
 							</view>
 						</view>
@@ -86,10 +90,10 @@
  
 .list-side {
 	position: fixed;
-	left: 0upx;
-	top: 110upx;
-	bottom: 130upx;
-	width: 170upx;
+	left: 0rpx;
+	top: 110rpx;
+	bottom: 130rpx;
+	width: 170rpx;
 	border-right: 1px solid #eee;
 	text-align: center;
 	background-color: #fff;
@@ -97,7 +101,7 @@
 
 .list-side-item {
 	color: #707070;
-	padding: 22upx 11upx;
+	padding: 22rpx 11rpx;
 	font-size: 14px;
 	display: block;
 	cursor: pointer;
@@ -105,55 +109,38 @@
 
 .list-side-item-active {
 	color: #ff842b;
-	border-left: 7upx solid #ff842b;
+	border-left: 7rpx solid #ff842b;
 }
 
 .list-main {
-	margin-left: 180upx;
-	padding-top: 11upx;
+	margin-left: 180rpx;
+	padding-top: 11rpx;
 }
 
 .list-cat-img {
 	max-width: 100%;
-	padding-right: 11upx;
+	padding-right: 11rpx;
 }
 
 .list-cat-hd {
-	text-align: center;
-	padding: 22upx 0;
-	color: #666;
-	font-size: 14px;
-	position: relative;
+	 
+	padding: 22rpx 0;
+	 
+	width:160px;
+	margin: 0 auto;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: center;
 }
-
-.list-cat-hd:before {
-	display: block;
-	width: 44upx;
-	height: 2upx;
-	background-color: #e0e0e0;
-	position: absolute;
-	right: 60%;
-	top: 50%;
-	content: "-";
-	overflow: hidden;
-	color: #666;
-}
-
-.list-cat-hd:after {
-	display: block;
-	width: 44upx;
-	height: 2upx;
-	background-color: #e0e0e0;
-	position: absolute;
-	left: 60%;
-	top: 50%;
-	content: "-";
-	overflow: hidden;
-	color: #666;
-}
+.list-cat-hd-line{
+	width:20px;
+	height: 1px;
+	background-color: #ddd; 
+} 
 
 .list-child {
-	margin-bottom: 22upx;
+	margin-bottom: 22rpx;
 	flex-direction: row;
 	flex-wrap: wrap;
 }
@@ -162,8 +149,8 @@
 	float: left;
 	display: block;
 	width: 33.333%;
-	margin-bottom: 22upx;
-	padding: 0 22upx;
+	margin-bottom: 22rpx;
+	padding: 0 22rpx;
 	box-sizing: border-box;
 	font-size: 14px;
 	color: #666;
@@ -172,14 +159,14 @@
 
 .list-child-img {
 	width: 100%;
-	height: 60upx;
+	height: 60rpx;
 	display: block;
-	margin-bottom: 11upx;
+	margin-bottom: 11rpx;
 }
 
 .list-child-title {
-	height: 66upx;
-	line-height: 66upx;
+	height: 66rpx;
+	line-height: 66rpx;
 	overflow: hidden;
 }
 

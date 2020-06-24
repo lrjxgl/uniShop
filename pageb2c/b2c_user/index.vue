@@ -1,11 +1,13 @@
 <template>
 	<view class="main-body">
 		<view v-if="unLogin" >
-			<div class="emptyData">您还未登录</div>
-			<div class="flex flex-center">
-				<div @click="gourl('../../pages/login/index')" class="btn">去登录</div>
-			</div>
-			
+			<view class="row-box mgb-10">
+				<div class="emptyData">您还未登录</div>
+				<div class="flex mgb-10  flex-center">
+					<div @click="gourl('../../pages/login/index')" class="btn">去登录</div>
+				</div>
+			</view>
+			<b2c-reclist></b2c-reclist>
 		</view>
 		<view v-else>
 			<view class="uhead">
@@ -92,9 +94,11 @@
 <script>
 	 
 	import b2cFooter from "../../components/b2cfooter.vue";
+	import b2cReclist from "../../components/b2c-reclist.vue";
 	export default {
 		components: {
-			b2cFooter
+			b2cFooter,
+			b2cReclist
 		},
 		data: function(){
 			return {

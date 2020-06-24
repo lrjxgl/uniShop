@@ -1,8 +1,16 @@
 <template>
 	<view>
-		 <view v-if="catList" class="tabs-border">
-			
-		 	<view @click="setCat(item.catid)" v-bind:class="{'tabs-border-active':catid==item.catid}" v-for="(item,index) in catList" :key="index" class="tabs-border-item">{{item.title}}</view> 	 
+		 
+		 <view class="tabs-border">
+			<view @click="setOrder('')" :class="{'tabs-border-active':orderby==''}" class="tabs-border-item">综合</view>
+			<view @click="setOrder('buy_num')"  :class="{'tabs-border-active':orderby=='buy_num'}" class="flex flex-center tabs-border-item">
+				<text class="mgr-5">销量</text>
+				<text class="iconfont icon-godown"></text>
+			</view>
+			<view @click="setOrder('price')"  :class="{'tabs-border-active':orderby=='price'}" class="tabs-border-item flex flex-center ">
+				<text class="mgr-5">价格</text>
+				<text class="iconfont icon-godown"></text>
+			</view> 
 		 </view>
 		 <view class="emptyData" v-if="Object.keys(list).length==0">暂无产品上架</view>
 		 <view class="mtlist mgt-5">
@@ -11,14 +19,15 @@
 		 		<view class="mtlist-item-bd">
 		 			<image mode="widthFix" class="mtlist-img" :src="item.imgurl+'.small.jpg'"></image>
 		 			<view class="mtlist-item-pd">
-		 				<view class="mtlist-item-money">
-		 					<view class="mtlist-item-money-flex">￥
-		 						<text class="mtlist-item-money_money">{{item.price}}</text>
-		 					</view>
-		 					<view class="mtlist-item-money_num">月销{{item.buy_num}}件</view>
+		 				<view class="flex flex-ai-center mgb-5">
+		 					<text class="cl-money f14">￥</text>
+		 					<text class="cl-money f16">{{item.price}}</text>
+							<view class="flex-1"></view>
+							 
+		 					<text class="cl2">月销{{item.buy_num}}件</text>
 		 				</view>
 		 				<view class="mtlist-title">{{item.title}}</view>
-		 				<view class="mtlist-desc">{{item.description}}</view>
+		 				 
 		 			</view>
 		 		</view>
 		 	</view>
@@ -39,7 +48,8 @@
 				list:[],
 				pageCatid:0,
 				per_page:0,
-				isFirst:0
+				isFirst:0,
+				orderby:""
 			}
 		},
 		onLoad:function(ops){
@@ -56,6 +66,12 @@
 				this.per_page=0;
 				this.getList();
 			},
+			setOrder:function(o){
+				this.orderby=o;
+				this.isFirst=true;
+				this.per_page=0;
+				this.getList();
+			},
 			goProduct:function(id){
 				uni.navigateTo({
 					url:"../b2c_product/show?id="+id
@@ -64,7 +80,11 @@
 			getPage:function(){
 				var that=this;
 				that.app.get({
-					url:that.app.apiHost+"/module.php?m=b2c_product&a=list&ajax=1&catid="+that.catid,
+					url:that.app.apiHost+"/module.php?m=b2c_product&a=list&ajax=1",
+					data:{
+						orderby:this.orderby,
+						catid:that.catid
+					},
 					success:function(res){					
 						that.per_page=res.data.per_page;
 						that.list=res.data.list;
@@ -86,7 +106,11 @@
 					return false;	
 				}
 				that.app.get({
-					url:that.app.apiHost+"/module.php?m=b2c_product&a=list&ajax=1&catid="+that.catid,
+					url:that.app.apiHost+"/module.php?m=b2c_product&a=list&ajax=1",
+					data:{
+						orderby:this.orderby,
+						catid:that.catid
+					},
 					success:function(res){
 						that.per_page=res.data.per_page;
 						

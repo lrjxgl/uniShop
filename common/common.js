@@ -1,8 +1,17 @@
 
 module.exports = {
-	//apiHost:"http://skyshop.skymvc.com/",
+	//apiHost:"http://fd175.skymvc.com/",
 	apiHost:"https://kfbc.deitui.com/",
-	appRoot:"https://kfbc.deitui.com/uniapp/h5/", 
+	appRoot:"https://kfbc.deitui.com/uniapp/h5/",
+	parseUrl:function(url){
+		var params = [],h;
+		var hash = url.slice(url.indexOf("?") + 1).split('&');
+		for (var i = 0; i < hash.length; i++) {
+			h = hash[i].split("=");
+			params[h[0]] = h[1];
+		}
+		return params;
+	}, 
     json_add:function(a,b){
  
         if(a==undefined || a.length==0) return b;
@@ -64,11 +73,11 @@ module.exports = {
 	setLoginCode:function(code){
 		uni.setStorageSync("loginCode",code)
 	},
-	getS2cScid:function(){
-		return uni.getStorageSync("s2c_scid");
+	getshopid:function(){
+		return uni.getStorageSync("set_shopid");
 	},
-	setS2cScid:function(v){
-		uni.setStorageSync("s2c_scid",v);
+	setshopid:function(v){
+		uni.setStorageSync("set_shopid",v);
 	},
 	fromapp:function(){
 		//var $paltform= uni.platform();
@@ -89,12 +98,14 @@ module.exports = {
 			ops.data={
 				authcode:this.getAuthCode(),
 				fromapp:this.fromapp(),
+				 
 				ajax:1
 			};
 		}else{
 			ops.data.authcode=this.getAuthCode();
 			ops.data.fromapp=this.fromapp();
 			ops.data.ajax=1;
+			 
 		}
 		
 		uni.request({
@@ -103,7 +114,7 @@ module.exports = {
 			data:ops.data,
 			success:function(rs){
 				
-				if(rs.data.error==1000){
+				if(rs.data.error==1000 && ops.unLogin==undefined){
 					uni.navigateTo({
 						url:"../../pages/login/index"
 					})
@@ -114,7 +125,7 @@ module.exports = {
 		})
 	},
 	post:function(ops){
-		var callback=callback;
+		 
 		var ops=ops;
 		if(ops.url.indexOf("?") >= 0){
 			ops.url+="&ajax=1&authcode="+this.getAuthCode()+"&fromapp="+this.fromapp();
@@ -130,7 +141,7 @@ module.exports = {
 				"content-type":"application/x-www-form-urlencoded"
 			},
 			success:function(rs){
-				if(rs.data.error==1000){
+				if(rs.data.error==1000 && ops.unLogin==undefined){
 					uni.navigateTo({
 						url:"../../pages/login/index"
 					})
@@ -141,7 +152,7 @@ module.exports = {
 		})
 	},
 	goHome:function(){
-		uni.redirectTo({
+		uni.reLaunch({
 			url:"../../pages/index/index"
 		})
 		/*
@@ -150,13 +161,26 @@ module.exports = {
 		})
 		*/
 	},
- 
-	goUser:function(){
+	goCart:function(){
 		uni.switchTab({
-			url:"../../pages/user/index",
+			url:"../cart/index",
 		})
 	},
-	 
+	goUser:function(){
+		uni.reLaunch({
+			url:"../../pagecsc/csc_user/index",
+		})
+	},
+	goProduct:function(){
+		uni.switchTab({
+			url:"../product/index",
+		})
+	},
+	goFenlei:function(){
+		uni.switchTab({
+			url:"../fenlei/index",
+		})
+	},
 	goLogin:function(){
 		uni.navigateTo({
 			url:"../../pages/login/index"

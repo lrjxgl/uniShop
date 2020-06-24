@@ -203,7 +203,10 @@
 					}
 				},
 				{
-					"path": "b2c_product/list"
+					"path": "b2c_product/list",
+					"style":{
+						"navigationBarTitleText":"产品列表"
+					}
 				},
 				{
 					"path": "b2c_product/show",
@@ -214,7 +217,7 @@
 				{
 					"path": "b2c_group_product/index",
 					"style": {
-						"navigationBarTitleText": ""
+						"navigationBarTitleText": "产品聚合"
 					}
 				},
 				{
@@ -226,7 +229,8 @@
 				{
 					"path": "b2c_cart/index",
 					"style": {
-						"navigationBarTitleText": "购物车"
+						"navigationBarTitleText": "购物车",
+						"enablePullDownRefresh": true
 					}
 				},
 				{
