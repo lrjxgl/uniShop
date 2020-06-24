@@ -1,6 +1,6 @@
 module.exports={
-	apiHost:"https://all.w.deitui.com/",
-	appRoot:"https://all.w.deitui.com/uniapp/h5/", 
+	apiHost:"https://kfbc.deitui.com/",
+	appRoot:"https://kfbc.deitui.com/uniapp/h5/", 
 	urlSuccess:"../b2c_order/success",
 	urlFail:"../b2c_order/fail",
 	paytype:"alipay",
