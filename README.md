@@ -1,6 +1,6 @@
 # uniShop
 * 得推uniShop商城支持正常销售、拼团、限时促销模式
-* 得推B2C商城系统，php后端授权优惠促销价，只要666元，期限一年。
+* 得推B2C商城系统 https://github.com/lrjxgl/deituiCms_b2c 
 * 官网 https://www.deituicms.com 
 * 得推云微站可以申请直接开通B2C商城，不用自建网站。
 # 安装说明
