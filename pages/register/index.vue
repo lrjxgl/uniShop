@@ -71,15 +71,14 @@
 			getYzm:function(){
 					if(!yzmEnable) return false;
 					var that=this;
-					uni.request({
+					that.app.get({
 						url:that.app.apiHost+"?m=register&a=SendSms&ajax=1",
 						data:{
-							telephone:this.telephone,
-							fromapp:that.app.fromapp()
+							telephone:this.telephone							 
 						},
 						success:function(res){
 							uni.showToast({
-								title:res.data.message,
+								title:res.message,
 							})
 							if(!res.error){
 								that.downTimer();
@@ -92,21 +91,17 @@
 			formSubmit:function(e){
 				var that=this;
 				e.detail.value.password2=e.detail.value.password;
-				uni.request({
+				that.app.post({
 					url:that.app.apiHost+"?m=register&a=regsave&ajax=1",
-					method:"POST",
-					header:{
-						"content-type":"application/x-www-form-urlencoded"
-					},
 					data:e.detail.value,
-					success:function(res){
-						var data=res.data;
-						if(res.data.error){
+					success:function(res){						 
+						if(res.error){
 							uni.showToast({
-								"title":res.data.message
+								"title":res.message
 							})
 						}else{
-							that.app.setAuthCode(data.data.authcode);
+							uni.setStorageSync("token",res.data.token);
+							uni.setStorageSync("refresh_token",res.data.refresh_token);
 							that.app.goHome();
 						}
 						

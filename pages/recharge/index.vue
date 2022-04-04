@@ -43,7 +43,6 @@
 			 		url:that.app.apiHost+"/index.php?m=recharge&a=pay&ajax=1",
 			 		data:{
 			 			money:that.money,
-			 			authcode:that.app.getAuthCode(),
 			 			backurl:that.app.appRoot+"#/pages/recharge/success",
 						pay_type:that.paytype
 			 		},

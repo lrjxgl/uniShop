@@ -29,11 +29,8 @@
 </template>
 
 <script>
-	var app = require("../../common/common.js");
-
-	var per_page = 0;
-	var isfirst = true;
-	var catid = 0;
+ 
+ 
  
 	export default {
 
@@ -41,7 +38,10 @@
 			return {
 				pageLoad:false, 
 				pageHide:false,
-				pageData:{},
+				list:[],
+				rscount:0,
+				per_page:0,
+				isFirst:true
 			}
 			
 		},
@@ -60,47 +60,39 @@
 		methods: {
 			getPage: function () {
 				var that = this;
-				uni.request({
-					url: app.apiHost + "?m=coupon&a=my&ajax=1",
-					data: {
-						authcode: app.getAuthCode(),
-						fromapp: app.fromapp()
-					},
-					success: function (data) {
+				that.app.get({
+					url: that.app.apiHost + "?m=coupon&a=my&ajax=1",
+					
+					success: function (res) {
 						
-						isfirst = false;
-						that.pageData = data.data.data;
+						that.isFirst = false;
+						that.list = res.data.list;
 						that.pageLoad=true;
-						per_page = data.data.data.per_page;
+						that.per_page = res.data.per_page;
 					}
 				})
 			},
 
 			getList: function () {
 				var that = this;
-				if (!isfirst && per_page == 0) return false;
-				uni.request({
-					url: app.apiHost + "?m=coupon&a=my&ajax=1",
+				if (!that.isFirst && that.per_page == 0) return false;
+				that.app.get({
+					url: that.app.apiHost + "?m=coupon&a=my&ajax=1",
 					data: {
-						per_page: per_page,
-						fromapp: app.fromapp(),
-						authcode: app.getAuthCode()
+						per_page: that.per_page
 					},
-					success: function (data) {
-
-						if (!data.data.error) {
-							if (isfirst) {
-								that.pageData.list = data.data.data.list;
-								isfirst = false;
-							} else {
-
-								that.pageData.list = app.json_add(that.pageData.list, data.data.data.list);
+					success: function (res) {
+						if(that.isFirst){
+							that.isFirst = false;
+							that.list = res.data.list;
+						}else{
+							for(var i in res.data.lis){
+								that.list.push(res.data.list[i])
 							}
-							per_page = data.data.data.per_page;
-
 						}
-
-
+						
+						that.pageLoad=true;
+						that.per_page = res.data.per_page;
 					}
 				})
 			},

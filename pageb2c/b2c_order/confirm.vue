@@ -27,7 +27,7 @@
 				<input type="text" class="none" name="user_address_id" :value="pageData.user_address_id"  />
 				<radio-group @change="changeAddr"> 
 				<view class="row-item-text" v-for="(item,index) in pageData.addrList" :key="index">
-					<radio  :checked="item.id==pageData.user_address_id" :value="item.id"  ></radio>	 
+					<radio  :checked="item.id==pageData.user_address_id" :value="item.id+''"  ></radio>	 
 					{{item.truename}} {{item.telephone}} <br /> {{item.pct_address}}
 				</view>
 				</radio-group> 
@@ -172,30 +172,28 @@
  				
 				var that=this;
 				e.detail.value.backurl=that.app.appRoot+"#/pages/b2c_order/success";
-				uni.request({
-					url:that.app.apiHost+"/module.php?m=b2c_order&a=order&ajax=1&authcode="+that.app.getAuthCode(),
+				that.app.post({
+					url:that.app.apiHost+"/module.php?m=b2c_order&a=order&ajax=1",
 					data:e.detail.value,
-					method:"POST",
-					header:{
-						"content-type":"application/x-www-form-urlencoded"
-					},
 					success:function(rs){
-						if(rs.data.error){
+						if(rs.error){
 							uni.showToast({
-								title:rs.data.message
+								title:rs.message
 							})
 							return false;
 						}
 						that.pageTab="submit";
-						if(rs.data.data.action=='pay'){
+						if(rs.data.action=='pay'){
 							dtPay.paytype=that.paytype;
 							dtPay.pay({
-								payurl:rs.data.data.payurl,
-								orderno:rs.data.data.orderno
+								payurl:rs.data.payurl,
+								orderno:rs.data.orderno
 							});						
 						}
-					}	
+					}
 				})
+				 
+				
 			}
 		}
 	}

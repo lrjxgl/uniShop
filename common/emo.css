@@ -1,0 +1,21 @@
+.imEmo,.imEmo-0,.imEmo-1,.imEmo-2,.imEmo-3,.imEmo-4,.imEmo-5,.imEmo-6,.imEmo-7,.imEmo-8,.imEmo-9,.imEmo-10,.imEmo-11,.imEmo-12,.imEmo-13,.imEmo-14,.imEmo-15,.imEmo-16,.imEmo-17,.imEmo-18,.imEmo-19,.imEmo-20,.imEmo-21,.imEmo-22,.imEmo-23,.imEmo-24,.imEmo-25,.imEmo-26,.imEmo-27,.imEmo-28,.imEmo-29,.imEmo-30,.imEmo-31,.imEmo-32,.imEmo-33,.imEmo-34,.imEmo-35,.imEmo-36,.imEmo-37,.imEmo-38,.imEmo-39,.imEmo-40,.imEmo-41,.imEmo-42,.imEmo-43,.imEmo-44,.imEmo-45,.imEmo-46,.imEmo-47,.imEmo-48,.imEmo-49,.imEmo-50,.imEmo-51,.imEmo-52,.imEmo-53,.imEmo-54,.imEmo-55,.imEmo-56,.imEmo-57,.imEmo-58,.imEmo-59,.imEmo-60,.imEmo-61,.imEmo-62,.imEmo-63,.imEmo-64,.imEmo-65,.imEmo-66,.imEmo-67,.imEmo-68,.imEmo-69,.imEmo-70,.imEmo-71,.imEmo-72,.imEmo-73,.imEmo-74,.imEmo-75,.imEmo-76,.imEmo-77,.imEmo-78,.imEmo-79,.imEmo-80,.imEmo-81,.imEmo-82,.imEmo-83,.imEmo-84,.imEmo-85,.imEmo-86,.imEmo-87,.imEmo-88,.imEmo-89,.imEmo-90,.imEmo-91,.imEmo-92,.imEmo-93,.imEmo-94,.imEmo-95,.imEmo-96,.imEmo-97,.imEmo-98{
+	background: url(@/static/emo.gif) no-repeat;
+	background-size: 100%;
+	width: 30px;
+	height: 30px;
+	margin: 5px;
+	cursor: pointer;
+}
+.emoFixbox{
+	position: fixed;
+    left: 5px;
+    right: 5px;
+    bottom: 100px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    -webkit-border-radius: 20px;
+    border-radius: 20px;
+    z-index: 999;
+}
+/****单个表情****/
+.imEmo-0{ background-position-y: 0px; }.imEmo-1{ background-position-y: -30px; }.imEmo-2{ background-position-y: -60px; }.imEmo-3{ background-position-y: -90px; }.imEmo-4{ background-position-y: -120px; }.imEmo-5{ background-position-y: -150px; }.imEmo-6{ background-position-y: -180px; }.imEmo-7{ background-position-y: -210px; }.imEmo-8{ background-position-y: -240px; }.imEmo-9{ background-position-y: -270px; }.imEmo-10{ background-position-y: -300px; }.imEmo-11{ background-position-y: -330px; }.imEmo-12{ background-position-y: -360px; }.imEmo-13{ background-position-y: -390px; }.imEmo-14{ background-position-y: -420px; }.imEmo-15{ background-position-y: -450px; }.imEmo-16{ background-position-y: -480px; }.imEmo-17{ background-position-y: -510px; }.imEmo-18{ background-position-y: -540px; }.imEmo-19{ background-position-y: -570px; }.imEmo-20{ background-position-y: -600px; }.imEmo-21{ background-position-y: -630px; }.imEmo-22{ background-position-y: -660px; }.imEmo-23{ background-position-y: -690px; }.imEmo-24{ background-position-y: -720px; }.imEmo-25{ background-position-y: -750px; }.imEmo-26{ background-position-y: -780px; }.imEmo-27{ background-position-y: -810px; }.imEmo-28{ background-position-y: -840px; }.imEmo-29{ background-position-y: -870px; }.imEmo-30{ background-position-y: -900px; }.imEmo-31{ background-position-y: -930px; }.imEmo-32{ background-position-y: -960px; }.imEmo-33{ background-position-y: -990px; }.imEmo-34{ background-position-y: -1020px; }.imEmo-35{ background-position-y: -1050px; }.imEmo-36{ background-position-y: -1080px; }.imEmo-37{ background-position-y: -1110px; }.imEmo-38{ background-position-y: -1140px; }.imEmo-39{ background-position-y: -1170px; }.imEmo-40{ background-position-y: -1200px; }.imEmo-41{ background-position-y: -1230px; }.imEmo-42{ background-position-y: -1260px; }.imEmo-43{ background-position-y: -1290px; }.imEmo-44{ background-position-y: -1320px; }.imEmo-45{ background-position-y: -1350px; }.imEmo-46{ background-position-y: -1380px; }.imEmo-47{ background-position-y: -1410px; }

@@ -41,20 +41,12 @@
 		methods:{
 			getPage:function(){
 				var that=this;
-				uni.request({
+				that.app.get({
 					url:that.app.apiHost+"?m=user&a=set&ajax=1",
-					data:{
-						authcode: that.app.getAuthCode(),
-						fromapp:that.app.fromapp()
-					},
-					success:function(data){
-						if(data.data.error){
-							that.app.goHome();
-						}else{
-							that.pageLoad=true;
-							that.pageData=data.data.data;
-						}
-						
+					
+					success:function(res){
+						that.pageLoad=true;
+						that.pageData=res.data;
 						 
 					}
 				})
@@ -66,16 +58,17 @@
 			},
 			loginOut:function(){
 				var that=this; 
-				uni.request({
-					url:that.app.apiHost+"?m=login&a=logout&ajax=1",
-					data:{
-						"authcode":that.app.getAuthCode(),
-						"fromapp":that.app.fromapp()
-					},
+				that.app.get({
+					url:that.app.apiHost+"/index.php?m=login&a=logout&ajax=1",
 					success:function(res){
-						that.app.setAuthCode("");
-						that.app.setAuthCodeLong("");
-						that.app.goHome();	
+						uni.removeStorageSync("token");
+						uni.showToast({
+							title:"退出登录中..."
+						})
+						setTimeout(function(){
+							that.app.goHome();	
+						},1000)
+						
 					}
 				})
 			} 

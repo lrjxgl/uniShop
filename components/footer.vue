@@ -2,66 +2,47 @@
 	<view>
 		<view class="footer-row"></view>
 		<view class="footer">
-			<view @click="goHome()"  v-bind:class="{'footer-active':tab=='home'}" class="footer-item icon-home">
-				 首页
-				 
-			</view>
+			<view class="footer-item icon-home" v-bind:class="{'footer-active':tab=='home'}" @click="goHome()">首页</view>
 			 
-			
-		
-			<view @click="goUser()"  v-bind:class="{'footer-active':tab=='user'}" class="footer-item icon-my_light">
-				 我的 
-			</view>
-		
+			<view class="footer-item icon-my_light" v-bind:class="{'footer-active':tab=='user'}"  @click="goUser()">我的</view>
 		</view>
 	</view>
 </template>
 
 <script>
-	export default {
-		name:"default-footer",
+	export default{
 		props:{
 			tab:""
 		},
+		data:function(){
+			return {
+				
+			}
+		},
 		methods:{
 			goHome:function(){
-				uni.redirectTo({
-					url:"../index/index"
-				}) 
-			},
-			goArticle:function(){
-				uni.navigateTo({
-					url:"../article/index",
+				uni.reLaunch({
+					url:"../../pages/index/index"
 				})
 			},
-			goForum:function(){
-				uni.navigateTo({
-					url:"../forum/index",
-				})
-			},	
-			goAdd:function(){
-				uni.navigateTo({
-					url:"../forum/add",
+			goPeople:function(){
+				uni.reLaunch({
+					url:"../../pagesblog/sblog_people/index"
 				})
 			},
-			goGroup:function(){
+			goChat:function(){
 				uni.navigateTo({
-					url:"../forum_group/index",
-				})
-			},
-			goFenlei: function () {
-				uni.navigateTo({
-					url: "../fenlei/index"
+					url:"../../pagesblog/sblog_chat/index"
 				})
 			},
 			goUser:function(){
-				uni.navigateTo({
-					url:"../user/index",
+				uni.reLaunch({
+					url:"../../pages/user/index"
 				})
-				
-			},	
+			} 
 		}
 	}
 </script>
 
- 
+<style>
+</style>

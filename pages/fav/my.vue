@@ -5,11 +5,11 @@
 			<view @click="setTable('forum')" class="tabs-border-item">帖子</view>
 			 
 		</view>
-		<view v-if="pageData.list.length==0">
+		<view v-if="list.length==0">
 			<view class="emptyData">暂无收藏</view>
 		</view>
 		<view v-else>
-			<view v-for="(item,key) in pageData.list" :key="key">
+			<view v-for="(item,key) in  list" :key="key">
 				<view v-if="tablename=='article'">
 					<view @click="goArticle(item.id)" class="row-item bg-fff">
 						<view class="flex-1">
@@ -34,9 +34,7 @@
 </template>
 
 <script>
-	 
-	var per_page = 0;
-	var isfirst = true;
+ 
 
 	export default {
 
@@ -44,7 +42,10 @@
 			return {
 				pageLoad: false,
 				pageData: {},
-				tablename: "article"
+				list:[],
+				tablename: "article",
+				isFirst:true,
+				per_page:0
 			}
 		},
 		onLoad: function(option) {
@@ -63,47 +64,42 @@
 		methods: {
 			getPage: function() {
 				var that = this;
-				uni.request({
+				that.app.get({
 					url: that.app.apiHost + "?m=fav&a=mylist&ajax=1",
 					data: {
-						authcode: that.app.getAuthCode(),
-						fromapp: that.app.fromapp(),
 						tablename: that.tablename
 					},
-					success: function(data) {
-						isfirst = false;
-						that.pageData = data.data.data;
+					success: function(res) {
+						that.isFirst = false;
+						that.list = res.data.list;
 						that.pageLoad = true;
-						per_page = data.data.data.per_page;
+						that.per_page = res.data.per_page;
 					}
 				})
 			},
 
 			getList: function() {
 				var that = this;
-				if (!isfirst && per_page == 0) return false;
-				uni.request({
+				if (!that.isFirst && that.per_page == 0) return false;
+				that.app.get({
 					url: that.app.apiHost + "?m=fav&a=mylist&ajax=1",
 					data: {
-						per_page: per_page,
-						fromapp: that.app.fromapp(),
-						authcode: that.app.getAuthCode(),
+						per_page: that.per_page,						
 						tablename: that.tablename
 					},
-					success: function(data) {
-
-						if (!data.data.error) {
-							if (isfirst) {
-								that.pageData.list = data.data.data.list;
-								isfirst = false;
-							} else {
-
-								that.pageData.list = that.app.json_add(that.pageData.list, data.data.data.list);
-							}
-							per_page = data.data.data.per_page;
-
+					success: function(res) {
+						if(res.error){
+							return false;
 						}
-
+						if(that.isFirst){
+							that.list=res.data.list;
+							that.isFirst=false;
+						}else{
+							for(var i in res.data.list){
+								that.list.push(res.data.list[i])
+							}
+						}
+						that.per_page=res.data.per_page;
 
 					}
 				})

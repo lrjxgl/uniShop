@@ -17,7 +17,7 @@
 				</view>
 				<picker-view   style="height: 300px;" indicator-style="height: 36px; line-height:36px" :value="value" @change="bindChange">
 					<picker-view-column class="flex-col">
-						<view class="item flex-center" v-for="item in sdata" :key="item.gid">{{item.title}}</view>
+						<view class="item flex-center" v-for="item in data" :key="item.gid">{{item.title}}</view>
 					</picker-view-column>
 					<picker-view-column class="flex-col">
 						<view class="item flex-center" v-for="item in child" :key="item.catid">{{item.title}}</view>
@@ -32,12 +32,12 @@
 <script>
 	export default {
 		props: {
-			sdata: {},
+			data: {},
 			defaultGid: 0,
 			defaultCatid: 0,
 			placeholder: ""
 		},
-		sdata: function () {
+		data: function () {
 			return {
 				showClass: "pickerBoxHide",
 				child: {},
@@ -50,28 +50,28 @@
 		created: function () {
 			var pholder="请选择";
 			var m=0,n=0;
-			for(var i in this.sdata){
-				if(this.sdata[i].gid==this.gid){
+			for(var i in this.data){
+				if(this.data[i].gid==this.gid){
 					m=i;
 				}
-				pholder=this.sdata[m].title;
+				pholder=this.data[m].title;
 			}
-			if(this.sdata[m]['child']!=null){
-				for(var i in this.sdata[m]['child']){
-					if(this.sdata[m]['child'][i].catid==this.catid){
+			if(this.data[m]['child']!=null){
+				for(var i in this.data[m]['child']){
+					if(this.data[m]['child'][i].catid==this.catid){
 						n=i;
 						
 					}
 				}
-				this.catid=this.sdata[m]['child'][n].catid;
-				pholder=pholder+" "+this.sdata[m]['child'][n].title;
+				this.catid=this.data[m]['child'][n].catid;
+				pholder=pholder+" "+this.data[m]['child'][n].title;
 			}
-			this.child = this.sdata[m]['child'];
+			this.child = this.data[m]['child'];
 			
-			this.gid=this.sdata[m].gid;
+			this.gid=this.data[m].gid;
 			this.pholder=pholder;
 			this.value=[parseInt(m),parseInt(n)];
-			 
+			this.$emit("callParent",{gid:this.gid,catid:this.catid}); 
 		},
 		methods: {
 			bindChange: function (e) {
@@ -79,19 +79,20 @@
 				var m = e.detail.value[0];
 				var n=e.detail.value[1];
 				this.value=[m,n];
-				this.child = this.sdata[m]['child'];
-				var pholder=this.sdata[m].title;
+				this.child = this.data[m]['child'];
+				var pholder=this.data[m].title;
 				
-				if(this.sdata[m]['child']!=null){
-					pholder+=this.sdata[m]['child'][n].title;
-					this.catid=this.sdata[m]['child'][n].catid;
+				if(this.data[m]['child']!=null){
+					pholder+=this.data[m]['child'][n].title;
+					this.catid=this.data[m]['child'][n].catid;
 				}else{
 					this.catid=0;
 				}
-				this.gid=this.sdata[m].gid;
+				this.gid=this.data[m].gid;
 				
 				this.pholder=pholder;
-				
+				console.log({gid:this.gid,catid:this.catid})
+				this.$emit("callParent",{gid:this.gid,catid:this.catid});
 			},
 			pickerBoxShow: function(){
 				this.showClass = "";

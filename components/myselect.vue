@@ -28,7 +28,7 @@
 
 <script>
 	export default {
-		 
+	 
 		props:{
 			list:{},
 			field:"",
@@ -44,31 +44,40 @@
 			};
 		},
 		created:function(){
-			var m=0;
-			var i=0;
-			var sid=0;
-			console.log(this.sid)
-			for(var key in this.data){
-				
-				if(i==0){
-					sid=key;
-				}
-				if(key==this.sid){
-					m=key;
-					break;
-				}
-				i++;
+			this.init();
+		},
+		watch:{
+			list:function(n,o){
+				this.data=n;
+				this.sid=this.defaultValue;
+				this.init();
 			}
-			
-			if(m>0){
-				this.pholder=this.data[m];
-				this.sid=m;
-			}else{
-				this.sid=sid;
-			}
-			
 		},
 		methods:{
+			init:function(){
+				var m=0;
+				var i=0;
+				var sid=0;
+				console.log(this.sid)
+				for(var key in this.data){
+					
+					if(i==0){
+						sid=key;
+					}
+					if(key==this.sid){
+						m=key;
+						break;
+					}
+					i++;
+				}
+				
+				if(m>0){
+					this.pholder=this.data[m];
+					this.sid=m;
+				}else{
+					this.sid=sid;
+				}
+			},
 			bindChange: function (e) {				 
 				var m = e.detail.value[0];
 				
@@ -80,7 +89,7 @@
 					}
 					i++;
 				}
-				
+				this.$emit("call-parent",this.sid)
 				 
 			},
 			pickerBoxShow: function(){

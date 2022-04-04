@@ -54,11 +54,11 @@
 		methods: {
 			getPage: function () {
 				var that = this;
-				uni.request({
+				that.app.get({
 					url: app.apiHost + "?m=category&ajax=1",
-					success: function (data) {
+					success: function (res) {
 						that.pageLoad = true;
-						that.pageData = data.data.data;
+						that.pageData = res.data;
 
 					}
 				})

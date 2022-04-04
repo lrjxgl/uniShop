@@ -115,13 +115,9 @@
 			},
 			getPage: function() {
 				var that = this;
-				uni.request({
+				that.app.get({
 					url:that.app.apiHost+"/module.php?m=b2c_product&ajax=1",
-					data:{
-						authcode:that.app.getAuthCode()
-					},
-					success:function(rs){
-						var res=rs.data;
+					success:function(res){
 						per_page=res.data.per_page;
 						that.pageData = res.data;
 						that.pageLoad=true;
@@ -134,16 +130,13 @@
 				if(per_page==0 && !isFirst){
 					return false;	
 				}
-				uni.request({
+				that.app.get({
 					url:that.app.apiHost+"/module.php?m=b2c_product&ajax=1",
 					data:{
-						catid:catid,
-						authcode:that.app.getAuthCode()
+						catid:catid
 					},
 					dataType:"json",
-					success:function(rs){
-						
-						var res=rs.data;
+					success:function(res){
 						per_page=res.data.per_page;
 						for(var i in res.data.catList){
 							if(res.data.catList[i].catid==catid){
@@ -182,18 +175,14 @@
 				var id = id;
 				var ksid = ksid == undefined ? 0 : ksid;
 				var amount = 1;
-				uni.request({
+				that.app.get({
 					url: that.app.apiHost+'/module.php?m=b2c_cart&a=add&ajax=1',
 					data: {
 						productid: id,
 						amount: amount,
-						ksid: ksid,
-						authcode:that.app.getAuthCode()
+						ksid: ksid
 					},
-					method: 'GET',
-					dataType: "json",
-					success: function(rs) {
-						var res=rs.data;
+					success: function(res) {
 						if(res.error){
 							uni.showToast({
 								title:res.message
@@ -220,19 +209,14 @@
 				var amount = amount;
 				var ksid = ksid == undefined ? 0 : ksid;
 				amount++;
-				uni.request({
+				that.app.get({
 					url: that.app.apiHost+'/module.php?m=b2c_cart&a=add&ajax=1',
 					data: {
 						productid: id,
 						amount: amount,
-						ksid: ksid,
-						authcode:that.app.getAuthCode()
+						ksid: ksid
 					},
-					method: 'GET',
-					dataType: "json",
-
-					success: function(rs) {
-						var res=rs.data;
+					success: function(res) {
 						if(res.error){
 							uni.showToast({
 								title:res.message
@@ -262,20 +246,15 @@
 				if (amount == 0) {
 					isdelete = 1
 				}
-				uni.request({
+				that.app.get({
 					url: that.app.apiHost+'/module.php?m=b2c_cart&a=add&ajax=1',
 					data: {
 						productid: id,
 						amount: amount,
 						ksid: ksid,
-						isdelete: isdelete,
-						authcode:that.app.getAuthCode()
+						isdelete: isdelete
 					},
-					method: 'GET',
-					dataType: "json",
-
-					success: function(rs) {
-						var res=rs.data;
+					success: function(res) {
 						if(res.error){
 							uni.showToast({
 								title:res.message
@@ -310,14 +289,9 @@
 			//规格操作
 			ksBox:function(id){
 				var that=this;
-				uni.request({
+				that.app.get({
 					url:that.app.apiHost+"/module.php?m=b2c_product_ks&ajax=1&productid="+id,
-					data:{
-						authcode:that.app.getAuthCode()
-					},
-					dataType:"json",
-					success:function(rs){
-						var res=rs.data;
+					success:function(res){
 						if(res.error){
 							uni.showToast({
 								title:res.message
@@ -339,14 +313,9 @@
 			},
 			ks1:function(id){
 				var that=this;
-				uni.request({
+				that.app.get({
 					url:that.app.apiHost+"/module.php?m=b2c_product_ks&a=sizeList&ajax=1&id="+id,
-					dataType:"json",
-					data:{
-						authcode:that.app.getAuthCode()
-					},	
-					success:function(rs){
-						var res=rs.data;
+					success:function(res){
 						if(res.error){
 							uni.showToast({
 								title:res.message
@@ -363,14 +332,9 @@
 			ks2:function(id){
 				var that=this;
 				that.ksid=id;
-				uni.request({
+				that.app.get({
 					url:that.app.apiHost+"/module.php?m=b2c_product_ks&a=get&ajax=1&id="+id,
-					dataType:"json",
-					data:{
-						authcode:that.app.getAuthCode()
-					},
-					success:function(rs){
-						var res=rs.data; 
+					success:function(res){
 						if(res.error){
 							uni.showToast({
 								title:res.message
@@ -387,18 +351,14 @@
 				var id = id;
 				var ksid=that.ksid;
 				var amount = 1;
-				uni.request({
+				that.app.get({
 					url: that.app.apiHost+'/module.php?m=b2c_cart&a=add&ajax=1',
 					data: {
 						productid: id,
 						amount: amount,
-						ksid: ksid,
-						authcode:that.app.getAuthCode()
+						ksid: ksid
 					},
-					method: 'GET',
-					dataType: "json",
-					success: function(rs) {
-						var  res=rs.data;
+					success: function(res) {
 						if(res.error){
 							uni.showToast({
 								title:res.message
@@ -416,19 +376,14 @@
 				var amount = amount;
 				var ksid=that.ksid;
 				amount++;
-				uni.request({
+				that.app.get({
 					url: that.app.apiHost+'/module.php?m=b2c_cart&a=add&ajax=1',
 					data: {
 						productid: id,
 						amount: amount,
-						ksid: ksid,
-						authcode:that.app.getAuthCode()
+						ksid: ksid
 					},
-					method: 'GET',
-					dataType: "json",
-			
-					success: function(rs) {
-						var  res=rs.data;
+					success: function(res) {
 						if(res.error){
 							uni.showToast({
 								title:res.message
@@ -449,20 +404,15 @@
 				if (amount == 0) {
 					isdelete = 1
 				}
-				uni.request({
+				that.app.get({
 					url: that.app.apiHost+'/module.php?m=b2c_cart&a=add&ajax=1',
 					data: {
 						productid: id,
 						amount: amount,
 						ksid: ksid,
-						isdelete: isdelete,
-						authcode:that.app.getAuthCode()
+						isdelete: isdelete
 					},
-					method: 'GET',
-					dataType: "json",
-			
-					success: function(rs) {
-						var  res=rs.data;
+					success: function(res) {
 						if(res.error){
 							uni.showToast({
 								title:res.message

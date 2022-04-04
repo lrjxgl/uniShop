@@ -11,8 +11,7 @@
 </template>
 
 <script>
-	var app= require("../../common/common.js"); 
-	var id;
+ 
 	export default{
 		data:function(){
 			return {
@@ -34,14 +33,12 @@
 		methods:{
 			getPage:function(){
 				var that=this;
-				uni.request({
-					url:app.apiHost+"?m=article",
-					data:{
-						authcode: app.getAuthCode()
-					},
-					success:function(data){
+				that.app.get({
+					url:that.app.apiHost+"?m=article",
+ 
+					success:function(res){
 						that.pageLoad=true;
-						that.pageData=data.data.data;
+						that.pageData=res.data;
 						 
 					}
 				})

@@ -6,23 +6,23 @@
 		<view v-else>
 			<view class="pd-5">
 				<view class="flex">
-					<image :src="pageData.site.logo" mode="widthFix" class="wh-30 mgr-5"></image>
+					<image :src="site.logo" mode="widthFix" class="wh-30 mgr-5"></image>
 					<input placeholder="老白茶、2008银针" v-model="keyword" type="text" class="header-search pdl-5">
 					<view @click="search" class="header-search-btn  iconfont icon-search"></view>
 				</view>
 			</view>
-			<view class="scale-swiper-box" style="padding-bottom: 50%;">
-				<swiper class="scale-swiper" :indicator-dots="true" :autoplay="true" :interval="3000" :duration="1000">
-					<swiper-item v-for="(item,key) in pageData.flashList" :key="key">
-						<view class="swiper-item">
-							<image @click="gourl(item.link1)" :src="item.imgurl" class="wmax" mode="widthFix"></image>
-						</view>
-					</swiper-item>
-
-				</swiper>
-			</view>
+			<swiper :style="{height:swipeHeight+'px'}" :indicator-dots="true" :autoplay="true" :interval="3000"
+				:duration="1000">
+				<swiper-item v-for="(item,key) in  flashList" :key="key">
+					<view class="swiper-item">
+						<image @click="gourl(item.link1)" :src="item.imgurl" class="wall" mode="widthFix">
+						</image>
+					</view>
+				</swiper-item>
+			
+			</swiper>
 			<view class="m-navPic mgt-5 mgb-5">
-				<navigator v-for="(item,key) in pageData.navList" :key="key" :url="item.link1" class="m-navPic-item">
+				<navigator v-for="(item,key) in navList" :key="key" :url="item.link1" class="m-navPic-item">
 					<image class="m-navPic-img" mode="widthFix" :src="item.imgurl"></image>
 					<view class="m-navPic-title">{{item.title}}</view>
 				</navigator>
@@ -38,7 +38,7 @@
 			</div>
 			<view class="mtlist">
 
-				<view v-for="(item,index) in pageData.bmList" :key="index" @click="goProduct(item.id)" class="mtlist-item">
+				<view v-for="(item,index) in bmList" :key="index" @click="goProduct(item.id)" class="mtlist-item">
 					<view class="mtlist-item-bd">
 						<image mode="widthFix" class="mtlist-img " :src="item.imgurl+'.small.jpg'"></image>
 						<view class="mtlist-item-pd">
@@ -66,7 +66,7 @@
 			</div>
 			<view class="mtlist">
 
-				<view v-for="(item,index) in pageData.recList" :key="index" @click="goProduct(item.id)" class="mtlist-item">
+				<view v-for="(item,index) in recList" :key="index" @click="goProduct(item.id)" class="mtlist-item">
 					<view class="mtlist-item-bd">
 						<image mode="widthFix" class="mtlist-img " :src="item.imgurl+'.small.jpg'"></image>
 						<view class="mtlist-item-pd">
@@ -94,7 +94,7 @@
 			</div>
 			<view class="mtlist">
 
-				<view v-for="(item,index) in pageData.hotList" :key="index" @click="goProduct(item.id)" class="mtlist-item">
+				<view v-for="(item,index) in hotList" :key="index" @click="goProduct(item.id)" class="mtlist-item">
 					<view class="mtlist-item-bd">
 						<image mode="widthFix" class="mtlist-img " :src="item.imgurl+'.small.jpg'"></image>
 						<view class="mtlist-item-pd">
@@ -126,12 +126,20 @@
 		},
 		data() {
 			return {
-				pageData: {},
+				flashList: [],
+				navList: [],
+				recList: [],
+				bmList:[],
 				pageLoad: false,
-				keyword: ""
+				keyword: "",
+				swipeHeight: 320,
+				site:{},
+				hotList:[]
 			}
 		},
 		onLoad: function(ops) {
+			var sys = uni.getSystemInfoSync();
+			this.swipeHeight = Math.min(640,sys.windowWidth) / 2;
 			if (!this.getCache()) {
 				uni.showNavigationBarLoading();
 				this.getPage();
@@ -146,26 +154,26 @@
 		},
 		methods: {
 			setCache: function() {
-				var val = {
-					pageLoad: this.pageLoad,
-					pageData: this.pageData,
-					keyword: this.keyword,
-					expire: Date.parse(new Date()) / 1000 + 300
-				}
+				var val=this.$data;
+				val.expire=Date.parse(new Date()) / 1000 + 300
 				uni.setStorageSync(cacheKey, JSON.stringify(val));
 			},
 			getCache: function() {
 				var val = uni.getStorageSync(cacheKey);
 				if (!val) return false;
 				var time = Date.parse(new Date()) / 1000;
-				
-				var v = JSON.parse(val);
-				if (v.expire < time) {
+				if (val.expire < time) {
 					return false;
 				}
-				this.pageLoad = v.pageLoad;
-				this.pageData = v.pageData;
-				this.keyword = v.keyword;
+				var v = JSON.parse(val);
+				this.flashList=v.flashList;
+				this.navList=v.navList;
+				this.recList=v.recList;
+				this.bmList=v.bmList;
+				this.pageLoad= v.pageLoad;
+				this.keyword= v.keyword;
+				this.site=v.site;
+				this.hotList=v.hotList;
 
 				return true;
 			},
@@ -189,7 +197,13 @@
 				that.app.get({
 					url: this.app.apiHost + "/module.php?m=b2c&ajax=1",
 					success: function(res) {
-						that.pageData = res.data;
+						that.flashList = res.data.flashList;
+						that.navList = res.data.navList;
+						that.recList = res.data.recList;
+						that.newList = res.data.newList;
+						that.bmList=res.data.bmList;
+						that.hotList=res.data.hotList;
+						that.site=res.data.site;
 						that.pageLoad = true;
 						uni.hideNavigationBarLoading();
 						that.setCache();
@@ -207,11 +221,5 @@
 </script>
 
 <style>
-	swiper {
-		height: 440upx;
-	}
-
-	.mtt10 {
-		margin-top: -22upx;
-	}
+ 
 </style>

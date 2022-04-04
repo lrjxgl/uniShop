@@ -137,25 +137,19 @@
 			},
 			getPage:function(){
 				var that=this;
-				uni.request({
+				that.app.get({
 					url:that.app.apiHost+"/module.php?m=b2c_order&a=show&ajax=1&orderid="+this.orderid,
-					data:{
-						authcode:that.app.getAuthCode()
-					},
 					success:function(res){
 					 
-						that.pageData=res.data.data;
+						that.pageData=res.data;
 						that.pageLoad=true;
 					}
 				})
 			},
 			cancel:function(){
 				var that=this;
-				uni.request({
+				that.app.get({
 					url:that.app.apiHost+"/module.php?m=b2c_order&a=cancel&ajax=1&orderid="+this.orderid,
-					data:{
-						authcode:that.app.getAuthCode()
-					},
 					success:function(rs){
 						that.getPage();
 					}	
@@ -163,11 +157,8 @@
 			},
 			receive:function(){
 				var that=this;
-				uni.request({
+				that.app.get({
 					url:that.app.apiHost+"/module.php?m=b2c_order&a=receive&ajax=1&orderid="+this.orderid,
-					data:{
-						authcode:that.app.getAuthCode()
-					},
 					success:function(rs){
 						that.getPage();
 					}	

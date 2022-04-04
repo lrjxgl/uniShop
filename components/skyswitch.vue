@@ -11,6 +11,7 @@
 
 <script>
 	export default{
+		 
 		props:{
 			value:"",
 			field:"",

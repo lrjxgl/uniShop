@@ -99,13 +99,9 @@
 			 
 			ratySubmit:function(e){
 				var that=this;
-				uni.request({
-					url:that.app.apiHost+"/module.php?m=b2c_order&a=ratysave&ajax=1&authcode="+that.app.getAuthCode(),
+				that.app.post({
+					url:that.app.apiHost+"/module.php?m=b2c_order&a=ratysave&ajax=1",
 					data:e.detail.value,
-					method:"POST",
-					header:{
-						"content-type":"application/x-www-form-urlencoded"
-					},
 					success:function(rs){
 						 
 						that.getPage();

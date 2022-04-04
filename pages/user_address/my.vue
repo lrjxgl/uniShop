@@ -1,14 +1,14 @@
 <template>
 	<view>
 			<view class="fixBt" @click="goAdd()">添加</view>
-			<view v-if="pageData.rscount==0">
+			<view v-if="rscount==0">
 				<view class="emptyData">暂无地址
 					
 				</view>
 				
 			</view>
 			<view v-else>
-				<view class="row-box mgb-10" v-for="(item,index) in pageData.list" :key="index">
+				<view class="row-box mgb-10" v-for="(item,index) in  list" :key="index">
 					<view class="flex-table">
 							<view class="flex-table-label">姓名</view>
 							<view class="flex-table-box">{{item.truename}}</view>
@@ -38,16 +38,15 @@
 <script> 
 	 
  
-	var per_page=0;
-	var isfirst=true;
- 
 	export default{
  
 		data:function(){
 			return {
 				pageLoad:false, 
-				pageHide:false,
-				pageData:{},
+				list:[],
+				per_page:0,
+				isFirst:true,
+				rscount:0
 			}
 			
 		},
@@ -75,44 +74,37 @@
 		methods:{
 			getPage:function(){
 				var that=this;
-				uni.request({
-					url:that.app.apiHost+"?m=user_address&a=my&ajax=1",
-					data:{
-						fromapp:that.app.fromapp(),
-						authcode:that.app.getAuthCode()
-					},
-					success:function(data){
-						isfirst=false;
-						that.pageData=data.data.data;
-						per_page=data.data.data.per_page; 
+				that.app.get({
+					url:that.app.apiHost+"/index.php?m=user_address&a=my&ajax=1",
+					success:function(res){
+						that.pageLoad=true;
+						that.rscount=res.data.rscount;
+						that.list=res.data.list;
+						that.per_page=res.data.per_page;
 					}
 				})
 			},
 		 
-			getList:function(){
+			getList:function() {
 				var that=this;
-				if(!isfirst && per_page==0) return false;
-				uni.request({
-					url:that.app.apiHost+"?m=user_address&a=my&ajax=1",
+				if(that.per_page==0 && !that.isFirst){
+					return false;
+				}
+				that.app.get({
+					url:that.app.apiHost+"/index.php?m=user_address&a=my",
 					data:{
-						per_page:per_page,
-						fromapp:that.app.fromapp(),
-						authcode:that.app.getAuthCode()
+						per_page:that.per_page
 					},
-					success:function(data){
-						
-						if(!data.data.error){
-							if(isfirst){
-								that.pageData.list=data.data.data.list;
-								isfirst=false;
-							}else{
-								
-								that.pageData.list=that.app.json_add(that.pageData.list,data.data.data.list);
-							}
-							per_page=data.data.data.per_page;  
-							
+					success:function(res){						 
+						that.per_page=res.data.per_page;
+						if(that.isFirst){
+							that.list=res.data.data;
+							that.isFirst=false;
+						}else{
+							for(var i in res.data.data){
+								that.list.push(res.data.data[i]);
+							}							
 						}
-						
 						
 					}
 				})
@@ -146,15 +138,11 @@
 							console.log(ops)
 					}
 				})
-				uni.request({
+				that.app.get({
 					url:that.app.apiHost+"?m=user_address&a=delete&ajax=1&id="+id,
-					data:{
-						fromapp:that.app.fromapp(),
-						authcode:that.app.getAuthCode()
-					},
 					success:function(res){
 						if(!res.data.error){
-								var list=that.pageData.list;
+								var list=that.list;
 								var newlist=[];
 								for(var i in list){
 									if(list[i].id!=id){
@@ -163,7 +151,7 @@
 									
 								}
 		
-								that.pageData.list=newlist;
+								that.list=newlist;
 						}
 						uni.showToast({
 							title:res.data.message,

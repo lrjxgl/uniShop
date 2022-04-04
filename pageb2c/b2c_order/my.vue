@@ -79,15 +79,13 @@
 		methods:{
 			getPage:function(){
 				var that=this;
-				uni.request({
+				that.app.get({
 					url:that.app.apiHost+"/module.php?m=b2c_order&a=my&ajax=1",
 					data:{
 						type:that.type,
-						authcode:that.app.getAuthCode()
 					},
 					dataType:"json",
-					success:function(rs){
-						var res=rs.data;
+					success:function(res){
 						that.pageData=res.data;
 					}
 				})

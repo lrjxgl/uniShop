@@ -1,124 +1,148 @@
 <template>
-	<view v-if="pageLoad" class="bg-a">
-
-		<view v-if="!pageData.rscount">
-			<view class="emptyData">暂无消息</view>
-		</view>
-		<view v-else>
-			<view class="row-box  mgb-5" v-for="(item,index) in pageData.data" :key="index">
-				<view class="flex  mgb-5">
-					<view class="cl-success">{{item.status_name}}</view>
-					<view class="flex-1"></view>
-					<view class="cl3 f12 pdr-10">{{item.timeago}}</view>
-				</view>
-
-				<view class="cl2">
-					<rich-text :nodes="item.content"></rich-text>
-				</view>
-
-			</view>
-		</view>
-
-
+	<view>
+		<div>
+			<div v-if="list.length==0" class="emptyData">暂无消息</div>
+			<div v-else class="list ">
+				 
+				<div v-for="(item,index) in list" :key="index" class="row-box mgb-5">
+					<div class="flex bd-mp-5">
+						<div class="cl-status">{{item.status_name}}</div>
+						<div class="flex-1"></div>
+						<div class="f12 cl2">{{item.timeago}}</div>
+					</div>
+					<rich-text :nodes="item.content" class="cl3 bd-mp-5"></rich-text>
+					<div class="flex">
+						<div class="flex-1"></div>
+						<div @click="read(item)" class="btn-mini btn-outline-primary mgr-5">已阅</div>
+						<div @click="goLink(item.linkdata)" class="btn-mini btn-outline-primary">去查看</div>
+					</div>
+				</div>
+				 
+				 
+			</div>
+		</div>
 	</view>
 </template>
 
 <script>
-	var app = require("../../common/common.js");
- 
-	var per_page = 0;
-	var isfirst = true;
-	var catid = 0;
-	 
-	export default {
-	 
+	function parseLink(ops){
+		var $root=""
+		if(ops.path=="/"){
+			$root="../../pages/";
+		}
+		var m="";
+		var a=ops.a;
+		console.log(ops.m.substr(0,4));
+		var arr=ops.m.split("_");
+		if(ops.m.substr(0,4)=="mod_"){
+			var mm=arr[1];
+			m=ops.m.substr(4,ops.m.length);
+			switch(mm){
+				case "sblog":
+					$root="../../page"+mm;
+					break;
+				default:
+					$root="../../"+mm;
+					break;
+			}
+		}
+		var url=$root+"/"+m+"/"+a+"?"+ops.param;
+		return url;
+	}
+	export default{
 		data:function(){
 			return {
-				pageLoad:false, 
-				pageHide:false,
-				pageData:{},
+				pageLoad:false,
+				list:[],
+				per_page:0,
+				isFirst:true,
+				catid:0,
+				type:"all"
 			}
-			
 		},
-		onLoad: function (option) {
+		onLoad:function(){
 		 
-			uni.setNavigationBarTitle({
-				title: '我的消息'
-			});
 			this.getPage();
 		},
-		onReachBottom: function () {
-			this.getList();
-		},
-		onPullDownRefresh: function () {
-			this.refresh();
-		},
-		methods: {
-			getPage: function () {
-				var that = this;
-				uni.request({
-					url: app.apiHost + "?fromapp=wxapp&m=notice&a=my&ajax=1",
-					data: {
-						authcode: app.getAuthCode()
+		methods:{
+			goLink:function(ops){
+				var url=parseLink(ops);
+				console.log(url)
+				uni.navigateTo({
+					url:url
+				})
+				
+			},
+			getPage:function(){
+				var that=this;
+				that.app.get({
+					url:that.app.apiHost+"/index.php?m=notice&ajax=1",
+					data:{
+						type:this.type
 					},
-					success: function (data) {
-						if (data.error == 1000) {
-							uni.navigateTo({
-								url: "/pages/login/index",
-							})
-						} else {
-							isfirst = false;
-							that.pageLoad=true;
-							that.pageData = data.data.data;
-							per_page = data.data.data.per_page;
+					dataType:"json",
+					success:function(res){
+						if(res.error){
+							skyToast(res.message);
+							return false;
 						}
-
+						that.list=res.data.data;
+						that.isFirst=false;
+						that.per_page=res.data.per_page;
+						that.pageLoad=true;
 					}
 				})
 			},
-
-			getList: function () {
-				var that = this;
-				if (!isfirst && per_page == 0) return false;
-				uni.request({
-					url: app.apiHost + "?m=notice&a=my&ajax=1",
-					data: {
-						per_page: per_page,
-						catid: catid,
-						authcode: app.getAuthCode()
+			getList:function(){
+				var that=this;
+				if(that.per_page==0 && !that.isFirst){
+					return false;
+				}
+				that.app.get({
+					url:that.app.apiHost+"/index.php?m=notice&ajax=1",
+					data:{
+						type:this.type,
+						per_page:that.per_page
 					},
-					success: function (data) {
-
-						if (!data.data.error) {
-							if (isfirst) {
-								that.pageData.list = data.data.data.list;
-								isfirst = false;
-							} else {
-
-								that.pageData.list = app.json_add(that.pageData.list, data.data.data.list);
+					dataType:"json",
+					success:function(res){
+						if(res.error){
+							skyToast(res.message);
+							return false;
+						}
+						if(that.isFirst){
+							that.list=res.data.data;
+							that.isFirst=false;
+						}else{
+							for(var i in res.data.data){
+								that.list.push(res.data.data[i]);
 							}
-							per_page = data.data.data.per_page;
-
 						}
-
-
+						
+						
+						that.per_page=res.data.per_page;
+						 
 					}
 				})
 			},
-
-			refresh: function () {
-				this.getPage();
-				setTimeout(function () {
-					uni.stopPullDownRefresh();
-				}, 1000)
-			},
-			loadMore: function () {
-				this.getList();
+			read:function(item){
+				var that=this;
+				that.app.get({
+					url:that.app.apiHost+"/index.php?m=notice&a=ReadNotice&ajax=1",
+					dataType:"json",
+					data:{
+						id:item.id
+					},
+					success:function(res){
+						item.isread=1;
+						item.status_name="已读";
+					}
+				})
 			}
-		},
+		}
 	}
+	
 </script>
 
 <style>
-
 </style>

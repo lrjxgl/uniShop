@@ -34,6 +34,7 @@
 <script>
 	import skyupimg from "../skyupimg";
 	export default{
+	 
 		components:{
 			skyupimg
 		},

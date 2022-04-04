@@ -379,14 +379,9 @@
 			ks2: function(id) {
 				var that = this;
 				that.ksid = id;
-				uni.request({
+				that.app.get({
 					url: that.app.apiHost + "/module.php?m=b2c_product_ks&a=get&ajax=1&id=" + id,
-					dataType: "json",
-					data: {
-						authcode: that.app.getAuthCode()
-					},
-					success: function(rs) {
-						var res = rs.data;
+					success: function(res) {
 						that.ksproduct = res.data.product;
 						that.price = res.data.ks.price;
 						if(res.data.cart_amount==0){
@@ -399,18 +394,14 @@
 			addCart: function() {
 				var that = this;
 				var ksid = that.ksid;
-				uni.request({
+				that.app.get({
 					url: that.app.apiHost + '/module.php?m=b2c_cart&a=add&ajax=1',
 					data: {
 						productid: that.pageData.data.id,
 						amount: that.cart_amount,
-						ksid: ksid,
-						authcode: that.app.getAuthCode()
+						ksid: ksid
 					},
-					method: 'GET',
-					dataType: "json",
-					success: function(rs) {
-						var res = rs.data;
+					success: function(res) {
 						if (res.error) {
 							uni.showToast({
 								title: res.message
@@ -439,7 +430,6 @@
 					url: that.app.apiHost + "/index.php?m=fav&a=toggle&ajax=1",
 					data: {
 						objectid: that.pageData.data.id,
-						authcode: that.app.getAuthCode(),
 						tablename: "mod_b2c_product"
 					},
 					success: function(res) {

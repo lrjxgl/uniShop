@@ -1,10 +1,12 @@
 <template>
 	<view>
+		<view v-if="errMsg!=''" class="emptyData">文章出走啦</view>
 		<view class="pd-10 bg-fff" v-if="pageLoad">
 			<view class="d-title">{{pageData.data.title}}</view>
 			 
 			<view class="d-content">
-				<rich-text type="text" :nodes="pageData.data.content"></rich-text>
+			 
+				<jyf-parser class="wmax" :html="pageData.data.content" ref="article"></jyf-parser> 
 			</view>
 			<view class="flex flex-center mgb-10">
 				<view class="btn-love  mgr-10" @click="loveToggle(pageData.data.id)" v-bind:class="pageData.islove?'btn-love-active':''">
@@ -29,17 +31,20 @@
 	var id;
 	
 	import skyShare from "../../components/skyshare.vue";
+	import jyfParser from "../../components/jyf-parser/jyf-parser"; 
 	export default{
 		components: {
 			skyShare,
-			cmform
+			cmform,
+			 jyfParser
 		},
 		data:function(){
 			return {
 				pageLoad:false, 
 				pageData:{},
 				skyShareShow:0,
-				shareLink:""
+				shareLink:"",
+				errMsg:""
 			}
 		},
 		onLoad:function(option){
@@ -49,7 +54,10 @@
 		},
 		onShareAppMessage:function(){
 			
-		}, 
+		},
+		 onShareTimeline:function(){
+		 	
+		 },
 		methods:{
 			share:function(){
 				var that=this;
@@ -60,30 +68,34 @@
 			},
 			getPage:function(){
 				var that=this;
-				uni.request({
+				that.app.get({
 					url:that.app.apiHost+"?m=article&ajax=1&a=show&id="+id,
-					data:{
-						authcode:that.app.getAuthCode(),
-					},
+				 
 					success:function(res){
+						if(res.error){
+							that.errMsg=res.message;
+							return false;
+						}
 						that.pageLoad=true;
-						res.data.data.data.content=that.app.html(res.data.data.data.content);
-						that.pageData=res.data.data;
-						that.shareLink=that.app.apiHost+"/index.php?m=article&a=show&id="+res.data.data.data.id;
+						 
+						that.pageData=res.data;
+						that.shareLink=that.app.apiHost+"/index.php?m=article&a=show&id="+res.data.data.id;
+						uni.setNavigationBarTitle({
+							title:res.data.data.title
+						})
 					}
 				})
 			},
 			favToggle:function(id){
 				var that=this;
-				uni.request({
-					url:that.app.apiHost+"?fromapp=wxapp&m=fav&a=toggle&ajax=1",
+				that.app.get({
+					url:that.app.apiHost+"/index.php?m=fav&a=toggle&ajax=1",
 					data:{
 						objectid:id,
-						authcode:that.app.getAuthCode(),
 						tablename:"article"
 					},
 					success:function(res){
-						if(res.data.data=='delete'){
+						if(res.data=='delete'){
 							that.pageData.isfav=false;
 						}else{
 							that.pageData.isfav=true;
@@ -94,17 +106,14 @@
 			},
 			loveToggle:function(id){
 				var that=this;
-				uni.request({
+				that.app.get({
 					url:that.app.apiHost+"?m=love&a=toggle&ajax=1",
 					data:{
-						
-						fromapp:that.app.fromapp(),
-						objectid:id,
-						authcode:that.app.getAuthCode(),
+						objectid:id,	 
 						tablename:"article"
 					},
 					success:function(res){
-						if(res.data.data=='delete'){
+						if(res.data=='delete'){
 							that.pageData.islove=false;
 						}else{
 							that.pageData.islove=true;

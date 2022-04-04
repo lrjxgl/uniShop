@@ -25,14 +25,14 @@
 			<view v-if="item.fieldtype=='img'" class="flex bd-mp-10 flex-ai-center">
 				<view class="w100">{{item.title}}</view>
 				<view class="flex-1">
-					<img :src="item.value" class="wmax" />
+					<image :src="item.value" class="wmax" mode="widthFix"></image>
 				</view>					
 			</view>
 	 
 			<view v-if="item.fieldtype=='map'" class="flex bd-mp-10 flex-ai-center">
 				<view class="w100">{{item.title}}</view>
 				<view class="flex-1 flex">
-					<img  :src="'http://api.map.baidu.com/staticimage/v2?ak='+BDMAPKEY+'&mcode=666666&center='+item.value+'&markers='+item.value+'&width=300&height=200&zoom=11'" class="wmax"  />
+					<image  :src="'http://api.map.baidu.com/staticimage/v2?ak='+BDMAPKEY+'&mcode=666666&center='+item.value+'&markers='+item.value+'&width=300&height=200&zoom=11'" class="wmax" ></image>
 				</view>					
 			</view>
 		 

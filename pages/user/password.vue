@@ -40,34 +40,27 @@
 		methods:{
 			getPage:function(){
 				var that=this;
-				uni.request({
+				that.app.get({
 					url:that.app.apiHost+"?m=user&a=password&ajax=1",
-					data:{
-						authcode: that.app.getAuthCode(),
-						fromapp:that.app.fromapp()
-					},
-					success:function(data){
+	
+					success:function(res){
 						that.pageLoad=true;
-						that.pageData=data.data.data;
+						that.pageData=res.data;
 						 
 					}
 				})
 			},
 		 submit:function(e){
-			 var that=this;
-			uni.request({
-				url:that.app.apiHost+"?m=user&a=passwordsave&ajax=1&fromapp="+that.app.fromapp()+"&authcode="+that.app.getAuthCode(),
-				method:"POST",
-				header:{
-					"content-type":"application/x-www-form-urlencoded"
-				},
+			var that=this;
+			that.app.post({
+				url:that.app.apiHost+"?m=user&a=passwordsave",
 				data:e.detail.value,
 				success:function(res){
 					
 					uni.showToast({
-						"title":res.data.message
+						"title":res.message
 					})
-					if(!res.data.error){
+					if(!res.error){
 						setTimeout(function(){
 							uni.navigateBack()
 						},600)

@@ -83,14 +83,10 @@
 			},
 			getPage: function() {
 				var that = this;
-				uni.request({
+				that.app.get({
 					url: that.app.apiHost+"/module.php?m=b2c_cart&ajax=1",
-					data:{
-						authcode:that.app.getAuthCode()
-					},
-					dataType: "json",
-					success: function(rs) {
-						var res=rs.data;
+					unLogin:true,
+					success: function(res) {
 						if(res.error==1000){
 								
 							return false;
@@ -107,17 +103,13 @@
 				var amount = amount;
 				var ksid = ksid == undefined ? 0 : ksid;
 				amount++;
-				uni.request({
+				that.app.get({
 					url: that.app.apiHost+'/module.php?m=b2c_cart&a=add&ajax=1',
 					data: {
 						productid: productid,
 						amount: amount,
-						ksid: ksid,
-						authcode:that.app.getAuthCode()
+						ksid: ksid
 					},
-					method: 'GET',
-					dataType: "json",
-	
 					success: function(res) {
 						that.getPage();
 					}
@@ -133,18 +125,14 @@
 				if (amount == 0) {
 					isdelete = 1
 				}
-				uni.request({
+				that.app.get({
 					url: that.app.apiHost+'/module.php?m=b2c_cart&a=add&ajax=1',
 					data: {
 						productid: productid,
 						amount: amount,
 						ksid: ksid,
 						isdelete: isdelete,
-						authcode:that.app.getAuthCode()
 					},
-					method: 'GET',
-					dataType: "json",
-	
 					success: function(res) {
 						that.getPage();
 					}

@@ -1,133 +1,165 @@
 <template>
 	<view class="body">
 		<view v-if="pageLoad">
-			 
-			<view class="main-body">
+
+			<view v-if="!unLogin" class="main-body">
 				<view class="uhead">
 
-					<image @click="gourl('../user/user_head')" class="uhead-img" :src="pageData.data.user_head+'.100x100.jpg'"></image>
+					<image @click="gourl('../user/user_head')" class="uhead-img"
+						:src="user.user_head+'.100x100.jpg'"></image>
 
 					<view class="uhead-box">
-						<view class="uhead-nick">{{pageData.data.nickname}}</view>
+						<view class="uhead-nick">{{user.nickname}}</view>
 						<view class="uhead-rnum flex flex-ai-center">
 							余额 ￥
-							<text class="f14 cl-money mgl-5">{{pageData.data.money}} </text>
+							<text class="f14 cl-money mgl-5">{{user.money}} </text>
 
 
 						</view>
 						<view class="uhead-rnum flex flex-ai-center">
 
 							金币
-							<text class="cl-money mgl-5 mgr-5">{{pageData.data.gold}}</text>
+							<text class="cl-money mgl-5 mgr-5">{{user.gold}}</text>
 
 							积分
-							<text class="cl-money mgl-5">{{pageData.data.grade}}</text>
+							<text class="cl-money mgl-5">{{user.grade}}</text>
 
 						</view>
 
 					</view>
-					<navigator url="../user/set" class="flex-center btn-small btn-link iconfont icon-settings"></navigator>
+					<navigator url="../user/set" class="flex-center btn-small btn-link iconfont icon-settings">
+					</navigator>
 				</view>
-				<view class="order-box">
-					<view class="order-box-hd">
-						我的订单
-						<view class="flex-1"></view>
-						<view @click="gourl('../../pageb2c/b2c_order/my')" class="fr cor2 flex flex-center">全部订单
-							<text class="iconfont icon-right"></text>
-						</view>
-					</view>
-					<view class="order-box-status flex">
-						<view @click="gourl('../../pageb2c/b2c_order/my?type=unpay')" class="order-box-item">
-							<text class="iconfont icon-moneybag"></text> 待付款</view>
-						<view @click="gourl('../../pageb2c/b2c_order/my?type=unreceive')" class="order-box-item">
-							<text class="iconfont icon-deliver"></text> 待收货</view>
-						<view @click="gourl('../../pageb2c/b2c_order/my?type=unraty')" class="order-box-item">
-							<text class="iconfont icon-comment"></text> 待评价</view>
-					</view>
-				</view>
-				 
-				<view v-for="(item,index) in pageData.navList" :key="index">
-					<view class="m-navPic mgb-5">
-						 
-						<navigator v-for="(cc,ccindex) in item.child" :url="cc.link_url" :key="ccindex" class="m-navPic-item">
-							<view class="m-navPic-icon" v-bind:class="cc.icon"></view>
-							<view class="m-navPic-title">{{cc.title}}</view>
-						</navigator>
-						 
-					</view>
-				</view>	
-				 
 
+
+				<div class="row-box mgb-5">
+
+
+					<div @click="gourl('../../pages/notice/my')" class="row-item">
+						<div class="row-item-icon icon-notice  cl-u"></div>
+						<div class="row-item-title">我的消息</div>
+					</div>
+					<div @click="gourl('../../pages/coupon_user/index')" class="row-item">
+						<div class="row-item-icon icon-ticket  cl-u"></div>
+						<div class="row-item-title">我的优惠券</div>
+					</div>
+					<div @click="gourl('../../pages/comment/my?tablename=article')"  class="row-item">
+						<div class="row-item-icon icon-comment"></div>
+						<div class="row-item-title">我的评论</div>
+					</div>
+					
+					<div @click="gourl('../../pages/user_address/my')"  class="row-item">
+						<div class="row-item-icon icon-addressbook"></div>
+						<div class="row-item-title">收货地址</div>
+					</div>
+					
+				</div>
+
+				<div class="row-box mgb-5">
+					
+					<div @click="gourl('../../pages/gold_log/my')" class="row-item">
+						<div class="row-item-icon icon-choiceness  cl-u"></div>
+						<div class="row-item-title">金币日志</div>
+					</div>
+					<div @click="gourl('../../pages/pay_log/my')"   class="row-item">
+						<div class="row-item-icon icon-moneybag"></div>
+						<div class="row-item-title">消费记录</div>
+					</div>
+					<div  @click="gourl('../../pages/recharge/my')"  class="row-item">
+						<div class="row-item-icon icon-moneybag"></div>
+						<div class="row-item-title">充值记录</div>
+					</div>
+					
+				</div>
+				
+				<div class="row-box mgb-5">	
+					<div @click="gourl('../../pages/kefu/index')" class="row-item">
+						<div class="row-item-icon icon-service  cl-u"></div>
+						<div class="row-item-title">联系客服</div>
+					</div> 
+					<div @click="gourl('../../pages/html/aboutus')" class="row-item">
+						<div class="row-item-icon icon-info  cl-u"></div>
+						<div class="row-item-title">关于我们</div>
+					</div>
+				</div>
 
 			</view>
-			 
-		</view>
-		<view v-else class="bg-fff pd-10">
-				<view class="flex flex-center mgb-10 cl2">您还未登录,请先登录</view>
-				<view class="flex flex-center">
-					<navigator  class="btn-small" url="../login/index">前往登录</navigator>
-				</view>
+			<view v-else class="unLoginBox">
+				<div class="row-box">
+					<view class="flex flex-center mgb-20 cl2">您还未登录,请先登录</view>
+					<view class="flex flex-center">
+						<navigator class="btn-small" url="../login/index">前往登录</navigator>
+					</view>
+				</div>
+				
 			
+			</view>
 		</view>
+		
 		<mt-footer tab="user"></mt-footer>
 	</view>
 </template>
 
 <script>
-	 
 	import mtFooter from "../../components/footer.vue";
 	export default {
 		components: {
 			mtFooter
 		},
-		data: function(){
+		data: function() {
 			return {
 				pageLoad: false,
 				pageHide: false,
-				pageData: {}
+				user: {},
+				unLogin:false 
 			}
 		},
-		onLoad: function (option) {
+		onLoad: function(option) {
 			uni.setNavigationBarTitle({
 				title: "个人中心",
 			})
+			 
 			this.getPage();
+			 
+			
+
 		},
-		onShow: function () {
-			if (this.pageHide) {
-				this.pageHide = false;
+		onShow: function() {
+			if(this.pageLoad){
 				this.getPage();
 			}
+			
 		},
-		onHide: function () {
-			this.pageHide = true;
+		 
+	
+		onPullDownRefresh: function(n, o) {
+			this.getPage();
+			uni.stopPullDownRefresh();
 		},
 		methods: {
-			gourl: function (url) {
+
+			gourl: function(url) {
 				uni.navigateTo({
 					url: url,
 				})
 			},
-			getPage: function () {
+			getPage: function() {
 				var that = this;
-				uni.request({
+				that.app.get({
 					url: that.app.apiHost + "?m=user&ajax=1",
-					data: {
-						authcode: that.app.getAuthCode(),
-						fromapp:that.app.fromapp()
-					},
-					success: function (res) {
-						if (res.data.error == 1000) {
-							/*
-							uni.navigateTo({
-								url: "../login/index",
-							})
-							*/
-						} else {
-							that.pageLoad = true;
-							that.pageData = res.data.data;
-						}
+					unLogin:true,
+					success: function(res) {
+						
+						if (res.error == 1000) {
+							
+							that.unLogin=true;
 
+						} else {
+							that.unLogin=false;
+							console.log(that.unLogin)
+							that.user = res.data.data;
+						}
+						that.pageLoad=true;
 
 					}
 				})
@@ -137,22 +169,19 @@
 </script>
 
 <style>
-	.body {
-		background-color: #e3e3e3;
-	}
-
+	 
 	.uhead {
 		display: flex;
 		flex-direction: row;
-		padding: 22upx;
+		padding: 22rpx;
 		background-color: #fff;
-		margin-bottom: 11upx;
+		margin-bottom: 11rpx;
 	}
 
 	.uhead-img {
-		width: 172upx;
-		height: 172upx;
-		margin-right: 22upx;
+		width: 172rpx;
+		height: 172rpx;
+		margin-right: 22rpx;
 		display: block;
 		border-radius: 50%;
 	}
@@ -162,30 +191,30 @@
 	}
 
 	.uhead-nick {
-		margin-bottom: 10upx;
-		font-size: 34upx;
+		margin-bottom: 10rpx;
+		font-size: 34rpx;
 	}
 
 	.uhead-rnum {
 		color: #999;
-		margin-bottom: 32upx;
-		line-height: 29upx;
+		margin-bottom: 32rpx;
+		line-height: 29rpx;
 		display: flex;
-		font-size: 29upx;
+		font-size: 29rpx;
 	}
 
 	.order-box {
 		background-color: #fff;
-		padding: 22upx;
-		margin-bottom: 22upx;
+		padding: 22rpx;
+		margin-bottom: 22rpx;
 	}
 
 	.order-box-hd {
 		display: flex;
 		flex-direction: row;
-		line-height: 79upx;
-		border-bottom: 2upx solid #ddd;
-		margin-bottom: 22upx;
+		line-height: 79rpx;
+		border-bottom: 2rpx solid #ddd;
+		margin-bottom: 22rpx;
 	}
 
 	.order-box-status {
@@ -196,31 +225,25 @@
 	.order-box-item {
 		flex: 1;
 		text-align: center;
-		font-size: 32upx;
+		font-size: 32rpx;
 		color: #666;
 	}
 
 	.order-box-item .iconfont {
 		display: block;
 		color: #666;
-		font-size: 42upx;
+		font-size: 42rpx;
 	}
 
 	.row-item {
 		display: flex;
 		flex-direction: row;
-		padding: 10upx 16upx;
-		margin-bottom: 10upx;
-		font-size: 35upx;
+		padding: 10rpx 16rpx;
+		margin-bottom: 10rpx;
+		font-size: 35rpx;
 		color: #555;
-		border-bottom: 2upx solid #eee;
+		border-bottom: 2rpx solid #eee;
 	}
-
-	.row-icon {
-		position: relative;
-		top: -5upx;
-		font-size: 40upx;
-		margin-right: 10upx;
-		color: #555;
-	}
+	 
+	
 </style>

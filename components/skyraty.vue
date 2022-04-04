@@ -1,8 +1,8 @@
 <template>
 	<view>
 		<view class="raty-group" :class="gclass" >
-			<view class="raty-label" v-if="label">{{label}}</view>
-			
+			<view class="raty-label" v-if="label.length>0">{{label}}</view>
+			<input type="text" :name="fields" :value="num" class="raty-value none" />
 			<view class="raty-row">
 				<view class="raty-item">
 					<view class="raty-no" @click="setRaty(index)" v-for="(item,index) in items" :key="index"></view> 
@@ -25,8 +25,8 @@
 			grade:0,
 			label:'',
 			mod:0,
-			readonly:0,
-			keyId:""
+			fields:"",
+			readonly:0
 		},
 		data:function(){
 			return {
@@ -37,8 +37,13 @@
 				gclass: "mgb-10"
 			}
 		},
+		watch:{
+			num:function(n,o){
+				this.$emit("call-parent",n);
+			}
+		},
 		created:function(){
-			 
+			console.log(this.label) 
 			if (this.groupclass != undefined) {
 				this.gclass = this.groupclass;
 			}
@@ -85,11 +90,6 @@
 				this.num = num * mod;
 				this.half = false;
 				this.gradeItems = gradeItems;
-				console.log(this.num);
-				this.$emit("callParent",{
-					keyId:this.keyId,
-					num:this.num
-				});
 			}
 		}
 	}

@@ -15,7 +15,15 @@
 				<image @click="gourl('../../pages/user/user_head')" class="uhead-img" :src="pageData.data.user_head+'.100x100.jpg'"></image>
 			
 				<view class="uhead-box">
-					<view class="uhead-nick">{{pageData.data.nickname}}</view>
+					<div class="mgb-10 f14 flex">
+						<div class="f14">{{pageData.data.nickname}}</div>
+						<div class="flex-1"></div>
+						<block v-if="pageData.invitecode" >
+						<div class="cl2 f12 mgr-5">邀请码</div>
+						<div @click="gourl('../../pages/invite/my')"  class="cl-num f12">{{pageData.invitecode}}</div>
+						</block> 
+					</div>
+					 
 					<view class="uhead-rnum flex-ai-center flex">
 						余额 ￥
 						<text class="f14 cl-money mgl-5">{{pageData.data.money}} </text>
@@ -56,6 +64,10 @@
 			</view>
 			 
 			<view class="row-box mgb-5">
+				<view @click="gourl('../../pages/invite/my')" class="row-item">
+					<view class="row-item-icon icon-friend_light  cl-u"></view>
+					<view class="row-item-title">邀请好友</view>
+				</view>
 				<view @click="gourl('../../pages/notice/my')" class="row-item">
 					<view class="row-item-icon icon-notice  cl-u"></view>
 					<view class="row-item-title">我的消息</view>
@@ -131,13 +143,11 @@
 			},
 			getPage: function () {
 				var that = this;
-				uni.request({
+				that.app.get({
 					url: that.app.apiHost + "/module.php?m=b2c_user&ajax=1",
-					data: {
-						authcode: that.app.getAuthCode()
-					},
+					unLogin:true,
 					success: function (res) {
-						if (res.data.error == 1000) {
+						if (res.error == 1000) {
 							/*
 							uni.navigateTo({
 								url: "../login/index",
@@ -146,7 +156,7 @@
 						} else {
 							that.unLogin=false;
 							that.pageLoad = true;
-							that.pageData = res.data.data;
+							that.pageData = res.data;
 						}
 
 

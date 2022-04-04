@@ -1,140 +1,67 @@
 <template>
-	<view class="flex-col">
+	<view >
 		
-		<view class="tabs-border">
-			<view  @click="setCat(0)" class="tabs-border-item" v-bind:class="defaultActive">推荐</view>
-			<view @click="setCat(item.catid)" v-bind:class="{ 'tabs-border-active':item.isactive }" v-for="(item,key) in pageData.catlist" :key="key" class="tabs-border-item">{{item.cname}}</view>
-			 
-		</view>
-		<view class="flex-main">
-				<view class="flexlist">
-					<view @click="goArticle(item.id)" class="flexlist-item pdb-10"  v-for="(item,index) in pageData.list" :key="index">
-					 
-							<image class="flexlist-img" :src="item.imgurl+'.100x100.jpg'"></image>
-							<view class="flex-1">
-								<view class="flexlist-title f16">{{item.title}}</view>
-								<view class="flexlist-desc cor2 f14">{{item.description}}</view>
-							</view>
-					 
-					</view>
-				</view>
-			 
- 
-		</view>
-		<mt-footer></mt-footer>
+		<div class="row-box mgb-5" v-for="(item,index) in pageData.list" :key="index">
+				<div class="flex mgb-5">
+					<div class="cl-primary">{{item.title}}</div>
+				</div>
+				<div class="cl2 f12 mgb-5">
+					金额 {{item.money}}元
+					&nbsp;&nbsp;
+					领取 {{item.get_num}} 人
+					&nbsp;&nbsp;
+					使用 {{item.use_num}} 人
+				</div>
+				<div class="flex flex-ai-center">
+					<div class="cl3 f12">截止：{{item.etime}}</div>
+					<div class="flex-1"></div>
+					<div class="btn-small mgr-10" @click="getCoupon(item.id)" >领取</div>
+					
+				</div>
+			</div>
+		</div>
 	</view> 
 </template>
 
 <script> 
-	var app= require("../../common/common.js"); 
-	import mtFooter from "../../components/footer.vue";
-	var per_page=0;
-	var isfirst=true;
-	var catid=0;
-	var activeClass="list-side-item-active";
 	export default{
-		components:{
-			mtFooter
-		},
 		data:function(){
 			return {
-				pageLoad:false, 
 				pageData:{},
-				winHeight:600,
-				defaultActive:"list-side-item-active",
+				pageLoad:false
 			}
 		},
-		onLoad:function(option){
-			var win=uni.getSystemInfoSync();
-			this.winHeight=win.windowHeight-50;
-			uni.setNavigationBarTitle({
-				title: '资讯'
-			});
+		created:function(){
 			this.getPage();
 		},
-		onReachBottom:function(){
-			this.getList();
-		},
-		onPullDownRefresh:function(){
-			this.refresh();
-		},
 		methods:{
+			
 			getPage:function(){
 				var that=this;
-				uni.request({
-					url:app.apiHost+"?m=article&ajax=1",
-					data:{
-						authcode:app.getAuthCode()
-					},
-					success:function(data){
-						isfirst=false;
-						that.pageData=data.data.data;
-						per_page=data.data.data.per_page; 
+				that.app.get({
+					url:that.app.apiHost+"/index.php?m=coupon&ajax=1",
+					dataType:"json",
+					success:function(res){
+						that.pageData=res.data;
+						that.pageLoad=true;
 					}
 				})
 			},
-			setCat:function(cid){
-				catid=cid;
-				isfirst=true;
-				per_page=0;
-				if(catid==0){
-					this.defaultActive=activeClass;
-				}else{
-					this.defaultActive="";
-				}
-				var catlist=this.pageData.catlist;
-				for(var i in catlist){
-					if(catlist[i].catid==catid){
-						catlist[i].isactive=1;
-					}else{
-						catlist[i].isactive=0;
-					}
-				}
-				this.pageData.catlist=catlist;
-				this.getList();
-			 },
-			getList:function(){
+			getCoupon:function(id){
 				var that=this;
-				if(!isfirst && per_page==0) return false;
-				uni.request({
-					url:app.apiHost+"?m=article&ajax=1",data:{
-						per_page:per_page,
-						catid:catid,
-						authcode:app.getAuthCode()
-					},
-					success:function(data){
-						
-						if(!data.data.error){
-							if(isfirst){
-								that.pageData.list=data.data.data.list;
-								isfirst=false;
-							}else{
-								
-								that.pageData.list=app.json_add(that.pageData.list,data.data.data.list);
-							}
-							per_page=data.data.data.per_page;  
-							
-						}
-						
-						
+				that.app.get({
+					url:that.app.apiHost+"/index.php?m=coupon&a=getcoupon&ajax=1&id="+id,
+					dataType:"json",
+					success:function(res){
+						uni.showToast({
+							title:res.message,
+							icon:"none"
+						})
+						 
 					}
 				})
 			},
-			goArticle:function(id){
-				uni.navigateTo({
-					url:"/pages/article/show?id="+id
-				})
-			},
-			refresh:function(){
-				this.getPage();
-				setTimeout(function(){
-					uni.stopPullDownRefresh();
-				},1000)
-			},
-			loadMore:function(){
-				this.getList();
-			}
-		},
+		}
 	}
 </script>
 

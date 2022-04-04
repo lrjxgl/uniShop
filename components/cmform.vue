@@ -33,9 +33,10 @@
 				</view>
 				<textarea name="content" class="comment-formbox-textarea"></textarea>
 				<view class="comment-formbox-btns">
-					<button formType="submit" class="comment-formbox-bt  js-submit">评论</button>
+					<view @click="cmFormHide()" class="comment-formbox-bt btn-cancel mgl-10">取消</view>
 					<view class="w60"></view>
-					<view @click="cmFormHide()" class="comment-formbox-bt js-cancel">取消</view>
+					
+					<button formType="submit" class="comment-formbox-bt btn-success">评论</button>
 				</view>
 			</form>
 		</view>
@@ -45,6 +46,7 @@
 <script>
 	 
 	export default {
+		 
 		props:{
 			tablename:"",
 			objectid:""
@@ -62,10 +64,10 @@
 		methods:{
 			getList:function(){
 				var that=this;
-				uni.request({
-					url:that.app.apiHost+"?fromapp=wxapp&m=comment&ajax=1&tablename="+this.tablename+"&objectid="+this.objectid,
+				that.app.get({
+					url:that.app.apiHost+"?m=comment&ajax=1&tablename="+this.tablename+"&objectid="+this.objectid,
 					success:function(res){
-						that.cmData=res.data.data;
+						that.cmData=res.data;
 					}
 				})
 			},
@@ -81,21 +83,17 @@
 			},
 			cmFormSubmit:function(e){
 				var that=this;
-				uni.request({
-					url:that.app.apiHost+"?fromapp=wxapp&m=comment&a=save&ajax=1&authcode="+that.app.getAuthCode(),
+				that.app.post({
+					url:that.app.apiHost+"?fromapp=wxapp&m=comment&a=save&ajax=1",
 					data:e.detail.value,
-					method:"POST",
-					header:{
-						"content-type":"application/x-www-form-urlencoded"
-					},
 					success:function(res){
-						console.log(res.data);
 						uni.showToast({
-							title: res.data.message,
+							title: res.message,
 							duration: 2000
 						});
 						that.cmBtnClass="";
 						that.cmFormClass="";
+						that.getList();
 					}
 				})
 			}

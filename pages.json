@@ -178,6 +178,18 @@
 			"style": {
 				"navigationBarTitleText": "检查"
 			}
+		},
+		{
+			"path":"pages/invite/my",
+			"style":{
+				"navigationBarTitleText":"我的邀请"
+			}
+		},
+		{
+			"path":"pages/invite_account_log/index",
+			"style":{
+				"navigationBarTitleText":"邀请奖励"
+			}
 		}
 
 
@@ -294,7 +306,7 @@
 					}
 				}
 			]
-		}
+		} 
 	],
 	"preloadRule": {
 		"pages/index/index": {

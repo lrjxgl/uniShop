@@ -30,18 +30,17 @@
 			},
 			pay:function(){
 				var that=this;
-				uni.request({
+				that.app.get({
 					url:that.app.apiHost+"/module.php?m=b2c_order&a=pay&ajax=1",
 					data:{
 						orderid:that.orderid,
-						authcode:that.app.getAuthCode(),
 						backurl:that.app.appRoot+"#/pages/b2c_order/success"
 					},
 					success:function(rs){
 						dtPay.paytype=that.paytype;
 						dtPay.pay({
-							payurl:rs.data.data.payurl,
-							orderno:rs.data.data.orderno
+							payurl:rs.data.payurl,
+							orderno:rs.data.orderno
 						});
 					}
 				})

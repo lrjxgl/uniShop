@@ -6,6 +6,10 @@
 					<view class="input-flex-label">昵称</view>
 					<input class="input-flex-text" name="nickname"  :value="pageData.data.nickname" >
 				</view>
+				<view class="input-flex">
+					<view class="input-flex-label">简介</view>
+					<textarea name="description" :value="pageData.data.description" class="input-flex-text h60"></textarea>
+				</view>
 				<button form-type="submit" class="btn-row-submit">提交</button>
 			</form>
  		</view>
@@ -31,38 +35,24 @@
 		methods:{
 			getPage:function(){
 				var that=this;
-				uni.request({
-					url:that.app.apiHost+"?m=user&a=info&ajax=1",
-					data:{
-						authcode: that.app.getAuthCode(),
-						fromapp:that.app.fromapp()
-					},
+				that.app.get({
+					url:that.app.apiHost+"/index.php?m=user&a=info",
 					success:function(res){
-						if(res.data.error){
-							that.app.goHome();
-						}else{
-							that.pageLoad=true;
-							that.pageData=res.data.data;
-						}
-						
-						 
+						that.pageLoad=true;
+						that.pageData=res.data;
 					}
 				})
 			},
 			submit:function(e){
 				var that=this;
-				uni.request({
-					url:that.app.apiHost+"?m=user&a=save&ajax=1&fromapp="+that.app.fromapp()+"&authcode="+that.app.getAuthCode(),
-					method:"POST",
-					header:{
-						"content-type":"application/x-www-form-urlencoded"
-					},
+				that.app.post({
+					url:that.app.apiHost+"/index.php?m=user&a=save",
 					data:e.detail.value,
 					success:function(res){
 						uni.showToast({
-							"title":res.data.message
+							"title":res.message
 						})
-						if(!res.data.error){
+						if(!res.error){
 							setTimeout(function(){
 								uni.navigateBack()
 							},600)

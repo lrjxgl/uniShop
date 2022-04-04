@@ -1,0 +1,91 @@
+.fixFoot {
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	right: 0;
+}
+
+.fixFoot-row {
+	height: 80px;
+}
+
+.chatbox {
+	display: flex;
+	flex-direction: row;
+	margin-bottom: 10px;
+
+}
+
+.chatbox-nick-a,
+.chatbox-nick-b {
+	color: #666;
+}
+
+.chatbox-nick-a {
+	margin-right: 10px;
+}
+
+.chatbox-nick-b {
+	margin-left: 10px;
+}
+
+.chatbox-desc-a,
+.chatbox-desc-b {
+
+	padding: 10px 20px;
+	background-color: #efefef;
+	border-radius: 20px;
+	position: relative;
+	flex-direction: row;
+}
+
+.chatbox-desc-b {
+	margin-left: 30px;
+	text-align: right;
+}
+
+.chatbox-desc-a:after,
+.chatbox-desc-b:after {
+	font-family: iconfont;
+	position: absolute;
+	color: #efefef;
+
+}
+
+.chatbox-desc-a:after {
+	content: "\e601";
+	left: -6px;
+	top: 3px;
+}
+
+.chatbox-desc-b:after {
+	content: "\e635";
+	right: -6px;
+	top: 10px;
+}
+
+.imgList {
+	background-color: #fff;
+	padding: 10px 0px 10px 10px;
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	align-content: center;
+	position: fixed;
+	left: 0px;
+	right: 0px;
+	top: 44px;
+	bottom: 50px;
+}
+
+.imgList-item {
+	width: 33.33%;
+	padding-right: 20px;
+	margin-bottom: 20px;
+}
+
+.imgList-img {
+	width: 100%;
+	height: auto;
+	border-radius: 50%;
+}

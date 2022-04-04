@@ -6,14 +6,15 @@
 		</view>
 		<view class="header-row"></view>
 		<view class="main-body" v-if="pageLoad">
-			<scroll-view class="bg-fff" scroll-x="true">
+			<scroll-view v-if="catList.length>0" class="bg-fff" scroll-x="true">
 				<view class="tabs-border">
-					<view @click="setCat(0)" class="tabs-border-item-inner tabs-border-active">全部</view>
-					<view class="tabs-border-item-inner" v-for="(item,key) in pageData.catlist" :key="key" @click="setCat(item.catid)"  >{{item.cname}}</view>				 
+					<view @click="setCatid(scatid)" :class="catid==scatid?'tabs-border-active':''" class="tabs-border-item">全部</view>
+					<view @click="setCatid(item.catid)" v-for="(item,index) in catList" :key="index" :class="catid==item.catid?'tabs-border-active':''"  class="tabs-border-item" >{{item.cname}}</view>
+							
 				</view>	
 			</scroll-view>
 			<view class="sglist">
-				<view class="sglist-item" v-for="(item,key) in pageData.list" :key="key" @click="goArticle(item.id)">
+				<view class="sglist-item" v-for="(item,key) in list" :key="key" @click="goArticle(item.id)">
 					<view v-if="item.imgurl" class="sglist-imgbox">
 						<image class="sglist-img" mode="widthFix" :src="item.imgurl+'.middle.jpg'"></image>
 					</view>
@@ -35,139 +36,97 @@
 				 
 			</view>
 		</view>
-		
+		<go-top></go-top> 
 	</view>
 </template>
 
-<script> 
-	var app= require("../../common/common.js"); 
-	var per_page=0;
-	var isfirst=true;
-	var catid=0;
-	var activeClass="tabs-border-active"; 
+<script>
+	 
+ 
 	export default{
-	
+		 
 		data:function(){
 			return {
-				defaultActive:"tabs-border-active",
-				pageLoad:false, 
-				pageHide:false,
 				pageData:{},
+				pageLoad:false,
+				type:"",
+				isFirst:true,
+				per_page:0,
+				catid:0,
+				scatid:0,
+				catList:[],
+				list:[],
+				cat:{}
 			}
+		},
+		onLoad:function(ops){
+			this.catid=ops.catid;
+			this.scatid=ops.catid;
+			this.getPage();
 			
 		},
-		onLoad:function(option){
-		 
-			catid=option.catid;
-			uni.setNavigationBarTitle({
-				title: '资讯'
-			});
-			this.getPage();
-		},
-		 
-		onShow:function(){
-			if(this.pageHide){
-				this.pageHide=false;
-				this.getPage();
-			}			
-		},
-		onHide:function(){
-			this.pageHide=true;
-		}, 
-		onReachBottom:function(){
-			this.getList();
-		},
-		onPullDownRefresh:function(){
-			this.refresh();
-		},
 		methods:{
+			setCatid:function(catid){
+				this.catid=catid;
+				isFirst=true;
+				this.per_page=0;
+				this.getList();
+			},
+			goArticle:function(id){
+				uni.navigateTo({
+					url:"show?id="+id
+				})
+			},
 			getPage:function(){
 				var that=this;
-				uni.request({
-					url:app.apiHost+"?fromapp=wxapp&m=article&ajax=1",
-					data:{
-					 
-						catid:catid,
-						authcode:app.getAuthCode()
-					},
+				that.app.get({
+					url:that.app.apiHost+"/index.php?m=article&a=list&ajax=1&catid="+this.catid,
+					dataType:"json",
 					success:function(res){
-						//登录
-						if(res.data.error==1000){
-							uni.navigateTo({
-								url:"/pages/login/index",
-							})
-						}else{
-							isfirst=false;
-							that.pageLoad=true;
-							that.pageData=res.data.data;
-							per_page=res.data.data.per_page;
-						}
-						 
+						that.list=res.data.list;
+						that.pageLoad=true;
+						that.per_page=res.data.per_page;
+						that.isFirst=false;
+						that.cat=res.data.cat;
+						uni.setNavigationBarTitle({
+							title:res.data.cat.cname
+						})
 					}
 				})
 			},
-			setCat:function(cid){
-				catid=cid;
-				isfirst=true;
-				per_page=0;
-				if(catid==0){
-					this.defaultActive=activeClass;
-				}else{
-					this.defaultActive="";
-				}
-				var catlist=this.pageData.catlist;
-				for(var i in catlist){
-					if(catlist[i].catid==catid){
-						catlist[i].isactive=1;
-					}else{
-						catlist[i].isactive=0;
-					}
-				}
-				this.pageData.catlist=catlist;
-				this.getList();
-			 },
 			getList:function(){
 				var that=this;
-				if(!isfirst && per_page==0) return false;
-				uni.request({
-					url:app.apiHost+"?fromapp=wxapp&m=article&ajax=1",data:{
-						per_page:per_page,
-						catid:catid,
-						authcode:app.getAuthCode()
+				if(that.per_page==0 && !that.isFirst){
+					skyToast("已经到底了");
+					return false;
+				}
+				that.app.get({
+					url:that.app.apiHost+"/index.php?m=article&a=list&ajax=1&catid="+this.catid,
+					data:{
+						type:that.type,
+						per_page:that.per_page,
+						catid:this.catid
 					},
+					dataType:"json",
 					success:function(res){
-						
-						if(!res.data.error){
-							if(isfirst){
-								that.pageData.list=res.data.data.list;
-								isfirst=false;
-							}else{
-								
-								that.pageData.list=app.json_add(that.pageData.list,res.data.data.list);
-							}
-							per_page=res.data.data.per_page;  
-							
+						that.per_page=res.data.per_page;
+						if(that.isFirst){
+							that.list=res.data.list;
+							that.isFirst=false;
+						}else{
+							for(var i in res.data.list){
+								that.list.push(res.data.list[i]);
+							}							
 						}
-						
-						
 					}
 				})
-			},
-			goArticle: function (id) {
-				uni.navigateTo({
-					url: "/pages/article/show?id=" + id
-				})
-			},
-			refresh:function(){
-				this.getPage();
-				setTimeout(function(){
-					uni.stopPullDownRefresh();
-				},1000)
-			},
-			loadMore:function(){
-				this.getList();
 			}
-		},
+		}
 	}
 </script>
+<style>
+	.tabs-border-item{
+		width: 60px;
+	}
+</style>
 

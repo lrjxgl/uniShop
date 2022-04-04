@@ -125,14 +125,14 @@
 <style>
 	.skyShare-box{
 		position: fixed;
-		left: 10px;
-		right:10px;
-		bottom:10px;
+		left: 0px;
+		right:0px;
+		bottom:0px;
 		background-color: #fff;
 		z-index: 9999;
 	}
 	.skyShare{
-		padding: 44px; 
+		padding: 44rpx; 
 		border-bottom: 2px solid #eee;
 		display: flex;
 		flex-direction: row;
@@ -148,11 +148,11 @@
 	}
 	.skyShare-item:before{
 		font-family: iconfont;
-		font-size: 72px;
-		margin-bottom: 12px;
+		font-size: 72rpx;
+		margin-bottom: 12rpx;
 	}
 	.skyShare-item-title{
-		font-size: 24px;
+		font-size: 24rpx;
 		color: #323232;
 	}
 	.icon-weixin,.icon-wxzone{
@@ -164,9 +164,9 @@
 	}
 	.skyShare-footer{
 		text-align: center;
-		padding: 22px 0px;
+		padding: 12px 0px;
 		color: #464646;
-		font-size: 34px;
+		font-size: 16px;
 		cursor: pointer;
 		
 	}

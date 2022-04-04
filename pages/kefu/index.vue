@@ -49,6 +49,10 @@
 		},
 		onLoad:function(){
 			this.getPage();
+			var that=this;
+			setInterval(function(){
+				that.getPage();
+			},10000)
 		},
 		methods:{
 			getPage:function(){
@@ -78,6 +82,7 @@
 								title:res.message
 							})
 						}else{
+							that.content="";
 							that.getPage();
 						}
 					}

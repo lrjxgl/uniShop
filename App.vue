@@ -1,6 +1,6 @@
 <script>
 	export default {
-		onLaunch: function () {
+		onLaunch: function() {
 			console.log('App Launch');
 			// #ifdef APP-PLUS
 			/*
@@ -55,72 +55,132 @@
 			*/
 			// #endif
 		},
-		onShow: function () {
+		onShow: function() {
 			console.log('App Show')
 		},
-		onHide: function () {
+		onHide: function() {
 			console.log('App Hide')
 		},
-		 watch: {
-		  '$route' (to, from) {
-			  
+		watch: {
+			'$route'(to, from) {
+
 				const toDepth = to.path.split('/').length
 				const fromDepth = from.path.split('/').length
-			
-			
-		  }
+
+
+			}
 		}
 	}
 </script>
 
-<style>	
-@import "./common/iconfont.css";
-@import "./common/dt-ui-uni.css";
- 
- 
-.scale-swiper-box{
-	position: relative;
-	padding-bottom: 62.5%;
-	height: 0;
-	width: 100%;
-}
-.scale-swiper{
-	position: absolute;
-	width: 100%;
-	height: 100% !important;
-}
-.scale-swiper-item{
-	height: 100%;
-}
-.scale-swiper-img{
-	width:100%;
-}
-.input-flex-btn{
-	z-index: 2;
-}
-.header,.header-row{
+<style>
+	@import "./common/iconfont.css";
+	@import "./common/dt-ui-uni.css";
+	.fixToHome {
+		position: fixed;
+		top: 10px;
+		left: 10px;
+		background-color: #efefef;
+		border-radius: 5px;
+		cursor: pointer;
+		padding: 5px 10px;
+		color: #333;
+		font-size: 14px;
+		z-index: 999;
+	}
+	.uni-app--maxwidth {
+		max-width: 640px;
+		margin: 0 auto;
+	}
+
+	/*修复uniapp flex*/
+	.uni-page-head {
+		display: flex;
+		flex-direction: row;
+	}
+
+	.uni-tabbar,
+	.uni-picker-view-wrapper {
+		flex-direction: row !important;
+	}
+
+	.uni-swiper-dots {
+		flex-direction: row;
+	}
+
+	.uni-scroll-view>div {
+		flex-direction: row;
+	}
+
+	.uni-modal__ft {
+		flex-direction: row;
+	}
+
+	.input-flex-btn {
+		z-index: 2;
+	}
+
+	.header,
+	.header-row {
 		display: none;
-}
- 
-.fixedAdd{
-	position: fixed;
-	bottom: 200rpx;
-	right: 7rpx;
-	width: 92rpx;
-	height: 92rpx;
-	text-align: center;
-	box-sizing: border-box;
-	background-color: rgba(240,85,75,.82);
-	color: #fff;
-	font-family: iconfont;
-	font-size: 32rpx;
-	padding-top: 11rpx;
-	border-radius: 22rpx;
-	
-}
-.fixedAdd:before{
-	content: "\e7e8";
-	display: block;
-	font-size: 32rpx;
-}
+	}
+
+	.m-navPic-item {
+		width: 20%;
+		padding: 0px;
+	}
+
+	.fixedAdd {
+		position: fixed;
+		bottom: 200upx;
+		right: 7upx;
+		width: 92upx;
+		height: 92upx;
+		text-align: center;
+		box-sizing: border-box;
+		background-color: rgba(240, 85, 75, .82);
+		color: #fff;
+		font-family: iconfont;
+		font-size: 32upx;
+		padding-top: 11upx;
+		border-radius: 22upx;
+
+	}
+
+	.fixedAdd:before {
+		content: "\e7e8";
+		display: block;
+		font-size: 32upx;
+	}
+
+	.back-top {
+		position: fixed;
+		right: 10px;
+		bottom: 100px;
+		background-color: #009688;
+		width: 40px;
+		height: 40px;
+		border-radius: 50%;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+	}
+
+	.back-top-icon {
+		font-family: iconfont;
+		line-height: 1;
+	}
+
+	.back-top-icon:after {
+		content: "\e603";
+		font-size: 12px;
+		color: #fff;
+	}
+
+	.back-top-text {
+		font-size: 12px;
+		line-height: 1;
+		font-weight: 300;
+		color: #fff;
+	}
 </style>

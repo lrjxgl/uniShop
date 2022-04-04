@@ -27,7 +27,7 @@
 
 <script>
 	export default {
-		 
+	 
 		props:{
 			scList:{},
 			defaultScid:0,
