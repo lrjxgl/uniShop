@@ -70,7 +70,7 @@
 			getPage: function() {
 				var that = this;
 				that.app.get({
-					url: that.app.apiHost + "/module.php?m=b2c_category&ajax=1",
+					url: that.app.apiHost + "/b2c_category/index?ajax=1",
 					success: function(res) {
 						that.pageData = res.data;
 						for(var i in res.data.catList){

@@ -144,7 +144,7 @@
 			getPage: function () {
 				var that = this;
 				that.app.get({
-					url: that.app.apiHost + "/module.php?m=b2c_user&ajax=1",
+					url: that.app.apiHost + "/b2c_user/index?ajax=1",
 					unLogin:true,
 					success: function (res) {
 						if (res.error == 1000) {

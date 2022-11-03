@@ -47,7 +47,7 @@
 			},
 			getPage:function(){
 				that.app.get({
-					url:that.app.apiHost+"/module.php?m=b2c_product&a=likelist&ajax=1",
+					url:that.app.apiHost+"/b2c_product/likelist",
 					data:{
 						productid:this.productid
 					},

@@ -82,7 +82,7 @@
 			getPage:function(){
 				var that=this;
 				that.app.get({
-					url:that.app.apiHost+"/module.php?m=b2c_order&a=raty&ajax=1&orderid="+this.orderid,
+					url:that.app.apiHost+"/b2c_order/raty?orderid="+this.orderid,
 					 
 					success:function(res){
 						if(res.data.raty){
@@ -100,7 +100,7 @@
 			ratySubmit:function(e){
 				var that=this;
 				that.app.post({
-					url:that.app.apiHost+"/module.php?m=b2c_order&a=ratysave&ajax=1",
+					url:that.app.apiHost+"/b2c_order/ratysave?ajax=1",
 					data:e.detail.value,
 					success:function(rs){
 						 

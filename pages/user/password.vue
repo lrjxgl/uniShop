@@ -41,7 +41,7 @@
 			getPage:function(){
 				var that=this;
 				that.app.get({
-					url:that.app.apiHost+"?m=user&a=password&ajax=1",
+					url:that.app.apiHost+"/user/password?ajax=1",
 	
 					success:function(res){
 						that.pageLoad=true;
@@ -53,7 +53,7 @@
 		 submit:function(e){
 			var that=this;
 			that.app.post({
-				url:that.app.apiHost+"?m=user&a=passwordsave",
+				url:that.app.apiHost+"/user/passwordsave?",
 				data:e.detail.value,
 				success:function(res){
 					

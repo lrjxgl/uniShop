@@ -51,7 +51,7 @@
 			followToggle:function(userid){
 				var that=this;
 				this.app.get({
-					url:this.app.apiHost+"/index.php?m=follow&a=toggle&ajax=1&t_userid="+userid,
+					url:this.app.apiHost+"/follow/toggle?t_userid="+userid,
 					 
 					success:function(res){
 						if(res.error){

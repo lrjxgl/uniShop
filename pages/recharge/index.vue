@@ -40,7 +40,7 @@
 			pay:function(){
 			 	var that=this;
 			 	that.app.post({
-			 		url:that.app.apiHost+"/index.php?m=recharge&a=pay&ajax=1",
+			 		url:that.app.apiHost+"/recharge/pay?ajax=1",
 			 		data:{
 			 			money:that.money,
 			 			backurl:that.app.appRoot+"#/pages/recharge/success",

@@ -14,7 +14,7 @@
 				<div class="flex flex-wrap">
 					<div></div>
 				</div>
-				<div gourl="/module.php?m=b2c_order&a=show&orderid={$order.orderid}" class="row-item">
+				<div gourl="/b2c_order/show?orderid={$order.orderid}" class="row-item">
 					<div>订单详情</div>
 					<div class="flex-1"></div>
 					<div class="f14">订单商品</div>
@@ -77,7 +77,7 @@
 			getPage:function(){
 				var that=this;
 				that.app.get({
-					url:that.app.apiHost+"/module.php?m=b2c_order&a=success&orderid="+that.orderid,
+					url:that.app.apiHost+"/b2c_order/success?orderid="+that.orderid,
 					success:function(res){
 						that.order=res.data.order;
 						that.need_num=res.data.need_num;

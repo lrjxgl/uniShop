@@ -138,7 +138,7 @@
 			getPage:function(){
 				var that=this;
 				that.app.get({
-					url:that.app.apiHost+"/module.php?m=b2c_order&a=show&ajax=1&orderid="+this.orderid,
+					url:that.app.apiHost+"/b2c_order/show?orderid="+this.orderid,
 					success:function(res){
 					 
 						that.pageData=res.data;
@@ -149,7 +149,7 @@
 			cancel:function(){
 				var that=this;
 				that.app.get({
-					url:that.app.apiHost+"/module.php?m=b2c_order&a=cancel&ajax=1&orderid="+this.orderid,
+					url:that.app.apiHost+"/b2c_order/cancel?orderid="+this.orderid,
 					success:function(rs){
 						that.getPage();
 					}	
@@ -158,7 +158,7 @@
 			receive:function(){
 				var that=this;
 				that.app.get({
-					url:that.app.apiHost+"/module.php?m=b2c_order&a=receive&ajax=1&orderid="+this.orderid,
+					url:that.app.apiHost+"/b2c_order/receive?orderid="+this.orderid,
 					success:function(rs){
 						that.getPage();
 					}	

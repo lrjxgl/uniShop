@@ -82,7 +82,7 @@
 			getPage: function() {
 				var that = this;
 				that.app.get({
-					url: that.app.apiHost + "/module.php?m=b2c_product&a=list&ajax=1&catid=" + that.catid,
+					url: that.app.apiHost + "/b2c_product/list?catid=" + that.catid,
 					data: {
 						type: that.type,
 						orderby:this.orderby,
@@ -101,7 +101,7 @@
 					return false;
 				}
 				that.app.get({
-					url: that.app.apiHost + "/module.php?m=b2c_product&a=list&ajax=1&catid=" + that.catid,
+					url: that.app.apiHost + "/b2c_product/list?catid=" + that.catid,
 					data: {
 						type: that.type,
 						orderby:this.orderby,

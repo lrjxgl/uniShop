@@ -93,7 +93,7 @@
 							success: (res) => {
 								logincode = res.code;
 								that.app.get({
-									url:that.app.apiHost+"/index.php?m=open_wxapp&a=Login&ajax=1",
+									url:that.app.apiHost+"/open_wxapp/Login?ajax=1",
 									data:{
 										code:logincode,
 										nickname:user.nickName,
@@ -135,7 +135,7 @@
 			formSubmit: function(e) {
 				var that = this;
 				that.app.post({
-					url: that.app.apiHost + "?m=login&a=loginsave&ajax=1",
+					url: that.app.apiHost + "/login/loginsave?ajax=1",
 					data: {
 						telephone: that.telephone,
 						password: that.password

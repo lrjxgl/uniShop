@@ -43,7 +43,7 @@
 			getPage:function(){
 				var that=this;
 				that.app.get({
-					url:that.app.apiHost+"/index.php?m=coupon_user&ajax=1",
+					url:that.app.apiHost+"/coupon_user/index",
 					dataType:"json",
 					success:function(res){
 						that.pageData=res.data;

@@ -8,7 +8,7 @@ module.exports={
 		var that=this;
 		
 		uni.request({
-			url:"https://www.fd175.com/index.php?m=weixin_jssdk&a=sign&ajax=1",
+			url:"https://www.fd175.com/weixin_jssdk/sign?ajax=1",
 			data:{
 				url:this.wxshare_link.split('#')[0]
 			},

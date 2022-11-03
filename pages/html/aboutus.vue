@@ -22,7 +22,7 @@
 			getPage:function(){
 				var that=this;
 				that.app.get({
-					url:that.app.apiHost+"/index.php?m=html&a=aboutus&ajax=1",
+					url:that.app.apiHost+"/html/aboutus?ajax=1",
 					success:function(res){
 						that.data=res.data.data;
 						console.log(res.data.data.content)

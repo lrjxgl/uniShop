@@ -46,7 +46,7 @@
 			getPage:function() {
 				var that=this;
 				that.app.get({
-					url:that.app.apiHost+"/index.php?m=invite_account_log",
+					url:that.app.apiHost+"/invite_account_log/index",
 					success:function(res){
 						that.pageLoad=true;
 						that.list=res.data.list;
@@ -60,7 +60,7 @@
 					return false;
 				}
 				that.app.get({
-					url:that.app.apiHost+"/index.php?m=invite_account_log",
+					url:that.app.apiHost+"/invite_account_log/index",
 					data:{
 						per_page:that.per_page
 					},

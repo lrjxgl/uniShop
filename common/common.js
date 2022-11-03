@@ -125,6 +125,7 @@ module.exports = {
 	},
 	get: function(ops) {
 		var ops = ops;
+		ops.url=ops.url.toLowerCase()
 		if (ops.data == undefined) {
 			ops.data = {
 				fromapp: this.fromapp(),
@@ -136,7 +137,7 @@ module.exports = {
 			ops.data.loginToken=this.getToken();
 			ops.data.ajax = 1;
 		}
-
+		
 		uni.request({
 			url: ops.url,
 			method: "GET",
@@ -156,6 +157,7 @@ module.exports = {
 	post: function(ops) {
 		var callback = callback;
 		var ops = ops;
+		ops.url=ops.url.toLowerCase()
 		if (ops.url.indexOf("?") >= 0) {
 			ops.url += "&ajax=1&fromapp=" + this.fromapp();
 			ops.url+="&loginToken="+this.getToken();
@@ -163,7 +165,7 @@ module.exports = {
 			ops.url += "?ajax=1&fromapp=" + this.fromapp();
 			ops.url+="&loginToken="+this.getToken();
 		}
-
+		
 		uni.request({
 			url: ops.url,
 			data: ops.data,
@@ -225,7 +227,7 @@ module.exports = {
 	goH5WeiXin: function(backurl) {
 		// #ifdef H5
 		var url = document.location.href.split('#')[0] + "#" + backurl;
-		window.location = this.apiHost + '/index.php?m=open_weixin&a=Geturl&backurl=' + encodeURIComponent(url);
+		window.location = this.apiHost + '/open_weixin/Geturl?backurl=' + encodeURIComponent(url);
 		// #endif
 
 	},

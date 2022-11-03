@@ -13,7 +13,7 @@
 					<div class="mgb-5">{{item.title}}</div>
 					<div class="flex">
 						<div class="flex-1"></div>
-						<div :gourl="'/index.php?m=sysmsg&a=show&id='+item.id" class="btn-mini mgr-5">查看</div>
+						<div :gourl="'/sysmsg/show?id='+item.id" class="btn-mini mgr-5">查看</div>
 						<div @click="del(item)" class="btn-mini btn-danger">删除</div>
 					</div>
 				</div>
@@ -44,7 +44,7 @@
 			getPage:function(){
 				var that=this;
 				that.app.get({
-					url:that.app.apiHost+"/index.php?m=sysmsg&ajax=1",
+					url:that.app.apiHost+"/sysmsg/index",
 					data:{
 						type:this.type
 					},
@@ -67,7 +67,7 @@
 					return false;
 				}
 				that.app.get({
-					url:that.app.apiHost+"/index.php?m=sysmsg&ajax=1",
+					url:that.app.apiHost+"/sysmsg/index",
 					data:{
 						type:this.type,
 						per_page:that.per_page
@@ -99,7 +99,7 @@
 					content:"删除后不可恢复，确认删除码",
 					success:function(){
 						that.app.get({
-							url:that.app.apiHost+"/index.php?m=sysmsg&a=delete&ajax=1",
+							url:that.app.apiHost+"/sysmsg/delete?ajax=1",
 							dataType:"json",
 							data:{
 								id:item.id

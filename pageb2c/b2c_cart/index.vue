@@ -84,7 +84,7 @@
 			getPage: function() {
 				var that = this;
 				that.app.get({
-					url: that.app.apiHost+"/module.php?m=b2c_cart&ajax=1",
+					url: that.app.apiHost+"/b2c_cart/index?ajax=1",
 					unLogin:true,
 					success: function(res) {
 						if(res.error==1000){
@@ -104,7 +104,7 @@
 				var ksid = ksid == undefined ? 0 : ksid;
 				amount++;
 				that.app.get({
-					url: that.app.apiHost+'/module.php?m=b2c_cart&a=add&ajax=1',
+					url: that.app.apiHost+'/b2c_cart/add?ajax=1',
 					data: {
 						productid: productid,
 						amount: amount,
@@ -126,7 +126,7 @@
 					isdelete = 1
 				}
 				that.app.get({
-					url: that.app.apiHost+'/module.php?m=b2c_cart&a=add&ajax=1',
+					url: that.app.apiHost+'/b2c_cart/add?ajax=1',
 					data: {
 						productid: productid,
 						amount: amount,

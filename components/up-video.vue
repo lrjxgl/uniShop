@@ -52,7 +52,7 @@
 						that.videoProgress=1;
 						var tempFilePath = ress.tempFilePath;
 						uni.request({
-							url:that.app.apiHost+"/index.php?m=ossupload&a=auth&ajax=1",
+							url:that.app.apiHost+"/ossupload/auth",
 							method:"GET",
 							data:{
 								loginToken:that.app.getToken(),

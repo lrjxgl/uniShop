@@ -61,7 +61,7 @@
 			getPage:function() {
 				var that=this;
 				that.app.get({
-					url:that.app.apiHost+"/index.php?m=recharge&a=my",
+					url:that.app.apiHost+"/recharge/my?",
 					success:function(res){
 						that.pageLoad=true;
 						that.list=res.data.list;
@@ -76,7 +76,7 @@
 					return false;
 				}
 				that.app.get({
-					url:that.app.apiHost+"/index.php?m=recharge&a=my",
+					url:that.app.apiHost+"/recharge/my?",
 					data:{
 						per_page:that.per_page
 					},

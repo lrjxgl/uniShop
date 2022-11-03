@@ -56,7 +56,7 @@
 			getPage:function() {
 				var that=this;
 				that.app.get({
-					url:that.app.apiHost+"/index.php?m=pay_log&a=my",
+					url:that.app.apiHost+"/pay_log/my?",
 					success:function(res){
 						that.pageLoad=true;
 						that.list=res.data.list;
@@ -71,7 +71,7 @@
 					return false;
 				}
 				that.app.get({
-					url:that.app.apiHost+"/index.php?m=pay_log&a=my",
+					url:that.app.apiHost+"/pay_log/my?",
 					data:{
 						per_page:that.per_page
 					},

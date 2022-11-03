@@ -39,7 +39,7 @@
 			getPage:function(){
 				var that=this;
 				that.app.get({
-					url:that.app.apiHost+"/index.php?m=coupon&ajax=1",
+					url:that.app.apiHost+"/coupon/index",
 					dataType:"json",
 					success:function(res){
 						that.pageData=res.data;
@@ -50,7 +50,7 @@
 			getCoupon:function(id){
 				var that=this;
 				that.app.get({
-					url:that.app.apiHost+"/index.php?m=coupon&a=getcoupon&ajax=1&id="+id,
+					url:that.app.apiHost+"/coupon/getcoupon?id="+id,
 					dataType:"json",
 					success:function(res){
 						uni.showToast({

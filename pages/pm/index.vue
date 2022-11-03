@@ -94,7 +94,7 @@
 			getPage: function() {
 				var that = this;
 				that.app.get({
-					url: that.app.apiHost + "/index.php?m=pm&ajax=1",
+					url: that.app.apiHost + "/pm/index",
 					unLogin: true,
 					success: function(res) {
 						if (res.error == 1000) {
@@ -118,7 +118,7 @@
 					return false;
 				}
 				that.app.get({
-					url: that.app.apiHost + "/index.php?m=pm&ajax=1",
+					url: that.app.apiHost + "/pm/index",
 					data: {
 						per_page: that.per_page
 					},

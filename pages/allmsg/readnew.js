@@ -1,5 +1,5 @@
 $(function(){
-	$.get("/index.php?m=allmsg&a=GetAllNum&ajax=1",function(res){
+	$.get("/allmsg/GetAllNum?ajax=1",function(res){
 		var html='';
 		if(res.error){
 			

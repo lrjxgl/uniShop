@@ -72,7 +72,7 @@
 			getPage:function(){
 				var that=this;
 				that.app.get({
-					url:that.app.apiHost+"/module.php?m=b2c_group_product&ajax=1&gkey="+this.gkey,
+					url:that.app.apiHost+"/b2c_group_product/index?gkey="+this.gkey,
 					success:function(res){
 						that.isFirst=false;
 						that.pageLoad=true;
@@ -89,7 +89,7 @@
 				var that=this;
 				if(!that.isFirst && that.per_page==0) return false;
 				that.app.get({
-					url:that.app.apiHost+"/module.php?m=b2c_group_product&ajax=1&gkey="+this.gkey,
+					url:that.app.apiHost+"/b2c_group_product/index?gkey="+this.gkey,
 					data:{
 						per_page:that.per_page,
 					},

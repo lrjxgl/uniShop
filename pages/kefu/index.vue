@@ -58,7 +58,7 @@
 			getPage:function(){
 				var that=this;
 				this.app.get({
-					url:this.app.apiHost+"/index.php?m=kefu&a=data&ajax=1",
+					url:this.app.apiHost+"/kefu/data?ajax=1",
 					
 					dataType:"json",
 					success:function(res){
@@ -72,7 +72,7 @@
 				var that=this;
 				if(this.content=="") return false;
 				that.app.post({
-					url:that.app.apiHost+"/index.php?m=kefu&a=save&ajax=1",
+					url:that.app.apiHost+"/kefu/save?ajax=1",
 					data:{
 						content:this.content
 					},

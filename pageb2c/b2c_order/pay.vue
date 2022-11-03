@@ -31,7 +31,7 @@
 			pay:function(){
 				var that=this;
 				that.app.get({
-					url:that.app.apiHost+"/module.php?m=b2c_order&a=pay&ajax=1",
+					url:that.app.apiHost+"/b2c_order/pay?ajax=1",
 					data:{
 						orderid:that.orderid,
 						backurl:that.app.appRoot+"#/pages/b2c_order/success"

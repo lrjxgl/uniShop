@@ -43,7 +43,7 @@
 						const len=tempFilePaths.length;
 						for(var i=0;i<len;i++){
 							uni.uploadFile({
-								url: that.app.apiHost+'/index.php?m=upload&a=img&ajax=1&loginToken='+that.app.getToken(),  
+								url: that.app.apiHost+'/upload/img?ajax=1&loginToken='+that.app.getToken(),  
 								filePath: tempFilePaths[i],
 								name: 'upimg',
 								dataType:"json",

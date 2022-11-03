@@ -53,7 +53,7 @@
 			getPage:function(){
 				var that=this;
 				that.app.get({
-					url:that.app.apiHost+"/module.php?m=b2c_pintuan&ajax=1&catid="+that.catid,
+					url:that.app.apiHost+"/b2c_pintuan/index?catid="+that.catid,
 					success:function(res){
 						per_page=res.data.per_page;
 						that.pageData=res.data;
@@ -68,7 +68,7 @@
 					return false;	
 				}
 				that.app.get({
-					url:that.app.apiHost+"/module.php?m=b2c_pintuan&ajax=1&catid="+that.catid,
+					url:that.app.apiHost+"/b2c_pintuan/index?catid="+that.catid,
 					success:function(res){
 						per_page=res.data.per_page;
 						if(!isFirst){

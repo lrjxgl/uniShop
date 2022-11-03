@@ -80,7 +80,7 @@
 			getPage:function(){
 				var that=this;
 				that.app.get({
-					url:that.app.apiHost+"/module.php?m=b2c_product&a=list&ajax=1",
+					url:that.app.apiHost+"/b2c_product/list?ajax=1",
 					data:{
 						orderby:this.orderby,
 						catid:that.catid
@@ -106,7 +106,7 @@
 					return false;	
 				}
 				that.app.get({
-					url:that.app.apiHost+"/module.php?m=b2c_product&a=list&ajax=1",
+					url:that.app.apiHost+"/b2c_product/list?ajax=1",
 					data:{
 						orderby:this.orderby,
 						catid:that.catid

@@ -14,7 +14,7 @@ module.exports={
 		// #endif
 		// #ifdef MP-WEIXIN
 		uni.request({
-			url:that.apiHost+"/index.php?m=recharge_wxapp_pay&a=go&ajax=1",
+			url:that.apiHost+"/recharge_wxapp_pay/go?ajax=1",
 			data:{
 				orderno:ops.orderno,
 				openid: uni.getStorageSync('openid')

@@ -34,7 +34,7 @@
 			getPage:function(){
 				var that=this;
 				that.app.get({
-					url:that.app.apiHost+"?m=article",
+					url:that.app.apiHost+"/article/index?",
  
 					success:function(res){
 						that.pageLoad=true;

@@ -80,7 +80,7 @@
 			getPage:function(){
 				var that=this;
 				that.app.get({
-					url:that.app.apiHost+"/module.php?m=b2c_order&a=my&ajax=1",
+					url:that.app.apiHost+"/b2c_order/my?ajax=1",
 					data:{
 						type:that.type,
 					},

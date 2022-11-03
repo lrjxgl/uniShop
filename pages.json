@@ -9,14 +9,7 @@
 				"enablePullDownRefresh": true
 			}
 		},
-		{
-			"path": "pages/hello",
-			"style": {
-				"navigationBarTitleText": "hello uniApp",
-				"onReachBottomDistance": 60,
-				"enablePullDownRefresh": true
-			}
-		},
+		 
 		{
 			"path": "pages/article/index",
 			"style": {
@@ -173,12 +166,7 @@
 				"navigationBarTitleText": "关于我们"
 			}
 		},
-		{
-			"path": "pages/check",
-			"style": {
-				"navigationBarTitleText": "检查"
-			}
-		},
+		 
 		{
 			"path":"pages/invite/my",
 			"style":{

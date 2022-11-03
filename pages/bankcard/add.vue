@@ -54,7 +54,7 @@
 			getPage: function() {
 				var that = this;
 				that.app.get({
-					url: that.app.apiHost + "/index.php?m=bankcard&a=add&ajax=1",
+					url: that.app.apiHost + "/bankcard/add?ajax=1",
 					success: function(res) {
 						that.pageLoad=true;
 						that.bankList=res.data.bankList;
@@ -65,7 +65,7 @@
 			formSubmit:function(e){
 				var that = this;
 				that.app.post({
-					url:that.app.apiHost + "/index.php?m=bankcard&a=save&ajax=1",
+					url:that.app.apiHost + "/bankcard/save?ajax=1",
 					data:e.detail.value,
 					success:function(res){
 						uni.showToast({

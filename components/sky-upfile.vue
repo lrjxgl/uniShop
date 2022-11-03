@@ -50,7 +50,7 @@
 						const tempFilePaths = chooseImageRes.tempFilePaths;
 						that.result="doing"
 						uni.uploadFile({
-							url: that.app.apiHost+"/index.php?m=upload&a=uploadfile&ajax=1&loginToken="+that.app.getToken(),  
+							url: that.app.apiHost+"/upload/uploadfile?loginToken="+that.app.getToken(),  
 							filePath: tempFilePaths[0],
 							name: 'upimg',
 							

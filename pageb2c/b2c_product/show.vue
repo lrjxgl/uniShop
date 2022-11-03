@@ -315,7 +315,7 @@
 			getPage: function(id) {
 				var that = this;
 				that.app.get({
-					url: that.app.apiHost + "/module.php?m=b2c_product&a=show&ajax=1&id=" + id,
+					url: that.app.apiHost + "/b2c_product/show?id=" + id,
 					data: {
 						 
 						orderid:that.orderid
@@ -361,7 +361,7 @@
 			ks1: function(id) {
 				var that = this;
 				that.app.get({
-					url: that.app.apiHost + "/module.php?m=b2c_product_ks&a=sizeList&ajax=1&id=" + id,
+					url: that.app.apiHost + "/b2c_product_ks/sizeList?id=" + id,
 					dataType: "json",
 					success: function(res) {
 						that.ksid1 = res.data.ksid;
@@ -380,7 +380,7 @@
 				var that = this;
 				that.ksid = id;
 				that.app.get({
-					url: that.app.apiHost + "/module.php?m=b2c_product_ks&a=get&ajax=1&id=" + id,
+					url: that.app.apiHost + "/b2c_product_ks/get?id=" + id,
 					success: function(res) {
 						that.ksproduct = res.data.product;
 						that.price = res.data.ks.price;
@@ -395,7 +395,7 @@
 				var that = this;
 				var ksid = that.ksid;
 				that.app.get({
-					url: that.app.apiHost + '/module.php?m=b2c_cart&a=add&ajax=1',
+					url: that.app.apiHost + '/b2c_cart/add?ajax=1',
 					data: {
 						productid: that.pageData.data.id,
 						amount: that.cart_amount,
@@ -427,7 +427,7 @@
 			favToggle: function(id) {
 				var that = this;
 				that.app.get({
-					url: that.app.apiHost + "/index.php?m=fav&a=toggle&ajax=1",
+					url: that.app.apiHost + "/fav/toggle?ajax=1",
 					data: {
 						objectid: that.pageData.data.id,
 						tablename: "mod_b2c_product"

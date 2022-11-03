@@ -146,7 +146,7 @@
 			getPage: function() {
 				var that = this;
 				that.app.get({
-					url: that.app.apiHost + "?m=user&ajax=1",
+					url: that.app.apiHost + "/user/index?",
 					unLogin:true,
 					success: function(res) {
 						

@@ -65,7 +65,7 @@
 			getPage: function() {
 				var that = this;
 				that.app.get({
-					url: that.app.apiHost + "?m=fav&a=mylist&ajax=1",
+					url: that.app.apiHost + "/fav/mylist?ajax=1",
 					data: {
 						tablename: that.tablename
 					},
@@ -82,7 +82,7 @@
 				var that = this;
 				if (!that.isFirst && that.per_page == 0) return false;
 				that.app.get({
-					url: that.app.apiHost + "?m=fav&a=mylist&ajax=1",
+					url: that.app.apiHost + "/fav/mylist?ajax=1",
 					data: {
 						per_page: that.per_page,						
 						tablename: that.tablename

@@ -69,7 +69,7 @@
 			getPage:function(){
 				var that=this;
 				that.app.get({
-					url:that.app.apiHost+"?m=article&ajax=1&a=show&id="+id,
+					url:that.app.apiHost+"/article/show?id="+id,
 				 
 					success:function(res){
 						if(res.error){
@@ -79,7 +79,7 @@
 						that.pageLoad=true;
 						 
 						that.pageData=res.data;
-						that.shareLink=that.app.apiHost+"/index.php?m=article&a=show&id="+res.data.data.id;
+						that.shareLink=that.app.apiHost+"/article/show?id="+res.data.data.id;
 						uni.setNavigationBarTitle({
 							title:res.data.data.title
 						})
@@ -89,7 +89,7 @@
 			favToggle:function(id){
 				var that=this;
 				that.app.get({
-					url:that.app.apiHost+"/index.php?m=fav&a=toggle&ajax=1",
+					url:that.app.apiHost+"/fav/toggle?ajax=1",
 					data:{
 						objectid:id,
 						tablename:"article"
@@ -107,7 +107,7 @@
 			loveToggle:function(id){
 				var that=this;
 				that.app.get({
-					url:that.app.apiHost+"?m=love&a=toggle&ajax=1",
+					url:that.app.apiHost+"/love/toggle?ajax=1",
 					data:{
 						objectid:id,	 
 						tablename:"article"

@@ -1,5 +1,5 @@
 <template>
-	<view class="flex-1">
+	<view  >
 		<view @click="pickerBoxShow()" class="input-flex-select  flex flex-ai-center">
 			<view class="cl3">{{pholder}}</view>
 		</view>
@@ -11,11 +11,7 @@
 					<view class="flex-1"></view>
 					<view class="cl-success" @click="choiceSelect">确定</view>
 				</view>
-				<view class="none">
-					<input type="text" name="province_id" :value="provinceid" />
-					<input type="text" name="city_id" :value="cityid" />
-					<input type="text" name="town_id" :value="townid" />
-				</view>
+				
 				<picker-view   style="height: 300px;"   indicator-style="height: 36px; line-height:36px" :value="value" @change="bindChange">
 					<picker-view-column class="flex-col">
 						<view class="item flex-center" v-for="item in data" :key="item.value">{{item.text}}</view>
@@ -87,6 +83,7 @@
 				if(this.data[i].value==this.defaultProvinceid){
 					m=i;
 					pholder=this.data[i].text;
+					 
 				}
 			}
 			
@@ -114,8 +111,13 @@
 			}else{
 				this.lastchild=[];
 			}
-			
+			m=parseInt(m);
+			n=parseInt(n);
+			z=parseInt(z);
 			this.value=[m,n,z];
+			this.spid=this.defaultProvinceid;
+			this.scid=this.defaultCityid;			this.stid=this.defaultTownid;
+			this.saddr=pholder; 
 			this.pholder=pholder;
 			
 		},
@@ -143,6 +145,12 @@
 				this.cityid=this.scid;
 				this.townid=this.stid;
 				this.pholder=this.saddr;
+				console.log(this.$data)
+				this.$emit("callParent",{
+					provinceid:this.provinceid,
+					cityid:this.cityid,
+					townid:this.townid
+				})
 			},
 			cancel: function () {
 				this.showClass = "pickerBoxHide";

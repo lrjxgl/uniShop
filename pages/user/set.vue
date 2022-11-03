@@ -42,7 +42,7 @@
 			getPage:function(){
 				var that=this;
 				that.app.get({
-					url:that.app.apiHost+"?m=user&a=set&ajax=1",
+					url:that.app.apiHost+"/user/set?ajax=1",
 					
 					success:function(res){
 						that.pageLoad=true;
@@ -59,7 +59,7 @@
 			loginOut:function(){
 				var that=this; 
 				that.app.get({
-					url:that.app.apiHost+"/index.php?m=login&a=logout&ajax=1",
+					url:that.app.apiHost+"/login/logout?ajax=1",
 					success:function(res){
 						uni.removeStorageSync("token");
 						uni.showToast({

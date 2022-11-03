@@ -72,7 +72,7 @@
 					if(!yzmEnable) return false;
 					var that=this;
 					that.app.get({
-						url:that.app.apiHost+"?m=register&a=SendSms&ajax=1",
+						url:that.app.apiHost+"/register/SendSms?ajax=1",
 						data:{
 							telephone:this.telephone							 
 						},
@@ -92,7 +92,7 @@
 				var that=this;
 				e.detail.value.password2=e.detail.value.password;
 				that.app.post({
-					url:that.app.apiHost+"?m=register&a=regsave&ajax=1",
+					url:that.app.apiHost+"/register/regsave?ajax=1",
 					data:e.detail.value,
 					success:function(res){						 
 						if(res.error){

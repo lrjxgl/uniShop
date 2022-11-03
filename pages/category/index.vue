@@ -55,7 +55,7 @@
 			getPage: function () {
 				var that = this;
 				that.app.get({
-					url: app.apiHost + "?m=category&ajax=1",
+					url: app.apiHost + "/category/index?",
 					success: function (res) {
 						that.pageLoad = true;
 						that.pageData = res.data;

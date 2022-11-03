@@ -36,7 +36,7 @@
 			getPage:function(){
 				var that=this;
 				that.app.get({
-					url:that.app.apiHost+"/index.php?m=user&a=info",
+					url:that.app.apiHost+"/user/info?",
 					success:function(res){
 						that.pageLoad=true;
 						that.pageData=res.data;
@@ -46,7 +46,7 @@
 			submit:function(e){
 				var that=this;
 				that.app.post({
-					url:that.app.apiHost+"/index.php?m=user&a=save",
+					url:that.app.apiHost+"/user/save?",
 					data:e.detail.value,
 					success:function(res){
 						uni.showToast({

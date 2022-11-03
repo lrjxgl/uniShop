@@ -62,7 +62,7 @@
 			getPage:function() {
 				var that=this;
 				that.app.get({
-					url:that.app.apiHost+"/index.php?m=comment&a=my",
+					url:that.app.apiHost+"/comment/my?",
 					data:{
 						tablename:this.tablename
 					},
@@ -80,7 +80,7 @@
 					return false;
 				}
 				that.app.get({
-					url:that.app.apiHost+"/index.php?m=comment&a=my",
+					url:that.app.apiHost+"/comment/my?",
 					data:{
 						per_page:that.per_page,
 						tablename:this.tablename
@@ -114,7 +114,7 @@
 					success:function(res){
 						if(res.confirm){
 							that.app.get({
-								url:that.app.apiHost+"/index.php?m=comment&a=delete&ajax=1&id="+id,
+								url:that.app.apiHost+"/comment/delete?id="+id,
 								data:{
 									tablename:that.tablename
 								},

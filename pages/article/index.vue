@@ -76,7 +76,7 @@
 			getPage:function() {
 				var that=this;
 				that.app.get({
-					url:that.app.apiHost+"/index.php?m=article",
+					url:that.app.apiHost+"/article/index",
 					success:function(res){
 						that.pageLoad=true;
 						that.list=res.data.list;
@@ -91,7 +91,7 @@
 					return false;
 				}
 				that.app.get({
-					url:that.app.apiHost+"/index.php?m=article",
+					url:that.app.apiHost+"/article/index",
 					data:{
 						per_page:that.per_page,
 						catid:this.catid

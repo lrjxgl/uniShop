@@ -116,7 +116,7 @@
 			getPage: function() {
 				var that = this;
 				that.app.get({
-					url:that.app.apiHost+"/module.php?m=b2c_product&ajax=1",
+					url:that.app.apiHost+"/b2c_product/index?ajax=1",
 					success:function(res){
 						per_page=res.data.per_page;
 						that.pageData = res.data;
@@ -131,7 +131,7 @@
 					return false;	
 				}
 				that.app.get({
-					url:that.app.apiHost+"/module.php?m=b2c_product&ajax=1",
+					url:that.app.apiHost+"/b2c_product/index?ajax=1",
 					data:{
 						catid:catid
 					},
@@ -176,7 +176,7 @@
 				var ksid = ksid == undefined ? 0 : ksid;
 				var amount = 1;
 				that.app.get({
-					url: that.app.apiHost+'/module.php?m=b2c_cart&a=add&ajax=1',
+					url: that.app.apiHost+'/b2c_cart/add?ajax=1',
 					data: {
 						productid: id,
 						amount: amount,
@@ -210,7 +210,7 @@
 				var ksid = ksid == undefined ? 0 : ksid;
 				amount++;
 				that.app.get({
-					url: that.app.apiHost+'/module.php?m=b2c_cart&a=add&ajax=1',
+					url: that.app.apiHost+'/b2c_cart/add?ajax=1',
 					data: {
 						productid: id,
 						amount: amount,
@@ -247,7 +247,7 @@
 					isdelete = 1
 				}
 				that.app.get({
-					url: that.app.apiHost+'/module.php?m=b2c_cart&a=add&ajax=1',
+					url: that.app.apiHost+'/b2c_cart/add?ajax=1',
 					data: {
 						productid: id,
 						amount: amount,
@@ -290,7 +290,7 @@
 			ksBox:function(id){
 				var that=this;
 				that.app.get({
-					url:that.app.apiHost+"/module.php?m=b2c_product_ks&ajax=1&productid="+id,
+					url:that.app.apiHost+"/b2c_product_ks/index?productid="+id,
 					success:function(res){
 						if(res.error){
 							uni.showToast({
@@ -314,7 +314,7 @@
 			ks1:function(id){
 				var that=this;
 				that.app.get({
-					url:that.app.apiHost+"/module.php?m=b2c_product_ks&a=sizeList&ajax=1&id="+id,
+					url:that.app.apiHost+"/b2c_product_ks/sizeList?id="+id,
 					success:function(res){
 						if(res.error){
 							uni.showToast({
@@ -333,7 +333,7 @@
 				var that=this;
 				that.ksid=id;
 				that.app.get({
-					url:that.app.apiHost+"/module.php?m=b2c_product_ks&a=get&ajax=1&id="+id,
+					url:that.app.apiHost+"/b2c_product_ks/get?id="+id,
 					success:function(res){
 						if(res.error){
 							uni.showToast({
@@ -352,7 +352,7 @@
 				var ksid=that.ksid;
 				var amount = 1;
 				that.app.get({
-					url: that.app.apiHost+'/module.php?m=b2c_cart&a=add&ajax=1',
+					url: that.app.apiHost+'/b2c_cart/add?ajax=1',
 					data: {
 						productid: id,
 						amount: amount,
@@ -377,7 +377,7 @@
 				var ksid=that.ksid;
 				amount++;
 				that.app.get({
-					url: that.app.apiHost+'/module.php?m=b2c_cart&a=add&ajax=1',
+					url: that.app.apiHost+'/b2c_cart/add?ajax=1',
 					data: {
 						productid: id,
 						amount: amount,
@@ -405,7 +405,7 @@
 					isdelete = 1
 				}
 				that.app.get({
-					url: that.app.apiHost+'/module.php?m=b2c_cart&a=add&ajax=1',
+					url: that.app.apiHost+'/b2c_cart/add?ajax=1',
 					data: {
 						productid: id,
 						amount: amount,

@@ -80,7 +80,7 @@
 			getPage:function(){
 				var that=this;
 				that.app.get({
-					url:that.app.apiHost+"/index.php?m=article&a=list&ajax=1&catid="+this.catid,
+					url:that.app.apiHost+"/article/list?catid="+this.catid,
 					dataType:"json",
 					success:function(res){
 						that.list=res.data.list;
@@ -101,7 +101,7 @@
 					return false;
 				}
 				that.app.get({
-					url:that.app.apiHost+"/index.php?m=article&a=list&ajax=1&catid="+this.catid,
+					url:that.app.apiHost+"/article/list?catid="+this.catid,
 					data:{
 						type:that.type,
 						per_page:that.per_page,

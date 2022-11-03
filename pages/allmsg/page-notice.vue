@@ -76,7 +76,7 @@
 			getPage:function(){
 				var that=this;
 				that.app.get({
-					url:that.app.apiHost+"/index.php?m=notice&ajax=1",
+					url:that.app.apiHost+"/notice/index",
 					data:{
 						type:this.type
 					},
@@ -99,7 +99,7 @@
 					return false;
 				}
 				that.app.get({
-					url:that.app.apiHost+"/index.php?m=notice&ajax=1",
+					url:that.app.apiHost+"/notice/index",
 					data:{
 						type:this.type,
 						per_page:that.per_page
@@ -128,7 +128,7 @@
 			read:function(item){
 				var that=this;
 				that.app.get({
-					url:that.app.apiHost+"/index.php?m=notice&a=ReadNotice&ajax=1",
+					url:that.app.apiHost+"/notice/ReadNotice?ajax=1",
 					dataType:"json",
 					data:{
 						id:item.id

@@ -76,7 +76,7 @@
 			getPage:function(){
 				var that=this;
 				that.app.get({
-					url:that.app.apiHost+"/index.php?m=invite&a=my",
+					url:that.app.apiHost+"/invite/my?",
 					success:function(res){
 						that.pageData=res.data;
 						that.pageLoad=true;

@@ -75,12 +75,13 @@
 			getPage:function(){
 				var that=this;
 				that.app.get({
-					url:that.app.apiHost+"/index.php?m=user_address&a=my&ajax=1",
+					url:that.app.apiHost+"/user_address/my?ajax=1",
 					success:function(res){
 						that.pageLoad=true;
 						that.rscount=res.data.rscount;
 						that.list=res.data.list;
 						that.per_page=res.data.per_page;
+						that.isFirst=false;
 					}
 				})
 			},
@@ -91,18 +92,18 @@
 					return false;
 				}
 				that.app.get({
-					url:that.app.apiHost+"/index.php?m=user_address&a=my",
+					url:that.app.apiHost+"/user_address/my?",
 					data:{
 						per_page:that.per_page
 					},
 					success:function(res){						 
 						that.per_page=res.data.per_page;
 						if(that.isFirst){
-							that.list=res.data.data;
+							that.list=res.data.list;
 							that.isFirst=false;
 						}else{
-							for(var i in res.data.data){
-								that.list.push(res.data.data[i]);
+							for(var i in res.data.list){
+								that.list.push(res.data.list[i]);
 							}							
 						}
 						
@@ -134,30 +135,32 @@
 				var id=id;
 				uni.showModal({
 					content:"删除后不可恢复,确认删除？",
-					success:function(ops){
-							console.log(ops)
-					}
-				})
-				that.app.get({
-					url:that.app.apiHost+"?m=user_address&a=delete&ajax=1&id="+id,
-					success:function(res){
-						if(!res.data.error){
-								var list=that.list;
-								var newlist=[];
-								for(var i in list){
-									if(list[i].id!=id){
-										newlist.push(list[i]);
+					success:function(e){
+							if(e.confirm){
+								that.app.get({
+									url:that.app.apiHost+"/user_address/delete?id="+id,
+									success:function(res){
+										if(!res.error){
+												var list=that.list;
+												var newlist=[];
+												for(var i in list){
+													if(list[i].id!=id){
+														newlist.push(list[i]);
+													}
+													
+												}
+										
+												that.list=newlist;
+										}
+										uni.showToast({
+											title:res.message,
+										})
 									}
-									
-								}
-		
-								that.list=newlist;
-						}
-						uni.showToast({
-							title:res.data.message,
-						})
+								})
+							}
 					}
 				})
+				
 			}
 		},
 	}

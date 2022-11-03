@@ -8,7 +8,7 @@
 	export default{
 		data:function(){
 			return {
-				url:"https://www.fd175.com/module.php?m=vr3d&from_wxmini=1"
+				url:"https://www.fd175.com/vr3d/index?from_wxmini=1"
 			}
 		},
 		onLoad:function(ops){
