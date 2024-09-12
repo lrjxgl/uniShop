@@ -39,7 +39,7 @@
 			getPage: function() {
 				var that = this;
 				that.app.get({
-					url: that.app.apiHost + "/bankcard/index",
+					url: that.app.apiHost + "/index/bankcard",
 					success: function(res) {
 						 
 						that.list = res.data.list;
@@ -54,7 +54,7 @@
 					success: function (res) {
 						if (res.confirm) {
 							that.app.get({
-								url: that.app.apiHost + "/bankcard/delete?ajax=1",
+								url: that.app.apiHost + "/index/bankcard/delete",
 								data:{
 									id:item.id
 								},

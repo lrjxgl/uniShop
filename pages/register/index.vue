@@ -1,5 +1,11 @@
 <template>
 	<view class="regBg">
+		<view class="h30"></view>
+		<view class="flex-center ">
+			<view @click="goHome()" class="flex-center">
+				<image :src="host+'/static/images/logo.png?v2'" class="wh-60"></image>
+			</view>
+		</view>
 		<view class="regBox" v-if="pageLoad">
 			<form    @submit="formSubmit">
 			<view class="input-flex">
@@ -23,12 +29,30 @@
 				<input class="input-flex-text" name="password" type="text" password=true  placeholder="请填写密码">
 			</view>
 			
-			 
+			<div class="flex flex-ai-center">
+				<checkbox-group @change="setXyCheck">
+				<checkbox value="1" ></checkbox> 
+				</checkbox-group
+				<span>我已阅读并同意</span>
+				<div @click="viewXy()" class="cl-primary">《注册协议及隐私条款》</div>
+			</div> 
 			
-			<button type="primary" form-type="submit" class="btn-row-submit btn-success">立即注册</button>
+			<button  form-type="submit" class="btn-row-submit btn-success">立即注册</button>
 		   
 			</form>
 		</view>
+		<div v-if="regNoteModal">
+			<div @click="regNoteModal=false" class="modal-mask"></div>
+			<div class="modal">
+				<div class="modal-header">
+					<div   class="modal-title">注册协议及隐私条款</div>
+					<div @click="regNoteModal=false" class="modal-close icon-close"></div>
+				</div>
+				<div class="modal-body">
+					<div class="d-content" v-html="regnote"></div>
+				</div>
+			</div>
+		</div>
 	</view>
 </template>
 
@@ -44,11 +68,15 @@
 				telephone:"",
 				yzmClass:"",
 				yzmStatus:"获取验证码",
-			 
+				host: "",
+				xyCheck:"0",
+				regnote:"",
+				regNoteModal:false
 			};
 		},
 		onLoad:function(option){
 			this.pageLoad=true;
+			this.host = this.app.apiHost;
 		},
 		 
 		methods:{
@@ -72,7 +100,7 @@
 					if(!yzmEnable) return false;
 					var that=this;
 					that.app.get({
-						url:that.app.apiHost+"/register/SendSms?ajax=1",
+						url:that.app.apiHost+"/index/register/SendSms",
 						data:{
 							telephone:this.telephone							 
 						},
@@ -87,12 +115,32 @@
 						}
 					})
 			},
-			 
+			setXyCheck(e){
+				this.xyCheck=e.detail.value;
+			}, 
+			viewXy(){
+				var that=this;
+				that.app.get({
+					url:that.app.apiHost+"/index/html/index?word=regnote",
+					success:function(res){
+						that.regnote=res.data.data.content;
+						that.regNoteModal=true;
+					}
+				})
+			},
 			formSubmit:function(e){
 				var that=this;
+				console.log(that.xyCheck)
+				if(that.xyCheck!="1"){
+					uni.showToast({
+						title:"请阅读并同意注册协议及隐私条款",
+						icon:"none"
+					})
+					return false;
+				}
 				e.detail.value.password2=e.detail.value.password;
 				that.app.post({
-					url:that.app.apiHost+"/register/regsave?ajax=1",
+					url:that.app.apiHost+"/index/register/regsave",
 					data:e.detail.value,
 					success:function(res){						 
 						if(res.error){
@@ -123,13 +171,13 @@
 		top: 50%;
 		left: 30upx;
 		right: 30upx;
-		margin-top: -390upx;
+		margin-top: -160px;
 		padding:30upx 20upx;
 		background-color: #fff; 
 		border-radius: 20upx;
 	}
 	.regBg{
-		background: linear-gradient( #29cee8,#619ad6);
+		background: #efefef;
 		position: absolute;
 		top: 0upx;
 		bottom: 0upx;

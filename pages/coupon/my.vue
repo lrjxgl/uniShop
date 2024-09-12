@@ -1,13 +1,13 @@
 <template>
 	<view  v-if="pageLoad">
 		 
-			<view v-if="pageData.rscount==0">
+			<view v-if="list.length==0">
 				<view class="emptyData">暂无优惠券</view>
 			</view>
 			<view v-else>
 
 				<view class="flexlist">
-					<view  class="flexlist-item pdb-10" v-for="(item,index) in pageData.list" :key="index">
+					<view  class="flexlist-item pdb-10" v-for="(item,index) in  list" :key="index">
 
 						<image class="flexlist-img" :src="item.imgurl+'.100x100.jpg'"></image>
 						<view class="flex-1">
@@ -19,8 +19,10 @@
 								减 <text class="cor-money">￥{{item.money}}</text>
 							</view>
 						</view>
+						<div>
+							
 						<view class="btn btn-primary" @click="goPros(item.money)">去购买</view> 
-
+						</div>
 					</view>
 				</view>
 			</view>
@@ -61,10 +63,15 @@
 			getPage: function () {
 				var that = this;
 				that.app.get({
-					url: that.app.apiHost + "/coupon/my?ajax=1",
-					
+					url: that.app.apiHost + "/index/coupon/my",
+					unLogin:true,
 					success: function (res) {
-						
+						if(res.error){
+							if(res.error==1000){
+								that.app.showLoginBox(true);
+							}
+							return false;
+						}
 						that.isFirst = false;
 						that.list = res.data.list;
 						that.pageLoad=true;
@@ -77,11 +84,18 @@
 				var that = this;
 				if (!that.isFirst && that.per_page == 0) return false;
 				that.app.get({
-					url: that.app.apiHost + "/coupon/my?ajax=1",
+					url: that.app.apiHost + "/index/coupon/my",
 					data: {
 						per_page: that.per_page
 					},
+					unLogin:true,
 					success: function (res) {
+						if(res.error){
+							if(res.error==1000){
+								that.app.showLoginBox(true);
+							}
+							return false;
+						}
 						if(that.isFirst){
 							that.isFirst = false;
 							that.list = res.data.list;
@@ -108,7 +122,7 @@
 			},
 			goPros:function(money){
 				uni.navigateTo({
-					url:"/pages/product/index?startprice="+money,
+					url:"/pageb2c/b2c/index?startprice="+money,
 				})
 			}
 		},

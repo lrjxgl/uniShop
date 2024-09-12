@@ -78,7 +78,7 @@
 				var that = this;
 				that.app.get({
 					dataType: "json",
-					url: that.app.apiHost+"/pm/index",
+					url: that.app.apiHost+"/index/pm/index",
 					unLogin: true,
 					success: function(res) {
 						if (res.error == 1000) {
@@ -96,7 +96,7 @@
 				}
 				that.app.get({
 					dataType: "json",
-					url: that.app.apiHost+"/pm/index",
+					url: that.app.apiHost+"/index/pm/index",
 					data: {
 						per_page: that.per_page
 					},

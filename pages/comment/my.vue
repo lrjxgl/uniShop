@@ -1,10 +1,6 @@
 <template>
 	<view v-if="pageLoad" class="bg-a">	
-		<view class="header">
-			<view class="header-back"></view>
-			<view class="header-title">我的评论</view>
-		</view>
-		<view class="header-row"></view>
+		 
 		<view class="main-body">
 			 
 			<view v-if="rscount==0">
@@ -62,11 +58,18 @@
 			getPage:function() {
 				var that=this;
 				that.app.get({
-					url:that.app.apiHost+"/comment/my?",
+					url:that.app.apiHost+"/index/comment/my",
 					data:{
 						tablename:this.tablename
 					},
+					unLogin:true,
 					success:function(res){
+						if(res.error){
+							if(res.error==1000){
+								that.app.showLoginBox(true);
+							}
+							return false;
+						}
 						that.pageLoad=true;
 						that.rscount=res.data.rscount;
 						that.list=res.data.list;
@@ -80,7 +83,7 @@
 					return false;
 				}
 				that.app.get({
-					url:that.app.apiHost+"/comment/my?",
+					url:that.app.apiHost+"/index/comment/my",
 					data:{
 						per_page:that.per_page,
 						tablename:this.tablename
@@ -114,7 +117,7 @@
 					success:function(res){
 						if(res.confirm){
 							that.app.get({
-								url:that.app.apiHost+"/comment/delete?id="+id,
+								url:that.app.apiHost+"/index/comment/delete?id="+id,
 								data:{
 									tablename:that.tablename
 								},

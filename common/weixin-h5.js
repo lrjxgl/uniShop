@@ -1,14 +1,14 @@
-import wx from "../common/weixin-sdk.js";
-module.exports={
-	wxshare_title:"福鼎生活网，打造福鼎综合生活服务平台",
+import wx from "./weixin-sdk.js" 
+export default{
+	wxshare_title:"DeituiCMS",
 	wxshare_link:document.location.href,
-	wxshare_imgUrl:"https://www.fd175.com//static/images/logo.png",
-	wxshare_desc:"福鼎生活网，打造福鼎综合生活服务平台",
+	wxshare_imgUrl:"https://demo.deituicms.com/static/images/logo.png",
+	wxshare_desc:"DeituiCMS开源免费",
 	share:function(){
 		var that=this;
 		
 		uni.request({
-			url:"https://www.fd175.com/weixin_jssdk/sign?ajax=1",
+			url:"https://demo.deituicms.com/index/weixin_jssdk/sign?ajax=1",
 			data:{
 				url:this.wxshare_link.split('#')[0]
 			},

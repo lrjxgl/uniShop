@@ -6,6 +6,17 @@
 		</view>
 		<view class="header-row"></view>
 		<view class="main-body" v-if="pageLoad">
+			<swiper class="bd-mp-5"  v-if="flashList.length>0" :style="{height:swipeHeight+'px'}" :indicator-dots="true" :autoplay="true" :interval="3000"
+				:duration="1000">
+				<swiper-item v-for="(item,key) in  flashList" :key="key">
+					<view class="swiper-item">
+						<image @click="gourl(item.link1)" :src="item.imgurl" class="wall" mode="widthFix">
+						</image>
+					</view>
+				</swiper-item>
+					
+			</swiper>
+			
 			<scroll-view v-if="catList.length>0" class="bg-fff" scroll-x="true">
 				<view class="tabs-border">
 					<view @click="setCatid(scatid)" :class="catid==scatid?'tabs-border-active':''" class="tabs-border-item">全部</view>
@@ -56,16 +67,25 @@
 				scatid:0,
 				catList:[],
 				list:[],
-				cat:{}
+				cat:{},
+				swipeHeight: 320,
+				flashList:[]
 			}
 		},
 		onLoad:function(ops){
 			this.catid=ops.catid;
 			this.scatid=ops.catid;
+			var sys = uni.getSystemInfoSync();
+			this.swipeHeight = Math.min(640, sys.windowWidth) / 2;
 			this.getPage();
 			
 		},
 		methods:{
+			gourl(url){
+				uni.navigateTo({
+					url:url
+				})
+			},
 			setCatid:function(catid){
 				this.catid=catid;
 				isFirst=true;
@@ -81,13 +101,18 @@
 				var that=this;
 				that.app.get({
 					url:that.app.apiHost+"/article/list?catid="+this.catid,
-					dataType:"json",
+				 
 					success:function(res){
+						if(res.error){
+							skyToast(res.message)
+							return false;
+						}
 						that.list=res.data.list;
 						that.pageLoad=true;
 						that.per_page=res.data.per_page;
 						that.isFirst=false;
 						that.cat=res.data.cat;
+						that.flashList=res.data.flashList;
 						uni.setNavigationBarTitle({
 							title:res.data.cat.cname
 						})
@@ -101,7 +126,7 @@
 					return false;
 				}
 				that.app.get({
-					url:that.app.apiHost+"/article/list?catid="+this.catid,
+					url:that.app.apiHost+"/index/article/list?catid="+this.catid,
 					data:{
 						type:that.type,
 						per_page:that.per_page,

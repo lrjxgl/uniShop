@@ -1,6 +1,4 @@
-! function (e, n) {
-  module.exports = n(e)
-}(window, function(e, n) {
+function wxsharejs(e, n) {
 	function i(n, i, t) {
 		e.WeixinJSBridge ? WeixinJSBridge.invoke(n, o(i), function(e) {
 			c(n, e, t)
@@ -14,7 +12,8 @@
 	}
 
 	function o(e) {
-		return e = e || {}, e.appId = C.appId, e.verifyAppId = C.appId, e.verifySignType = "sha1", e.verifyTimestamp = C.timestamp +
+		return e = e || {}, e.appId = C.appId, e.verifyAppId = C.appId, e.verifySignType = "sha1", e
+			.verifyTimestamp = C.timestamp +
 			"", e.verifyNonceStr = C.nonceStr, e.verifySignature = C.signature, e
 	}
 
@@ -29,16 +28,21 @@
 	}
 
 	function a(e) {
-		return e.postalCode = e.addressPostalCode, delete e.addressPostalCode, e.provinceName = e.proviceFirstStageName,
-			delete e.proviceFirstStageName, e.cityName = e.addressCitySecondStageName, delete e.addressCitySecondStageName, e.countryName =
-			e.addressCountiesThirdStageName, delete e.addressCountiesThirdStageName, e.detailInfo = e.addressDetailInfo, delete e
+		return e.postalCode = e.addressPostalCode, delete e.addressPostalCode, e.provinceName = e
+			.proviceFirstStageName,
+			delete e.proviceFirstStageName, e.cityName = e.addressCitySecondStageName, delete e
+			.addressCitySecondStageName, e.countryName =
+			e.addressCountiesThirdStageName, delete e.addressCountiesThirdStageName, e.detailInfo = e
+			.addressDetailInfo, delete e
 			.addressDetailInfo, e
 	}
 
 	function c(e, n, i) {
-		"openEnterpriseChat" == e && (n.errCode = n.err_code), delete n.err_code, delete n.err_desc, delete n.err_detail;
+		"openEnterpriseChat" == e && (n.errCode = n.err_code), delete n.err_code, delete n.err_desc, delete n
+			.err_detail;
 		var t = n.errMsg;
-		t || (t = n.err_msg, delete n.err_msg, t = s(e, t), n.errMsg = t), (i = i || {})._complete && (i._complete(n),
+		t || (t = n.err_msg, delete n.err_msg, t = s(e, t), n.errMsg = t), (i = i || {})._complete && (i._complete(
+				n),
 			delete i._complete), t = n.errMsg || "", C.debug && !i.isInnerInvoke && alert(JSON.stringify(n));
 		var o = t.indexOf(":");
 		switch (t.substring(o + 1)) {
@@ -61,9 +65,12 @@
 		var o = "ok";
 		if (n) {
 			var r = n.indexOf(":");
-			"confirm" == (o = n.substring(r + 1)) && (o = "ok"), "failed" == o && (o = "fail"), -1 != o.indexOf("failed_") && (
-					o = o.substring(7)), -1 != o.indexOf("fail_") && (o = o.substring(5)), "access denied" != (o = (o = o.replace(
-					/_/g, " ")).toLowerCase()) && "no permission to execute" != o || (o = "permission denied"), "config" == i &&
+			"confirm" == (o = n.substring(r + 1)) && (o = "ok"), "failed" == o && (o = "fail"), -1 != o.indexOf(
+					"failed_") && (
+					o = o.substring(7)), -1 != o.indexOf("fail_") && (o = o.substring(5)), "access denied" != (o = (
+					o = o.replace(
+						/_/g, " ")).toLowerCase()) && "no permission to execute" != o || (o = "permission denied"),
+				"config" == i &&
 				"function not exist" == o && (o = "ok"), "" == o && (o = "fail")
 		}
 		return n = i + ":" + o
@@ -90,13 +97,16 @@
 	function l(e) {
 		if (!(k || w || C.debug || x < "6.0.2" || V.systemType < 0)) {
 			var n = new Image;
-			V.appId = C.appId, V.initTime = A.initEndTime - A.initStartTime, V.preVerifyTime = A.preVerifyEndTime - A.preVerifyStartTime,
+			V.appId = C.appId, V.initTime = A.initEndTime - A.initStartTime, V.preVerifyTime = A.preVerifyEndTime -
+				A.preVerifyStartTime,
 				N.getNetworkType({
 					isInnerInvoke: !0,
 					success: function(e) {
 						V.networkType = e.networkType;
-						var i = "https://open.weixin.qq.com/sdk/report?v=" + V.version + "&o=" + V.isPreVerifyOk + "&s=" + V.systemType +
-							"&c=" + V.clientVersion + "&a=" + V.appId + "&n=" + V.networkType + "&i=" + V.initTime + "&p=" + V.preVerifyTime +
+						var i = "https://open.weixin.qq.com/sdk/report?v=" + V.version + "&o=" + V
+							.isPreVerifyOk + "&s=" + V.systemType +
+							"&c=" + V.clientVersion + "&a=" + V.appId + "&n=" + V.networkType + "&i=" + V
+							.initTime + "&p=" + V.preVerifyTime +
 							"&u=" + V.url;
 						n.src = i
 					}
@@ -535,7 +545,8 @@
 						if (n) {
 							for (var i = 0, t = (n = JSON.parse(n)).length; i < t; ++i) {
 								var o = n[i];
-								o.cardId = o.card_id, o.cardExt = o.card_ext, o.isSuccess = !!o.is_succ, delete o.card_id, delete o.card_ext,
+								o.cardId = o.card_id, o.cardExt = o.card_ext, o.isSuccess = !!o
+									.is_succ, delete o.card_id, delete o.card_ext,
 									delete o.is_succ
 							}
 							e.cardList = n, delete e.card_list
@@ -680,7 +691,8 @@
 				var n = e.target,
 					i = n.tagName,
 					t = n.src;
-				if (("IMG" == i || "VIDEO" == i || "AUDIO" == i || "SOURCE" == i) && -1 != t.indexOf("wxlocalresource://")) {
+				if (("IMG" == i || "VIDEO" == i || "AUDIO" == i || "SOURCE" == i) && -1 != t.indexOf(
+						"wxlocalresource://")) {
 					e.preventDefault(), e.stopPropagation();
 					var o = n["wx-id"];
 					if (o || (o = b++, n["wx-id"] = o), R[o]) return;
@@ -706,4 +718,8 @@
 			}
 		}, !0), n && (e.wx = e.jWeixin = N), N
 	}
-});
+}
+
+export default (function(e) {  
+  return wxsharejs(e); // 调用 createValue 函数并导出其结果  
+})(window);

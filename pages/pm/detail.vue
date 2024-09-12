@@ -119,7 +119,7 @@
 			getNew:function(){
 				var that=this;
 				that.app.get({
-					url:that.app.apiHost+"/pm/getnew?ajax=1",
+					url:that.app.apiHost+"/index/pm/getnew",
 					data:{
 						t_userid:that.t_userid
 					},
@@ -132,7 +132,7 @@
 			getPage:function(){
 				var that=this;
 				that.app.get({
-					url:that.app.apiHost+"/pm/detail?ajax=1",
+					url:that.app.apiHost+"/index/pm/detail",
 					data:{
 						t_userid:that.t_userid
 					},
@@ -165,7 +165,7 @@
 					return false;
 				}
 				that.app.get({
-					url:that.app.apiHost+"/pm/detail?ajax=1",
+					url:that.app.apiHost+"/index/pm/detail",
 					data:{
 						t_userid:that.t_userid,
 						per_page:that.per_page
@@ -206,7 +206,7 @@
 			sendPm:function(){
 				var that=this;
 				that.app.post({
-					url:that.app.apiHost+"/pm/sendSave?ajax=1",
+					url:that.app.apiHost+"/index/pm/sendSave",
 					data:{
 						t_userid:that.t_userid,
 						content:that.content

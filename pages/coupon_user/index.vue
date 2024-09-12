@@ -2,9 +2,9 @@
 	<view>
 		<div class="list">
 			
-			<div v-if="listNum==0" class="emptyData">暂无优惠券</div>
+			<div v-if="list.length==0" class="emptyData">暂无优惠券</div>
 			 
-			<div class="row-box mgb-5" v-for="(item,index) in pageData.list" :key="index">
+			<div class="row-box mgb-5" v-for="(item,index) in list" :key="index">
 				<div class="flex mgb-5">
 					<div class=" mgb-5">
 						{{item.title}}
@@ -30,9 +30,9 @@
 	export default{
 		data:function(){
 			return {
-				pageData:{},
+				 
 				pageLoad:false,
-				listNum:0
+				list:[]
 			}
 		},
 		created:function(){
@@ -43,12 +43,18 @@
 			getPage:function(){
 				var that=this;
 				that.app.get({
-					url:that.app.apiHost+"/coupon_user/index",
-					dataType:"json",
+					url:that.app.apiHost+"/index/coupon_user/index",
+					unLogin:true,
 					success:function(res){
-						that.pageData=res.data;
+						if(res.error){
+							if(res.error==1000){
+								that.app.showLoginBox(true);
+							}
+							return false;
+						}
+						that.list=res.data.list;
 						that.pageLoad=true;
-						that.listNum=Object.keys(that.pageData.list).length;
+						 
 					}
 				})
 			}

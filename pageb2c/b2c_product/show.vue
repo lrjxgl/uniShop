@@ -1,71 +1,71 @@
 <template>
-	<view>
+	<view class="bg-ef">
 		<view v-if="pageLoad">
-			<video class="video" objectFit="contain" v-if="pageData.data.videourl!=''" :src="pageData.data.videourl"></video>
-			<view  v-else-if="pageData.imgsdata" style="padding-bottom: 100%;"  class="scale-swiper-box">
-				<swiper class="scale-swiper" :indicator-dots="true" :autoplay="true" :interval="3000" :duration="1000">
-					<swiper-item  class="scale-swiper-item" v-for="(item,key) in pageData.imgsdata" :key="key">
+			<video class="video" objectFit="contain" v-if="data.videourl!=''" :src="data.videourl"></video>
+			<view  v-else-if="imgsdata.length>0" >
+				<swiper :style="{height:swipeHeight+'px'}"  :indicator-dots="true" :autoplay="true" :interval="3000" :duration="1000">
+					<swiper-item    v-for="(item,key) in imgsdata" :key="key">
 						 
-							<image class="scale-swiper-img" @click="showImg" :src="item"  mode="widthFix" ></image>
+							<image class="wall" @click="showImg" :src="item"  mode="widthFix" ></image>
 						 
 					</swiper-item>
 				
 				</swiper>
 			</view>
 			
-			<view v-else-if="pageData.data.imgurl">
-				<image class="d-img" mode="widthFix" :src="pageData.data.imgurl+'.middle.jpg'" ></image>
+			<view v-else-if="data.imgurl">
+				<image class="d-img" mode="widthFix" :src="data.imgurl+'.middle.jpg'" ></image>
 			</view>
 			<view class="row-box mgb-5">
-				<view class="d-title bd-mp-10">{{pageData.data.title}}</view>
+				<view class="d-title bd-mp-10">{{data.title}}</view>
 				<view class="flex mgb-5 flex-ai-center">
-					<view class="cl-money mgr-10 f18">￥{{pageData.data.price}}</view>
-					<view class="market-price f12">￥{{pageData.data.market_price}}</view>
+					<view class="cl-money mgr-10 f18">￥{{data.price}}</view>
+					<view class="market-price f12">￥{{data.market_price}}</view>
 				</view>
 				<view class="flex">
-					<view class="flex-1 cl3 f12">销量: {{pageData.data.buy_num}}</view>
-					<view class="flex-1 cl3 f12">库存: {{pageData.data.total_num}}</view>
-					<view class="flex-1 cl3 f12">人气: {{pageData.data.view_num}}</view>
+					<view class="flex-1 cl3 f12">销量: {{data.buy_num}}</view>
+					<view class="flex-1 cl3 f12">库存: {{data.total_num}}</view>
+					<view class="flex-1 cl3 f12">人气: {{data.view_num}}</view>
 				</view>
 			</view>
-			<view v-if="pageData.order" class="row-box mgb-5">
+			<view v-if="order" class="row-box mgb-5">
 				<view class="mgb-10 flex flex-ai-center">
-					<view class="f16 mgr-10"> {{pageData.order.nickname}}发起的团</view>
-					<view class="js-timego mgr-5 f12 cl3">{{pageData.order.timestr}}</view>
+					<view class="f16 mgr-10"> {{order.nickname}}发起的团</view>
+					<view class="js-timego mgr-5 f12 cl3">{{order.timestr}}</view>
 					
 					<view class="cl3">快来帮Ta成团</view>
 				</view>
 				<view class="flex flex-ai-center">
 					<view class="flex-1">
 						<view class="text-center cl2 mgb-5">参与</view>
-						<view class="cl-num text-center"> {{pageData.order.pin_num}}</view>
+						<view class="cl-num text-center"> {{order.pin_num}}</view>
 					</view>
 					<view class="flex-1">
 						<view class="text-center cl2 mgb-5">需要</view>
-						<view class="cl-num text-center"> {{pageData.data.pt_min}}</view>
+						<view class="cl-num text-center"> {{data.pt_min}}</view>
 					</view>
 					<view class="flex-1">			 
-						<view v-if="pageData.order.timego<0" class="btn-small btn-disable"   ispin="1">已结束</view>					 
-						<view v-else  @click="setOrder(pageData.order.orderid)" class="btn-small ppBox-Show" ispin="1">参加拼团</view>					
+						<view v-if="order.timego<0" class="btn-small btn-disable"   ispin="1">已结束</view>					 
+						<view v-else  @click="setOrder(order.orderid)" class="btn-small ppBox-Show" ispin="1">参加拼团</view>					
 					</view>
 					
 				</view>
 			</view>	
-			<view v-if="pageData.data.isksid || pageData.fieldsList" class="row-box mgb-5 ">
-				<view @click="ppBoxShow" v-if="pageData.data.isksid" class="flex mgb-10 ppBox-Show pointer">
+			<view v-if="data.isksid || Object.keys(fieldsList).length>0" class="row-box mgb-5 ">
+				<view @click="ppBoxShow" v-if="data.isksid" class="flex mgb-10 ppBox-Show pointer">
 					<view class="mgr-5 cl3">选择</view>
 					<view class="flex-1">
-						<view class="cl2 mgb-5">{{pageData.data.ks_label_name}},{{pageData.data.ks_label_size}}</view>
+						<view class="cl2 mgb-5">{{data.ks_label_name}},{{data.ks_label_size}}</view>
 
 					</view>
 					<view class="iconfont icon-right f14 cl3"></view>
 				</view>
 
 
-				<view @click="attBoxClass='flex-col'" v-if="pageData.fieldsList" class="flex flex-ai-center  pointer" id="attBox-show">
+				<view @click="attBoxClass='flex-col'" v-if="Object.keys(fieldsList).length>0" class="flex flex-ai-center  pointer" id="attBox-show">
 					<view class="mgr-5 cl3">参数</view>
 					<view class="flex-1 f12 flex " style="overflow: hidden;">
-						<block v-for="(c,i) in pageData.fieldsList" :key="i">
+						<block v-for="(c,i) in fieldsList" :key="i">
 							<view>
 								{{c.title}}
 							</view>
@@ -76,14 +76,14 @@
 
 
 			</view>
-			<view v-if="pageData.pts.length>0" class="row-box mgb-10">
+			<view v-if="pts.length>0" class="row-box mgb-10">
 				<view class="flex flex-ai-center bd-mp-5">
-					<view class="fwb">{{pageData.pts_num}}人在拼团，可直接参与</view>
+					<view class="fwb">{{pts_num}}人在拼团，可直接参与</view>
 					 
 				</view>
 				<view class="pdList">
 			 
-					<block v-for="($c,i) in pageData.pts" :key="i">
+					<block v-for="($c,i) in pts" :key="i">
 					<view class="pdList-item">
 						<img :src="$c.user_head+'.100x100.jpg'" class="pdList-img" />
 						<view class="pdList-nick">{{$c.nickname}}</view>
@@ -97,13 +97,13 @@
 					 
 				</view>
 			</view>
-			<b2c-proraty :productid="pageData.data.id"></b2c-proraty>
+			<b2c-proraty :productid="data.id"></b2c-proraty>
 
 
 
-			<view v-if="pageData.data.content" class="pd-10 bg-fff">
+			<view v-if="data.content" class="pd-10 bg-fff">
 				<view class="d-content">
-					<rich-text :nodes="pageData.data.content"></rich-text>
+					<mp-html :content="data.content" /> 
 				</view>
 			</view>
 			<view class="row-box mgb-5">
@@ -113,7 +113,7 @@
 				</view>	
 			</view>
 			
-			<b2c-likelist :productid="pageData.data.id"></b2c-likelist>
+			<b2c-likelist :productid="data.id"></b2c-likelist>
 			<view class="h60"></view>
 			<view v-if="ispin" class="flcart">
 				 
@@ -123,11 +123,11 @@
 				</view>
 
 				<view @click="ptBuy(0)" class="bt-a ppBox-Show">
-					<view class="bt-a-f">￥{{pageData.data.price}}</view>
+					<view class="bt-a-f">￥{{data.price}}</view>
 					<view class="bt-a-f">单独购买</view>
 				</view>
 				<view @click="ptBuy(1)" class="bt-b ppBox-Show" ispin="1">
-					<view class="bt-a-f">￥{{pageData.data.pt_price}}</view>
+					<view class="bt-a-f">￥{{data.pt_price}}</view>
 					<view class="bt-a-f">发起拼单</view>
 				</view>
 			</view>
@@ -151,24 +151,24 @@
 				<view class="ppBox ani-bottom">
 					<view id="ppBox-close" @click="ppBoxClass=''" class="ppBox-close iconfont icon-close"></view>
 					<view class="flex flex-jc-center mgb-10">
-						<img class="wh-80 mgr-10" :src="pageData.data.imgurl+'.100x100.jpg'" />
+						<img class="wh-80 mgr-10" :src="data.imgurl+'.100x100.jpg'" />
 						<view class="flex-1 flex-jc-center">
 							<view class="cl-money mgb-5">￥{{price}}</view>
-							<view class="f12 cl2 mgb-5">库存{{pageData.data.total_num}}件</view>
+							<view class="f12 cl2 mgb-5">库存{{data.total_num}}件</view>
 
-							<view v-if="pageData.data.isksid" class="f12">选择 {{pageData.data.ks_label_name}},{{pageData.data.ks_label_size}}</view>
+							<view v-if="data.isksid" class="f12">选择 {{data.ks_label_name}},{{data.ks_label_size}}</view>
 
 						</view>
 					</view>
 
-					<template v-if="pageData.data.isksid>0">
-						<view class="kslist-label mgb-5">{{pageData.data.ks_label_name}}</view>
+					<template v-if="data.isksid>0">
+						<view class="kslist-label mgb-5">{{data.ks_label_name}}</view>
 						<view id="ks1" class="kslist bd-mp-10 pdl0">
 							<block v-for="(item,i) in ksList" :key="i">
 								<view @click="ks1(item.id)" v-bind:class="{'kslist-active':item.id==ksid1}" class="kslist-item">{{item.title}}</view>
 							</block>
 						</view>
-						<view class="kslist-label mgb-5">{{pageData.data.ks_label_size}}</view>
+						<view class="kslist-label mgb-5">{{data.ks_label_size}}</view>
 						<view id="ks2" class="kslist bd-mp-10 pdl0">
 
 							<view class="flex kslist-list ">
@@ -194,11 +194,11 @@
 				</view>
 			</view>
 
-			<view v-if="pageData.fieldsList" id="attBox" :class="attBoxClass" class="modal-group">
+			<view v-if="Object.keys(fieldsList).length>0" id="attBox" :class="attBoxClass" class="modal-group">
 				<view @click="attBoxClass=''" class="modal-mask"></view>
 				<view class="ppBox ani-bottom">
 					<view class="text-center mgb-10">产品参数</view>
-					<table-fields :fieldsList="pageData.fieldsList"></table-fields>
+					<table-fields :fieldsList="fieldsList"></table-fields>
 					<view @click="attBoxClass=''" class="btn-row-submit" id="attBox-close">关闭</view>
 				</view>
 			</view>
@@ -211,38 +211,48 @@
 </template>
 
 <script>
-	import b2cProraty from "../../components/b2c-proraty.vue";
+	import b2cProraty from "../../components/b2c/b2c-proraty.vue";
 	import tableFields from "../../components/tablefield/tablefield-show.vue";
-	import b2cLikelist from "../../components/b2c-likelist.vue";
+	import b2cLikelist from "../../components/b2c/b2c-likelist.vue";
+ 
 	export default {
 		components: {
 			b2cProraty,
 			tableFields,
-			b2cLikelist
+			b2cLikelist,
+			 
 		},
 		data: function() {
 			return {
 				ispin: false,
 				gopin: 0,
-				pageData: {},
+				data: {},
 				pageLoad: false,
 				ksid: 0,
 				ksid1: 0,
 				ksList: [],
 				ksList2: [],
+				fieldsList:[],
 				price: 0,
 				cart_amount: 0,
 				ppBoxClass: "",
 				attBoxClass: "",
 				goBuy: false,
 				favClass: "",
-				orderid:0
+				orderid:0,
+				order:{},
+				imgsdata:[],
+				pts:[],
+				swipeHeight:200
 			}
 		},
 		onLoad: function(ops) {
 			if(ops.orderid!=undefined){
 				this.orderid=ops.orderid;
 			}
+			var sys = uni.getSystemInfoSync();
+			this.swipeHeight = Math.min(640, sys.windowWidth) / 1.5;
+			 
 			this.getPage(ops.id);
 		},
 		methods: {
@@ -297,16 +307,16 @@
 			setTimer:function(){
 				var that=this;
 				setInterval(function(){
-					if(that.pageData.order){
-						if(that.pageData.order.timego>0){
-							that.pageData.order.timego--;
-							that.pageData.order.timestr=that.timeLeft(that.pageData.order.timego);	 
+					if(that.order){
+						if(that.order.timego>0){
+							that.order.timego--;
+							that.order.timestr=that.timeLeft(that.order.timego);	 
 						} 
 					}
-					if(that.pageData.pts){
-						for(var i in that.pageData.pts){
-							that.pageData.pts[i].timego--;
-							that.pageData.pts[i].timestr=that.timeLeft(that.pageData.pts[i].timego);
+					if(that.pts){
+						for(var i in that.pts){
+							that.pts[i].timego--;
+							that.pts[i].timestr=that.timeLeft(that.pts[i].timego);
 						}
 					}
 				},1000)
@@ -315,7 +325,7 @@
 			getPage: function(id) {
 				var that = this;
 				that.app.get({
-					url: that.app.apiHost + "/b2c_product/show?id=" + id,
+					url: that.app.apiHost + "/mm/b2c_product/show?id=" + id,
 					data: {
 						 
 						orderid:that.orderid
@@ -335,12 +345,17 @@
 						}
 						that.pageLoad = true;
 						res.data.data.content=that.app.html(res.data.data.content)
-						that.pageData = res.data;
+						that.data = res.data.data;
+						that.order=res.data.order;
+						that.pts=res.data.pts;
+						that.fieldsList=res.data.fieldsList;
+						console.log(that.fieldsList)
 						that.ksList = res.data.ksList;
 						that.ksList2 = res.data.ksList2;
 						that.ksid = res.data.ksid;
 						that.ksid1 = res.data.ksid;
 						that.price = res.data.data.price;
+						that.imgsdata=res.data.imgsdata;
 						if(res.data.cart_amount==0){
 							res.data.cart_amount=1;
 						}
@@ -361,7 +376,7 @@
 			ks1: function(id) {
 				var that = this;
 				that.app.get({
-					url: that.app.apiHost + "/b2c_product_ks/sizeList?id=" + id,
+					url: that.app.apiHost + "/mm/b2c_product_ks/sizeList?id=" + id,
 					dataType: "json",
 					success: function(res) {
 						that.ksid1 = res.data.ksid;
@@ -380,7 +395,7 @@
 				var that = this;
 				that.ksid = id;
 				that.app.get({
-					url: that.app.apiHost + "/b2c_product_ks/get?id=" + id,
+					url: that.app.apiHost + "/mm/b2c_product_ks/get?id=" + id,
 					success: function(res) {
 						that.ksproduct = res.data.product;
 						that.price = res.data.ks.price;
@@ -395,14 +410,19 @@
 				var that = this;
 				var ksid = that.ksid;
 				that.app.get({
-					url: that.app.apiHost + '/b2c_cart/add?ajax=1',
+					url: that.app.apiHost + '/mm/b2c_cart/add',
 					data: {
-						productid: that.pageData.data.id,
+						productid: that.data.id,
 						amount: that.cart_amount,
 						ksid: ksid
 					},
+					unLogin:true,
 					success: function(res) {
 						if (res.error) {
+							if(res.error==1000){
+								that.app.showLoginBox(false)
+								return false;
+							}
 							uni.showToast({
 								title: res.message
 							})
@@ -427,14 +447,15 @@
 			favToggle: function(id) {
 				var that = this;
 				that.app.get({
-					url: that.app.apiHost + "/fav/toggle?ajax=1",
+					url: that.app.apiHost + "/index/fav/toggle",
 					data: {
-						objectid: that.pageData.data.id,
+						objectid: that.data.id,
 						tablename: "mod_b2c_product"
 					},
+					unLogin:true,
 					success: function(res) {
 						if (res.error == 1000) {
-							that.app.goLogin();
+							that.app.showLoginBox(false)
 							return false;
 						}
 						if (res.data == 'delete') {
@@ -600,5 +621,9 @@
 
 	.bt-b {
 		background-color: #e02e24;
+	}
+	.d-content img{
+		max-width: 100%;
+		height: auto;
 	}
 </style>

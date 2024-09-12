@@ -32,7 +32,7 @@
 		}
 		var m="";
 		var a=ops.a;
-		console.log(ops.m.substr(0,4));
+		console.log(ops)
 		var arr=ops.m.split("_");
 		if(ops.m.substr(0,4)=="mod_"){
 			var mm=arr[1];
@@ -41,11 +41,28 @@
 				case "sblog":
 					$root="../../page"+mm;
 					break;
+				case "b2c":
+					$root="../../page"+mm;
+					break;
 				default:
 					$root="../../"+mm;
 					break;
 			}
+		}else{
+			if(ops.m.substr(0,3)=="b2c"){
+				$root="../../pageb2c";
+				m=ops.m;
+			}else if(ops.m.substr(0,5)=="forum"){
+				$root="../../pageforum";
+				m=ops.m;
+			}else if(ops.m.substr(0,5)=="sblog"){
+				$root="../../pagesblog";
+				m=ops.m;
+			}else{
+				m=ops.m;
+			}
 		}
+		console.log(ops.m.substr(0,4),m,a);
 		var url=$root+"/"+m+"/"+a+"?"+ops.param;
 		return url;
 	}
@@ -76,11 +93,10 @@
 			getPage:function(){
 				var that=this;
 				that.app.get({
-					url:that.app.apiHost+"/notice/index",
+					url:that.app.apiHost+"/index/notice/index",
 					data:{
 						type:this.type
 					},
-					dataType:"json",
 					success:function(res){
 						if(res.error){
 							skyToast(res.message);
@@ -99,12 +115,11 @@
 					return false;
 				}
 				that.app.get({
-					url:that.app.apiHost+"/notice/index",
+					url:that.app.apiHost+"/index/notice/index",
 					data:{
 						type:this.type,
 						per_page:that.per_page
 					},
-					dataType:"json",
 					success:function(res){
 						if(res.error){
 							skyToast(res.message);
@@ -128,8 +143,7 @@
 			read:function(item){
 				var that=this;
 				that.app.get({
-					url:that.app.apiHost+"/notice/ReadNotice?ajax=1",
-					dataType:"json",
+					url:that.app.apiHost+"/index/notice/ReadNotice",
 					data:{
 						id:item.id
 					},

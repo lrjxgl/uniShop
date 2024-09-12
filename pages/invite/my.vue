@@ -76,8 +76,15 @@
 			getPage:function(){
 				var that=this;
 				that.app.get({
-					url:that.app.apiHost+"/invite/my?",
+					url:that.app.apiHost+"/index/invite/my",
+					unLogin:true,
 					success:function(res){
+						if(res.error){
+							if(res.error==1000){
+								that.app.showLoginBox(true);
+							}
+							return false;
+						}
 						that.pageData=res.data;
 						that.pageLoad=true;
 					}

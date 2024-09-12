@@ -34,7 +34,7 @@
 </template>
 
 <script>
-	import b2cFooter from "../../components/b2cfooter.vue";
+	import b2cFooter from "../../components/b2c/footer.vue";
 	export default {
 		components:{
 			b2cFooter
@@ -70,7 +70,7 @@
 			getPage: function() {
 				var that = this;
 				that.app.get({
-					url: that.app.apiHost + "/b2c_category/index?ajax=1",
+					url: that.app.apiHost + "/mm/b2c_category/index",
 					success: function(res) {
 						that.pageData = res.data;
 						for(var i in res.data.catList){

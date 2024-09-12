@@ -1,6 +1,6 @@
 <template>
 	<view>
-		<web-view :src="url"></web-view>
+		<web-view v-if="url!=''" :src="url"></web-view>
 	</view>
 </template>
 
@@ -8,14 +8,26 @@
 	export default{
 		data:function(){
 			return {
-				url:"https://www.fd175.com/vr3d/index?from_wxmini=1"
+				url:""
 			}
 		},
 		onLoad:function(ops){
+			this.url=this.app.apiHost
 			if(ops.url!=undefined){
-				this.url=decodeURIComponent(ops.url) +"&from_wxmini=1" ;
+				this.url=decodeURIComponent(ops.url)
+		 
+				if(this.url.indexOf("?")==-1){
+				 
+					this.url+="?from_wxmini=1"
+				}else{
+					this.url+="&from_wxmini=1"
+				}
+				  
 			}
-			if(this.url.substr(0,"https://www.fd175.com".length)=="https://www.fd175.com"){
+			if(this.url.substr(0,this.app.apiHost.length)==this.app.apiHost){
+				if(ops.url.indexOf("?")==-1){
+					this.url+="?"
+				}
 				this.url+="&loginToken="+this.app.getToken()
 			}
 			console.log(this.url);		

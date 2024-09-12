@@ -1,18 +1,18 @@
-import Vue from 'vue'
 import App from './App'
-import $app from "./common/common.js";
+import $app from "./common/app.js"
+import $timer from "./common/timer.js"; 
+import { createSSRApp } from 'vue'
 import pageLoading from "./components/pageloading.vue";
-Vue.component("page-loading",pageLoading);
-import goTop from "./components/go-top.vue";
-Vue.component("go-top",goTop);
-Vue.prototype.app=$app;
-Vue.config.productionTip = false
-import store from './store/'
-Vue.prototype.$store = store
-App.mpType = 'app'
 
-const app = new Vue({
-    ...App,
-	store
-})
-app.$mount()
+import goTop from "./components/go-top.vue";
+
+export function createApp() {
+  const app = createSSRApp(App)
+  app.config.globalProperties.app = $app; 
+  app.config.globalProperties.timer = $timer; 
+  app.component("page-loading",pageLoading);
+  app.component("go-top",goTop);
+  return {
+    app
+  }
+}

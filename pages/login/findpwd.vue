@@ -62,7 +62,7 @@
 					if(!yzmEnable) return false;
 					var that=this;
 					that.app.get({
-						url:that.app.apiHost+"/login/sendsms?ajax=1",
+						url:that.app.apiHost+"/index/login/sendsms",
 						data:{
 							telephone:this.telephone
 						},
@@ -81,7 +81,7 @@
 			formSubmit:function(e){
 				var that=this;
 				that.app.post({
-					url:that.app.apiHost+"/login/findpwdsave?ajax=1",
+					url:that.app.apiHost+"/index/login/findpwdsave",
 					data:e.detail.value,
 					success:function(res){
 						 

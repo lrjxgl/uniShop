@@ -27,7 +27,7 @@
 			getPage:function(){
 				var that=this;
 				that.app.get({
-					url:that.app.apiHost+"/user/user_head?ajax=1",
+					url:that.app.apiHost+"/index/user/user_head",
 					success:function(res){
 						that.pageLoad=true;
 						that.pageData=res.data;
@@ -41,7 +41,7 @@
 					success: (chooseImageRes) => {
 						const tempFilePaths = chooseImageRes.tempFilePaths;
 						uni.uploadFile({
-							url: that.app.apiHost+"/upload/img?loginToken="+that.app.getToken(),
+							url: that.app.apiHost+"/index/upload/img?ajax=1&loginToken="+that.app.getToken(),
 							filePath: tempFilePaths[0],
 							name: 'upimg',
 							
@@ -49,9 +49,13 @@
 								var data=JSON.parse(res.data);
 								
 								that.app.post({
-									url:that.app.apiHost+"/user/user_head_save?",
+									url:that.app.apiHost+"/index/user/user_head_save",
 									data:{
 										user_head:data.data.imgurl
+									},
+									method:"POST",
+									header:{
+										"content-type":"application/x-www-form-urlencoded"
 									},
 									success:function(res){
 										that.user_head=data.data.trueimgurl;

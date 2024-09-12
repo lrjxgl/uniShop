@@ -35,7 +35,7 @@
 			getPage:function(){
 				var that=this;
 				that.app.get({
-					url:this.app.apiHost+"/user/paypwd?",
+					url:this.app.apiHost+"/index/user/paypwd",
 					success:function(res){
 						that.pageLoad=true;
 						that.pageData=res.data;
@@ -46,7 +46,7 @@
 			submit:function(e){
 				var that=this;
 				that.app.post({
-					url:this.app.apiHost+"/user/paypwdsave?",
+					url:this.app.apiHost+"/index/user/paypwdsave",
 					data:e.detail.value,
 					success:function(res){
 						uni.showToast({

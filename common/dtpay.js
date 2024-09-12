@@ -1,8 +1,8 @@
-module.exports={
-	apiHost:"https://www.fd175.com/",
-	appRoot:"https://www.fd175.com/uniapp/h5/", 
-	urlSuccess:"../flk_order/success",
-	urlFail:"../flk_order/fail",
+export default{
+	apiHost:"https://demo.deituicms.com/",
+	appRoot:"https://demo.deituicms.com/h5/", 
+	urlSuccess:"../b2c_order/success",
+	urlFail:"../b2c_order/fail",
 	paytype:"alipay",
 	pay:function(ops){
 		var that=this;
@@ -14,7 +14,7 @@ module.exports={
 		// #endif
 		// #ifdef MP-WEIXIN
 		uni.request({
-			url:that.apiHost+"/recharge_wxapp_pay/go?ajax=1",
+			url:that.apiHost+"/index/recharge_wxapp_pay/go",
 			data:{
 				orderno:ops.orderno,
 				openid: uni.getStorageSync('openid')
@@ -47,7 +47,7 @@ module.exports={
 		 
 		// #ifdef APP-PLUS
 		uni.request({
-			url:that.apiHost+"/index.php?m=recharge_app&a=payurl&ajax=1",
+			url:that.apiHost+"/index/recharge_app/payurl",
 			data:{
 				orderno:ops.orderno,
 				paytype:that.paytype

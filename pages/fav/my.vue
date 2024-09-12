@@ -65,11 +65,18 @@
 			getPage: function() {
 				var that = this;
 				that.app.get({
-					url: that.app.apiHost + "/fav/mylist?ajax=1",
+					url: that.app.apiHost + "/index/fav/mylist",
 					data: {
 						tablename: that.tablename
 					},
+					unLogin:true,
 					success: function(res) {
+						if(res.error){
+							if(res.error==1000){
+								that.app.showLoginBox(true);
+							}
+							return false;
+						}
 						that.isFirst = false;
 						that.list = res.data.list;
 						that.pageLoad = true;
@@ -82,13 +89,17 @@
 				var that = this;
 				if (!that.isFirst && that.per_page == 0) return false;
 				that.app.get({
-					url: that.app.apiHost + "/fav/mylist?ajax=1",
+					url: that.app.apiHost + "/index/fav/mylist",
 					data: {
 						per_page: that.per_page,						
 						tablename: that.tablename
 					},
+					unLogin:true,
 					success: function(res) {
 						if(res.error){
+							if(res.error==1000){
+								that.app.showLoginBox(true);
+							}
 							return false;
 						}
 						if(that.isFirst){
@@ -130,8 +141,8 @@
 			},
 			setTable:function(tablename){
 				this.tablename=tablename;
-				isfirst=true;
-				per_page=0;
+				this.isfirst=true;
+				this.per_page=0;
 				this.getList();
 			}
 		},

@@ -22,8 +22,8 @@
 					</div>
 				</div>
 				<div>
-					<div v-if="item.isfollow" @click="followtoggle(item)" class="btn-mini">取消关注</div>
-					<div v-else @click="followtoggle(item)" class="btn-mini">关注</div>
+					<div v-if="item.isfollow" @click="followToggle(item)" class="btn-mini">取消关注</div>
+					<div v-else @click="followToggle(item)" class="btn-mini">关注</div>
 				</div>
 			</div>
 		</div>
@@ -57,7 +57,7 @@
 					return false;
 				}
 				that.app.get({
-					url: that.app.apiHost+"/follow/index",
+					url: that.app.apiHost+"/index/follow/index",
 					dataType: "json",
 					data:{
 						userid:this.userid
@@ -75,7 +75,7 @@
 			getFollowed: function() {
 				var that = this;
 				that.app.get({
-					url: that.app.apiHost+"/follow/followed?ajax=1",
+					url: that.app.apiHost+"/index/follow/followed",
 					dataType: "json",
 					data:{
 						userid:this.userid
@@ -100,7 +100,7 @@
 					this.getFollowed();
 				}
 			},
-			followtoggle: function(item) {
+			followToggle: function(item) {
 				var that = this;
 				switch (that.tab) {
 					case "follow":
@@ -110,7 +110,7 @@
 							success:function(res){
 								if(res.confirm){
 									that.app.get({
-										url: that.app.apiHost+"/follow/toggle?ajax=1",
+										url: that.app.apiHost+"/index/follow/toggle",
 										dataType: "json",
 										data: {
 											t_userid: item.userid
@@ -132,7 +132,7 @@
 						break;
 					default:
 						that.app.get({
-							url: that.app.apiHost+"/follow/toggle?ajax=1",
+							url: that.app.apiHost+"/index/follow/toggle",
 							dataType: "json",
 							data: {
 								t_userid: item.userid

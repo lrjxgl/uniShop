@@ -41,7 +41,7 @@
 			getPage:function(){
 				var that=this;
 				that.app.get({
-					url:that.app.apiHost+"/user/password?ajax=1",
+					url:that.app.apiHost+"/index/user/password",
 	
 					success:function(res){
 						that.pageLoad=true;
@@ -53,12 +53,13 @@
 		 submit:function(e){
 			var that=this;
 			that.app.post({
-				url:that.app.apiHost+"/user/passwordsave?",
+				url:that.app.apiHost+"/index/user/passwordsave",
 				data:e.detail.value,
 				success:function(res){
 					
 					uni.showToast({
-						"title":res.message
+						"title":res.message,
+						icon:"none"
 					})
 					if(!res.error){
 						setTimeout(function(){

@@ -77,7 +77,7 @@
 				var that=this;
 				setTimeout(function(){
 					that.app.get({
-						url:that.app.apiHost+"/city/search?city="+that.keyword,						
+						url:that.app.apiHost+"/index/city/search?city="+that.keyword,						
 						success:function(res){
 							that.searchList=res.data.list
 						}
@@ -127,7 +127,7 @@
 			getPage:function(){
 				var that=this;
 				that.app.get({
-					url:that.app.apiHost+"/city/index",
+					url:that.app.apiHost+"/index/city/index",
 					success:function(res){
 						that.cityGroup=res.data.list;
 						var zms=Array();

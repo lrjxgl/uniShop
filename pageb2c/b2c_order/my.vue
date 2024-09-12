@@ -9,50 +9,56 @@
 				<view @click="setType('unreceive')"  v-bind:class="{'tabs-border-active':type=='unreceive'}" class="tabs-border-item">待收货</view>
 				<view @click="setType('unraty')"  v-bind:class="{'tabs-border-active':type=='unraty'}" class="tabs-border-item">待评价</view>
 			</view>
-			<view class="item row-box mgb-10" v-for="(item,index) in pageData.list" :key="index">
-				<view class="flex bd-mp-5">
-					<div v-if="item.ispin==1" class="mgr-5 flex"><div class="btn-mini btn-outline-primary ">拼</div></div>
-					<view class="flex-1 cl2">订单号：{{item.orderno}}</view>
-					<view class="cl-primary">{{item.status_name}}</view>
-				</view>
-				<view class="flexlist-item" v-for="(pro,proIndex) in item.prolist" :key="proIndex">
-					<img class="flexlist-img" :src="pro.imgurl+'.100x100.jpg'">
-					<view class="flex-1">
-						<view class="flexlist-title">{{pro.title}}</view>
-						<view class="flexlist-ks">{{pro.ks_title}}</view>
-						<view class="flex ">
-							<view class="flex-1 cl-money">￥{{pro.price}}</view>
-							<view class="cl3">x {{pro.amount}}</view>
-						</view>
-						
+			<div v-if="list.length==0" class="emptyData">暂无订单</div>
+			<div v-else>
+				<view class="item row-box mgb-10" v-for="(item,index) in list" :key="index">
+					<view class="flex bd-mp-5">
+						<div v-if="item.ispin==1" class="mgr-5 flex"><div class="btn-mini btn-outline-primary ">拼</div></div>
+						<view class="flex-1 cl2">订单号：{{item.orderno}}</view>
+						<view class="cl-primary">{{item.status_name}}</view>
 					</view>
-				</view>
-				 
-				<view class="flex mgb-10">
-					 共<view class="cl-num">{{item.total_num}}</view>件商品  
-					 合计：<view class="cl-money">￥{{item.money}}</view>元 
-					 <view class="flex-1"></view> 
+					<view class="flexlist-item" v-for="(pro,proIndex) in item.prolist" :key="proIndex">
+						<img class="flexlist-img" :src="pro.imgurl+'.100x100.jpg'">
+						<view class="flex-1">
+							<view class="flexlist-title">{{pro.title}}</view>
+							<view class="flexlist-ks">{{pro.ks_title}}</view>
+							<view class="flex ">
+								<view class="flex-1 cl-money">￥{{pro.price}}</view>
+								<view class="cl3">x {{pro.amount}}</view>
+							</view>
+							
+						</view>
+					</view>
 					 
+					<view class="flex mgb-10">
+						 共<view class="cl-num">{{item.total_num}}</view>件商品  
+						 合计：<view class="cl-money">￥{{item.money}}</view>元 
+						 <view class="flex-1"></view> 
+						 
+					</view>
+					<view v-if="item.status==0" class="flex flex-jc-end">
+						
+						<view v-if="item.ispay==0" @click="pay(item.orderid)" class="btn-small btn-outline-danger mgr-10">去支付</view>
+						<block v-else-if="item.ispin==1">
+							<view class="btn-small btn-outline-success mgr-5" @click="goPin(item.orderid)" v-if="item.pin_success==0">邀请拼团</view>
+						</block>
+						
+						<view class="btn-small  btn-outline-danger" @click="goOrder(item.orderid)">查看详情</view>
+					</view>
+					<view v-else-if="item.status==1" class="flex flex-jc-end">
+						<view class="btn-small  btn-outline-danger" @click="goOrder(item.orderid)">查看详情</view>
+					</view>
+					<view v-else-if="item.status==2" class="flex flex-jc-end">
+						<view class="btn-small  btn-outline-danger" @click="goOrder(item.orderid)">查看详情</view>
+					</view>
+					<view v-else-if="item.status==3" class="flex flex-jc-end">
+						<view class="btn-small  btn-outline-danger" @click="goOrder(item.orderid)">查看详情</view>
+					</view>	
 				</view>
-				<view v-if="item.status==0" class="flex flex-jc-end">
-					
-					<view v-if="item.ispay==0" @click="pay(item.orderid)" class="btn-small btn-outline-danger mgr-10">去支付</view>
-					<block v-else-if="item.ispin==1">
-						<view class="btn-small btn-outline-success mgr-5" @click="goPin(item.orderid)" v-if="item.pin_success==0">邀请拼团</view>
-					</block>
-					
-					<view class="btn-small  btn-outline-danger" @click="goOrder(item.orderid)">查看详情</view>
-				</view>
-				<view v-else-if="item.status==1" class="flex flex-jc-end">
-					<view class="btn-small  btn-outline-danger" @click="goOrder(item.orderid)">查看详情</view>
-				</view>
-				<view v-else-if="item.status==2" class="flex flex-jc-end">
-					<view class="btn-small  btn-outline-danger" @click="goOrder(item.orderid)">查看详情</view>
-				</view>
-				<view v-else-if="item.status==3" class="flex flex-jc-end">
-					<view class="btn-small  btn-outline-danger" @click="goOrder(item.orderid)">查看详情</view>
-				</view>	
-			</view>
+				<div v-if="per_page>0" class="loadMore" @click="getList()"></div>
+			</div>
+			
+			
 		</view>
 	</view>
 </template>
@@ -63,7 +69,9 @@
 	 
 		data:function(){
 			return {
-				pageData:[],
+				list:[],
+				isFirst:true,
+				per_page:0,
 				type:"all"
 			}
 		},
@@ -76,17 +84,62 @@
 			}
 			this.getPage();
 		},
+		onShow(){
+			this.getPage();
+		},
 		methods:{
 			getPage:function(){
 				var that=this;
 				that.app.get({
-					url:that.app.apiHost+"/b2c_order/my?ajax=1",
+					url:that.app.apiHost+"/mm/b2c_order/my",
 					data:{
 						type:that.type,
 					},
 					dataType:"json",
 					success:function(res){
-						that.pageData=res.data;
+						if(res.error){
+							uni.showToast({
+								title:res.message,
+								icon:"none"
+							})
+							return false;
+						}
+						that.list=res.data.list;
+						that.isFirst=false;
+						that.per_page=res.data.per_page;
+					}
+				})
+			},
+			getList:function(){
+				var that=this;
+				if(that.per_page==0 && !that.isFirst){
+					return false;
+				}
+				that.app.get({
+					url:that.app.apiHost+"/mm/b2c_order/my",
+					data:{
+						type:that.type,
+						per_page:that.per_page
+					},
+					dataType:"json",
+					success:function(res){
+						if(res.error){
+							uni.showToast({
+								title:res.message,
+								icon:"none"
+							})
+							return false;
+						}
+						if(that.isFirst){
+							that.list=res.data.list;
+							that.isFirst=false;
+						}else{
+							for(var i in res.data.list){
+								that.list.push(res.data.list[i])
+							}
+						}
+						that.per_page=res.data.per_page;
+						
 					}
 				})
 			},
@@ -102,6 +155,7 @@
 			},
 			setType:function(t){
 				this.type=t;
+				
 				this.getPage();
 			},
 			pay:function(orderid){

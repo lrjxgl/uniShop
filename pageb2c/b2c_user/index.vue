@@ -105,8 +105,8 @@
 
 <script>
 	 
-	import b2cFooter from "../../components/b2cfooter.vue";
-	import b2cReclist from "../../components/b2c-reclist.vue";
+	import b2cFooter from "../../components/b2c/footer.vue";
+	import b2cReclist from "../../components/b2c/b2c-reclist.vue";
 	export default {
 		components: {
 			b2cFooter,
@@ -144,7 +144,7 @@
 			getPage: function () {
 				var that = this;
 				that.app.get({
-					url: that.app.apiHost + "/b2c_user/index?ajax=1",
+					url: that.app.apiHost + "/mm/b2c_user/index",
 					unLogin:true,
 					success: function (res) {
 						if (res.error == 1000) {

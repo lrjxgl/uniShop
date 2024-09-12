@@ -8,7 +8,10 @@
 					<view class="flex-1"> {{pageData.data.nickname}}</view>
 					 
 				</view>
-				
+				<view class="row-item" @click="gourl('../user/bindmobile')" >
+					<view class="row-item-icon icon-phone_light"></view>
+					<view class="flex-1">手机</view>
+				</view>
 				<view class="row-item" @click="gourl('../user/password')" >
 					<view class="row-item-icon icon-password"></view>
 					<view class="flex-1">登录密码</view>
@@ -37,12 +40,14 @@
 		 
 			this.getPage();
 		},
-		 
+		onShow(){
+			this.getPage()
+		}, 
 		methods:{
 			getPage:function(){
 				var that=this;
 				that.app.get({
-					url:that.app.apiHost+"/user/set?ajax=1",
+					url:that.app.apiHost+"/index/user/set",
 					
 					success:function(res){
 						that.pageLoad=true;
@@ -59,7 +64,7 @@
 			loginOut:function(){
 				var that=this; 
 				that.app.get({
-					url:that.app.apiHost+"/login/logout?ajax=1",
+					url:that.app.apiHost+"/index/login/logout",
 					success:function(res){
 						uni.removeStorageSync("token");
 						uni.showToast({

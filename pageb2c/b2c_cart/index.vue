@@ -51,8 +51,8 @@
 </template>
 
 <script>
-	import b2cFooter from "../../components/b2cfooter.vue";
-	import b2cReclist from "../../components/b2c-reclist.vue";
+	import b2cFooter from "../../components/b2c/footer.vue";
+	import b2cReclist from "../../components/b2c/b2c-reclist.vue";
 	export default{
 		components:{
 			b2cFooter,
@@ -84,7 +84,7 @@
 			getPage: function() {
 				var that = this;
 				that.app.get({
-					url: that.app.apiHost+"/b2c_cart/index?ajax=1",
+					url: that.app.apiHost+"/mm/b2c_cart/index",
 					unLogin:true,
 					success: function(res) {
 						if(res.error==1000){
@@ -104,7 +104,7 @@
 				var ksid = ksid == undefined ? 0 : ksid;
 				amount++;
 				that.app.get({
-					url: that.app.apiHost+'/b2c_cart/add?ajax=1',
+					url: that.app.apiHost+'/mm/b2c_cart/add',
 					data: {
 						productid: productid,
 						amount: amount,
@@ -126,7 +126,7 @@
 					isdelete = 1
 				}
 				that.app.get({
-					url: that.app.apiHost+'/b2c_cart/add?ajax=1',
+					url: that.app.apiHost+'/mm/b2c_cart/add',
 					data: {
 						productid: productid,
 						amount: amount,

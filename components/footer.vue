@@ -1,11 +1,20 @@
 <template>
 	<view>
 		<view class="footer-row"></view>
-		<view class="footer">
-			<view class="footer-item icon-home" v-bind:class="{'footer-active':tab=='home'}" @click="goHome()">首页</view>
+		<div class="footer">
+			<div @click="goHome()" :class="tab=='home'?'footer-active':''" class="footer-item  icon-home">
+				首页
+			</div>
+			<div @click="goArticle()" :class="tab=='article'?'footer-active':''"  class="footer-item   icon-news_light">
+				资讯
+			</div>
 			 
-			<view class="footer-item icon-my_light" v-bind:class="{'footer-active':tab=='user'}"  @click="goUser()">我的</view>
-		</view>
+			 
+			<div @click="goUser()" :class="tab=='user'?'footer-active':''"  class="footer-item   icon-my_light">
+				我的
+			</div>
+			  
+		</div>
 	</view>
 </template>
 
@@ -25,16 +34,12 @@
 					url:"../../pages/index/index"
 				})
 			},
-			goPeople:function(){
+			goArticle:function(){
 				uni.reLaunch({
-					url:"../../pagesblog/sblog_people/index"
+					url:"/pages/article/index"
 				})
 			},
-			goChat:function(){
-				uni.navigateTo({
-					url:"../../pagesblog/sblog_chat/index"
-				})
-			},
+			 
 			goUser:function(){
 				uni.reLaunch({
 					url:"../../pages/user/index"
@@ -45,4 +50,5 @@
 </script>
 
 <style>
+	 
 </style>

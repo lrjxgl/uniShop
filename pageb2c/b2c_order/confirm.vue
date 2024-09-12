@@ -24,10 +24,10 @@
 					<view class="flex-1 f16">收货地址</view>
 					<navigator class="row-box-more" url="../../pages/user_address/add">新增地址</navigator>
 				</view>
-				<input type="text" class="none" name="user_address_id" :value="pageData.user_address_id"  />
+				<input type="text" class="none" name="user_address_id" :value="user_address_id"  />
 				<radio-group @change="changeAddr"> 
-				<view class="row-item-text" v-for="(item,index) in pageData.addrList" :key="index">
-					<radio  :checked="item.id==pageData.user_address_id" :value="item.id+''"  ></radio>	 
+				<view class="row-item-text" v-for="(item,index) in addrList" :key="index">
+					<radio  :checked="item.id==user_address_id" :value="item.id+''"  ></radio>	 
 					{{item.truename}} {{item.telephone}} <br /> {{item.pct_address}}
 				</view>
 				</radio-group> 
@@ -37,15 +37,15 @@
 					产品列表
 				</view>
 				 
-				<view class="flexlist-item" v-for="(item,index) in pageData.cartList" :key="index">
+				<view class="flexlist-item" v-for="(item,index) in  cartList" :key="index">
 					<input type="hidden" class="none" :name="'cartid['+index+']'" :value="item.id" />
 					<img :src="item.imgurl+'.100x100.jpg'" class="flexlist-img" />
 					<view class="flex-1">
 						<view class="flexlist-title">{{item.title}}</view>
 						<view class="mgb-5 cl2">{{item.ks_title}}</view>
 						<view class="flex">
-							<div class="flex-1 cl-money" v-if="pageData.ispin">￥{{item.pt_price}}</div>
-							<div class="flex-1 cl-money" v-else="pageData.ispin">￥{{item.price}}</div>
+							<div class="flex-1 cl-money" v-if="ispin">￥{{item.pt_price}}</div>
+							<div class="flex-1 cl-money" v-else>￥{{item.price}}</div>
 							<view class="">* {{item.amount}}</view>
 						</view>
 					</view>
@@ -54,17 +54,17 @@
 			</view>
 			<view class="row-box mgb-5">
 				<view class="flex flex-wrap flex-ai-center">
-					<view>共{{pageData.total_num}}件商品，货价：￥ {{pageData.goods_money}}元 
-					邮费：￥ {{pageData.express_money}} 元 </view>
-					<view>总价：￥{{pageData.total_money}}</view>
+					<view class="mgb-5">共{{total_num}}件商品，货价：￥ {{goods_money}}元 
+					邮费：￥ {{express_money}} 元 </view>
+					<view><span class="cl-money">总价：￥{{total_money}}</span></view>
 				</view>
 			</view>
 			<!-- #ifdef H5 -->
 			<view class="row-box mgb-5">
 				<view class="row-box-hd mgb-10">支付方式</view>		
 				<view class="paylist">
-					<input type="text" class="none" name="paytype" id="paytype" :value="pageData.paytype">
-					<view @click="changePaytype(index)" class="paylist-item" v-bind:class="{'paylist-item-active':index==paytype}" v-for="(item,index) in pageData.paytypeList" :key="index" >{{item}}</view>
+					<input type="text" class="none" name="paytype" id="paytype" :value="paytype">
+					<view @click="changePaytype(index)" class="paylist-item" v-bind:class="{'paylist-item-active':index==paytype}" v-for="(item,index) in  paytypeList" :key="index" >{{item}}</view>
 						
 				</view>
 			</view>
@@ -93,19 +93,29 @@
 </template>
 
 <script>
-	import dtPay from "../../common/dtpay.js";
+	import dtPay from "/common/dtpay.js";
 	export default{
 		data:function(){
 			return {
 				pageLoad:false,
-				pageData:[],
+				 
 				pageTab:"confirm",
 				user_address_id:0,
 				cartid:0,
 				pageHide:false,
 				paytype:"alipay",
 				ispin:0,
-				pin_orderid:0
+				pin_orderid:0,
+				user_address_id:0,
+				cartList:[],
+				addrList:[],
+				cartList:[],
+				total_num:0,
+				goods_money:0,
+				express_money:0,
+				total_money:0,
+				paytypeList:[]
+				
 			}			
 		},
 		onLoad:function(ops){
@@ -115,6 +125,9 @@
 			if(ops.orderid!=undefined){
 				this.pin_orderid=ops.orderid;
 			}
+			// #ifdef MP-WEIXIN
+			this.paytype="wxapp_pay"
+			// #endif
 			this.cartid=ops.cartid;
 			this.getPage();
 			
@@ -134,16 +147,35 @@
 				this.app.goHome();
 			},
 			changeAddr:function(e){				
-				this.pageData.user_address_id=e.detail.value;
+				this.user_address_id=e.detail.value;
 				var that=this;
 				that.app.get({
-					url:that.app.apiHost+"/b2c_order/confirm?ajax=1",
+					url:that.app.apiHost+"/mm/b2c_order/confirm",
 					data:{						
 						cartid:that.cartid,
-						user_address_id:this.pageData.user_address_id
+						user_address_id:this.user_address_id
 					},
 					success:function(res){						 
-						that.pageData=res.data;
+						if(res.error){
+							uni.showToast({
+								title:res.message,
+								icon:"none"
+							})
+							return false;
+						}
+						that.ispin=res.data.ispin;
+						that.pin_orderid=res.data.pin_orderid;
+						that.paytype=res.data.paytype;
+						that.pageLoad=true;
+						that.addrList=res.data.addrList;
+						that.user_address_id=res.data.user_address_id;
+						that.cartList=res.data.cartList;
+						that.express_money=res.data.express_money;
+						that.total_money=res.data.total_money;
+						that.goods_money=res.data.goods_money;
+						that.total_num=res.data.total_num;
+						that.paytypeList=res.data.paytypeList;
+						that.paytype=res.data.paytype; 
 					}
 				}) 
 			},
@@ -153,18 +185,34 @@
 			getPage:function(){
 				var that=this;
 				that.app.get({
-					url:that.app.apiHost+"/b2c_order/confirm?ajax=1",
+					url:that.app.apiHost+"/mm/b2c_order/confirm",
 					data:{
 						ispin:that.ispin, 
 						cartid:that.cartid,
 						pin_orderid:that.pin_orderid
 					},
 					success:function(res){
+						if(res.error){
+							uni.showToast({
+								title:res.message,
+								icon:"none"
+							})
+							return false;
+						}
 						that.ispin=res.data.ispin;
 						that.pin_orderid=res.data.pin_orderid;
 						that.paytype=res.data.paytype;
 						that.pageLoad=true;
-						that.pageData=res.data;
+						that.addrList=res.data.addrList;
+						that.user_address_id=res.data.user_address_id;
+						that.cartList=res.data.cartList;
+						that.express_money=res.data.express_money;
+						that.total_money=res.data.total_money;
+						that.goods_money=res.data.goods_money;
+						that.total_num=res.data.total_num;
+						that.paytypeList=res.data.paytypeList;
+						that.paytype=res.data.paytype;
+						
 					}
 				})
 			},
@@ -173,7 +221,7 @@
 				var that=this;
 				e.detail.value.backurl=that.app.appRoot+"#/pages/b2c_order/success";
 				that.app.post({
-					url:that.app.apiHost+"/b2c_order/order?ajax=1",
+					url:that.app.apiHost+"/mm/b2c_order/order",
 					data:e.detail.value,
 					success:function(rs){
 						if(rs.error){

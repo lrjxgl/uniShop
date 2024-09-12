@@ -76,14 +76,17 @@
 			getPage:function(){
 				var that=this;
 				that.app.get({
-					url:that.app.apiHost+"/notice/index",
+					url:that.app.apiHost+"/index/notice/index",
 					data:{
 						type:this.type
 					},
 					dataType:"json",
+					unLogin:true,
 					success:function(res){
 						if(res.error){
-							skyToast(res.message);
+							if(res.error==1000){
+								that.app.showLoginBox(true);
+							}
 							return false;
 						}
 						that.list=res.data.data;
@@ -99,7 +102,7 @@
 					return false;
 				}
 				that.app.get({
-					url:that.app.apiHost+"/notice/index",
+					url:that.app.apiHost+"/index/notice/index",
 					data:{
 						type:this.type,
 						per_page:that.per_page
@@ -128,7 +131,7 @@
 			read:function(item){
 				var that=this;
 				that.app.get({
-					url:that.app.apiHost+"/notice/ReadNotice?ajax=1",
+					url:that.app.apiHost+"/index/notice/readnotice",
 					dataType:"json",
 					data:{
 						id:item.id

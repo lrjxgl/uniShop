@@ -11,7 +11,7 @@
 					 :key="key" @click="setCat(item.catid)">{{item.cname}}</view>
 				</view>
 			</scroll-view>
-		
+			
 			<view class="main-body">
 				<view class="flexlist">
 					<view @click="goArticle(item.id)" class="flexlist-item pdb-10" v-for="(item,index) in list" :key="index">
@@ -29,12 +29,16 @@
 			</view>
 		</view>
 		<go-top></go-top>
+		<mt-footer tab="article"></mt-footer>
 	</view>
 </template>
 
 <script>
-	
+	import mtFooter from "@/components/footer.vue"
 	export default{
+		components:{
+			mtFooter
+		},
 		data:function(){
 			return {
 				pageLoad:false,
@@ -76,7 +80,7 @@
 			getPage:function() {
 				var that=this;
 				that.app.get({
-					url:that.app.apiHost+"/article/index",
+					url:that.app.apiHost+"/index/article/index",
 					success:function(res){
 						that.pageLoad=true;
 						that.list=res.data.list;
@@ -91,7 +95,7 @@
 					return false;
 				}
 				that.app.get({
-					url:that.app.apiHost+"/article/index",
+					url:that.app.apiHost+"/index/article/index",
 					data:{
 						per_page:that.per_page,
 						catid:this.catid
@@ -114,5 +118,16 @@
 	}
 </script>
 
-<style>
+<style> 
+	.navList{
+			display: flex;
+			flex-direction: row;
+			 
+			margin-bottom: 10px;
+		}
+		.navItem{
+			width: 100px;
+			height: 100px;
+			margin: 10px;
+		}
 </style>

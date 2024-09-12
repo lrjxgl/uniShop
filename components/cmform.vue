@@ -83,24 +83,22 @@
 			},
 			cmFormSubmit:function(e){
 				var that=this;
-				if(!that.app.canPost()){
-					return false;
-				}
-				if(e.detail.value.content==''){
-					uni.showToast({
-						title:"内容不能为空",
-						icon:"none"
-					})
-					return false;
-				}
 				that.app.post({
-					url:that.app.apiHost+"?m=comment&a=save&ajax=1",
+					url:that.app.apiHost+"?fromapp=wxapp&m=comment&a=save&ajax=1",
 					data:e.detail.value,
+					unLogin:true,
 					success:function(res){
+						if(res.error==1000){
+							that.app.showLoginBox(false)
+							return false;
+						}
 						uni.showToast({
 							title: res.message,
 							duration: 2000
 						});
+						if(res.error){
+							return false;
+						}
 						that.cmBtnClass="";
 						that.cmFormClass="";
 						that.getList();

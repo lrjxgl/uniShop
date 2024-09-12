@@ -15,22 +15,12 @@
 				<view class="input-flex">
 					<view class="input-flex-label">省市</view>
 
-					<div class="none">
-						<input  type="text" name="province_id" :value="province_id"/>
-						<input  type="text" name="city_id" :value="city_id"/>
-						<input  type="text" name="town_id" :value="town_id"/>
-					</div>
-					<picker-region @callParent="setAddr" :defaultProvinceid="province_id" :defaultCityid="city_id" :defaultTownid="town_id"></picker-region>
+					<picker-region :defaultProvinceid="0"></picker-region>
 
 				</view>
 				<view class="input-flex">
-					<div class="none">
-						<input  type="text" name="lat" :value="lat"/>
-						<input  type="text" name="lng" :value="lng" />
-					</div>
 					<view class="input-flex-label">详细地址</view>
 					<input type="text" class="input-flex-text" name="address" id="address">
-					<div @click="choiceGps()" class="iconfont icon-location_light"></div>
 				</view>
 
 				<button form-type="submit" class="btn-row-submit">保存</button>
@@ -52,11 +42,6 @@
 				pageLoad: false,
 				pageHide: false,
 				pageData: {},
-				province_id:0,
-				city_id:0,
-				town_id:0,
-				lat:0,
-				lng:0
 			}
 
 		},
@@ -72,45 +57,37 @@
 			getPage: function() {
 				var that = this;
 				that.app.get({
-					url: that.app.apiHost + "?m=user_address&ajax=1&a=add",
+					url: that.app.apiHost + "/index/user_address/add",
+					unLogin:true,
 					success: function(res) {
+						if(res.error){
+							if(res.error==1000){
+								that.app.showLoginBox(true);
+							}
+							return false;
+						}
 						that.pageLoad = true;
 						that.pageData = res.data;
 
 					}
 				})
 			},
-			setAddr:function(e){
-				var that=this;
-				that.city_id=e.cityid
-				that.town_id=e.townid;
-				that.province_id=e.provinceid
-			},
-			choiceGps:function(){
-				var that=this;
-				uni.chooseLocation({
-					success: function (res) {
-						that.lat=res.latitude;
-						that.lng=res.longitude
-						 
-					}
-				});
-			},
 			formSubmit: function(e) {
 				var that = this;
 				that.app.post({
-					url: that.app.apiHost + "?m=user_address&a=save",
+					url: that.app.apiHost + "/index/user_address/save",
 					data: e.detail.value,
+					unLogin:true,
 					success: function(res) {
-						uni.showToast({
-							"title": res.message
-						})
-						if (!res.error) {
-							setTimeout(function() {
-								uni.navigateBack()
-							}, 600)
-
+						if(res.error){
+							if(res.error==1000){
+								that.app.showLoginBox(true);
+							}
+							return false;
 						}
+						setTimeout(function() {
+							uni.navigateBack()
+						}, 600)
 
 					}
 				})

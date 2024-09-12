@@ -22,10 +22,17 @@
 			getPage:function(){
 				var that=this;
 				that.app.get({
-					url:that.app.apiHost+"/html/aboutus?ajax=1",
+					url:that.app.apiHost+"/index/html/aboutus",
 					success:function(res){
+						if(res.error){
+							uni.showToast({
+								title:res.message,
+								icon:"none"
+							}) 
+							return false;
+						}
 						that.data=res.data.data;
-						console.log(res.data.data.content)
+						 
 					}
 				})
 			}

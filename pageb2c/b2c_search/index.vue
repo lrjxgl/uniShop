@@ -74,7 +74,7 @@
 			getProduct: function() {
 				var that = this;
 				this.app.get({
-					url: that.app.apiHost + "/b2c_search/product?ajax=1",
+					url: that.app.apiHost + "/mm/b2c_search/product",
 					data: {
 						keyword: this.keyword
 					},

@@ -61,8 +61,15 @@
 			getPage:function() {
 				var that=this;
 				that.app.get({
-					url:that.app.apiHost+"/recharge/my?",
+					url:that.app.apiHost+"/index/recharge/my",
+					unLogin:true,
 					success:function(res){
+						if(res.error){
+							if(res.error==1000){
+								that.app.showLoginBox(true);
+							}
+							return false;
+						}
 						that.pageLoad=true;
 						that.list=res.data.list;
 						that.per_page=res.data.per_page;
@@ -76,7 +83,7 @@
 					return false;
 				}
 				that.app.get({
-					url:that.app.apiHost+"/recharge/my?",
+					url:that.app.apiHost+"/index/recharge/my",
 					data:{
 						per_page:that.per_page
 					},

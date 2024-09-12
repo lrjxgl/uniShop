@@ -39,7 +39,7 @@
 			getPage:function(){
 				var that=this;
 				that.app.get({
-					url:that.app.apiHost+"/coupon/index",
+					url:that.app.apiHost+"/index/coupon/index",
 					dataType:"json",
 					success:function(res){
 						that.pageData=res.data;
@@ -50,13 +50,19 @@
 			getCoupon:function(id){
 				var that=this;
 				that.app.get({
-					url:that.app.apiHost+"/coupon/getcoupon?id="+id,
-					dataType:"json",
+					url:that.app.apiHost+"/index/coupon/getcoupon?id="+id,
+					unLogin:true,
 					success:function(res){
 						uni.showToast({
 							title:res.message,
 							icon:"none"
 						})
+						if(res.error){
+							if(res.error==1000){
+								that.app.showLoginBox(false);
+							}
+							return false;
+						}
 						 
 					}
 				})

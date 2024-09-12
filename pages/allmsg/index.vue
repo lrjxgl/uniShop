@@ -16,7 +16,7 @@
 			 
 			<page-sysmsg></page-sysmsg>
 		</div>
-		<mt-footer tab="notice"></mt-footer>
+		 
 	</view>
 </template>
 
