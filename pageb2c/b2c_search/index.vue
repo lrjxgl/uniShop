@@ -34,7 +34,7 @@
 
 <script>
 	import skyRaty from "../../components/skyraty.vue";
-	export default ({
+	export default {
 		components: {
 			skyRaty
 		},
@@ -86,7 +86,7 @@
 				})
 			}
 		}
-	});
+	}
 </script>
 
 <style>

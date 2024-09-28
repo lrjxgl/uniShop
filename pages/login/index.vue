@@ -18,7 +18,7 @@
 					autocomplete="off" v-model="password" placeholder="请输入登录密码" />
 			</view>
 			<view></view>
-			<button formType="submit" class="btn-row-submit">登陆</button>
+			<button formType="submit" class="btn-row-submit bg-dark">登陆</button>
 			<view class="flex mgb-20">
 				<navigator class="cl1 pointer flex-1" url="../register/index">注册</navigator>
 				<navigator class="cl1 pointer" url="../login/findpwd">忘记密码</navigator>
@@ -30,7 +30,7 @@
 				<view class="otherBox-text">其它方式登录</view>
 			</view>
 			<view class="flex flex-center">
-				<div class="cl-primary f16" @tap="checkReg()">手机号快捷登录</div>
+				<div class="cl1 f16" @tap="checkReg()">手机号快捷登录</div>
 				<!--<button @tap="checkReg()" class="btn-round bg-success icon-weixin"></button>-->
 			</view>
 			<!-- #endif -->
@@ -76,7 +76,7 @@
 						<div @click="viewXy()" class="cl-primary">《注册协议及隐私条款》</div>
 		 			</div>
 
-					<button form-type="submit" type="primary" class="btn-row-submit">确认登陆</button>
+					<button form-type="submit"   class="btn-row-submit bg-dark">确认登陆</button>
 					<view class="flex mgb-20">
 						<div class="flex-1"></div>
 						<div class="cl-white pointer" @click="wxUserModal=false">账户密码登陆</div>
@@ -414,6 +414,8 @@
 </script>
 
 <style>
+	 
+	 
 	.otherBox {
 		position: relative;
 		height: 79.2upx;
@@ -442,7 +444,7 @@
 
 	.flexIcon {
 		flex-direction: row;
-		background-color: #007b47;
+		background-color: #333;
 		margin-bottom: 44upx;
 		border-radius: 44upx;
 		padding: 22upx 22upx;
@@ -470,12 +472,13 @@
 		left: 22upx;
 		right: 22upx;
 		margin-top: -330upx;
-		padding: 33upx 22upx;
-
+		padding: 40px 20px 20px 20px;
+		background-color: #fff;
 		border-radius: 44upx;
+		 
 	}
 
-	.loginBg2 {
+	.loginBg {
 		background: linear-gradient(#29cee8, #619ad6);
 		background-color: ;
 		position: absolute;

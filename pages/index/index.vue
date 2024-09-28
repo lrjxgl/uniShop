@@ -4,135 +4,122 @@
 			<page-loading></page-loading>
 		</view>
 		<view v-else>
+
 			<div class="main-body">
-					<div>
-						<swiper :style="{height:swipeHeight+'px'}" :indicator-dots="true" :autoplay="true" :interval="3000"
-							:duration="1000">
-							<swiper-item v-for="(item,key) in  flashList" :key="key">
-								<view class="swiper-item">
-									<image @click="gourl(item.link1)" :src="item.imgurl" class="wall" mode="widthFix">
-									</image>
-								</view>
-							</swiper-item>
-						
-						</swiper>
-					</div>
-					<!--
-					<div class="flex flex-ai-center bg-ef pd-10 ">
-						<div class="cl1 flex-1">纯电动长悦保养套餐免单名单快来查看!</div>
-						<div class="iconfont icon-right"></div>
-					</div>
-					-->
-					<div class="bg-white pd-10">
-						<div style="padding:20px 0px;font-weight:600;">限时特惠</div>
-						<div class="pd-10 mgb-10">
-							 
-							<div class="mgb-20">限时特惠，原厂好物5折起</div>
-							<div class="flex mgb-20" style="overflow:auto;">
-								<div  v-for="(item,index) in tehuiList" :key="index"  class="mgr-10">
-									<image @click="gourl(item.link1)" mode="widthFix" class="w150 mgb-5" :src="item.imgurl+'.100x100.jpg'"></image>
-								</div>
-								 
-							</div>
-							<!--
-							<div class="flex">
-								<div class="flex-1"></div>
-								<div class="cl-primary fw-600">选购</div>
-							</div>
-							-->
-						</div>
-					</div>
-					
-					<div class="bg-white pd-10">
-						<div style="padding:20px 0px;font-weight:600;">超值组合</div>
-						<div class="pd-10 mgb-10">
-							 
-							<div class="flex mgb-10" style="overflow:auto;padding-bottom:10px;">
-								<div v-for="(item,index) in czList" :key="index" class="mgr-10">
-									<image @click="goProduct(item.id)"  mode="widthFix" class="w150 mgb-5" :src="item.imgurl+'.small.jpg'"></image>
-									<div @click="goProduct(item.id)"  class="mgb-5">{{item.title}}</div>
-									<div class="flex flex-ai-center">
-										<div class="f10 ">￥ </div>
-										<div>{{item.price}}</div>
-									</div>
-								</div>
-								 
-							</div>
-							<!--
-							<div class="flex">
-								<div class="flex-1"></div>
-								<div class="cl-primary fw-600">去选购</div>
-							</div>
-							-->
-						</div>
-					</div>
-					
-					
-					<div class="bg-ef pd-10">
-						<div style="padding:20px 0px;font-weight:600;">更多推荐</div>
-						<div class="mgb-10">
-							<scroll-view scroll-x="true">
-								<div class="flex">
-									<div @click="setCat(0)" :class="catid==0?'btn-dark':'btn3'"  class="btn-small w50 mgr-5 ">全部</div>
-									<div v-for="(item,index) in catList" :key="index" @click="setCat(item.catid)" :class="catid==item.catid?'btn-dark':'btn3'" class="btn-small w100 mgr-5">{{item.title}}</div>
-	 
-								</div>
-							</scroll-view>
-						</div>
-						<div v-if="recList.length==0" class="emptyData">暂无商品</div>
-						<div class="mgb-10" v-else>
-							 
-							<div class="flex mgb-10">
-								<div class="flex-1 bg-white mgr-10">
-									<div v-for="(item,index) in recList" :key="index">
-										
-										<template v-if="index%2==0"  >
-											<div class="bd-mp-10">
-												<image @click="goProduct(item.id)"  mode="widthFix" class="wall mgb-5" :src="item.imgurl+'.small.jpg'"></image>
-												<div class="pd-10">
-													<div @click="goProduct(item.id)"  class="mgb-10">{{item.title}}</div>
-													<div class="flex flex-ai-center">
-														<div class="f12 cl-money">￥ </div>
-														<div class="cl-money">{{item.price}}</div>
-													</div>
-												</div>
-											</div>
-										</template>
-									</div>
-									 
-									
-								</div>
-								<div class="flex-1  bg-white ">
-									<div v-for="(item,index) in recList" :key="index">
-										<template v-if="index%2==1"  >
-											<div class="bd-mp-10">
-												<image @click="goProduct(item.id)" mode="widthFix" class="wall mgb-5" :src="item.imgurl+'.small.jpg'"></image>
-												<div class="pd-10">
-													<div @click="goProduct(item.id)"  class="mgb-10">{{item.title}}</div>
-													<div class="flex flex-ai-center">
-														<div class="f12 cl-money">￥ </div>
-														<div class="cl-money">{{item.price}}</div>
-													</div>
-												</div>
-											</div>
-										</template>
-									</div>
-									
-								</div>
-								
-							</div>
-							<!--
-							<div class="flex">
-								<div class="flex-1"></div>
-								<div class="cl-primary fw-600">去选购</div>
-							</div>
-							-->
-						</div>
-					</div>
-					
-					
+				<view class="pd-5">
+					<view class="flex">
+						<image :src="site.logo" mode="widthFix" class="wh-30 mgr-5"></image>
+						<input placeholder="老白茶、2008银针" v-model="keyword" type="text" class="header-search pdl-5">
+						<view @click="search" class="header-search-btn  iconfont icon-search"></view>
+					</view>
+				</view>
+				<div>
+					<swiper :style="{height:swipeHeight+'px'}" :indicator-dots="true" :autoplay="true" :interval="3000"
+						:duration="1000">
+						<swiper-item v-for="(item,key) in  flashList" :key="key">
+							<view class="swiper-item">
+								<image @click="gourl(item.link1)" :src="item.imgurl" class="wall" mode="widthFix">
+								</image>
+							</view>
+						</swiper-item>
+
+					</swiper>
 				</div>
-			
+
+				<view class="m-navPic mgt-5 mgb-5">
+					<navigator v-for="(item,key) in navList" :key="key" :url="item.link1" class="m-navPic-item">
+						<image class="m-navPic-img" mode="widthFix" :src="item.imgurl"></image>
+						<view class="m-navPic-title">{{item.title}}</view>
+					</navigator>
+
+				</view>
+				<div @click="gourl('../../pageb2c/b2c_group_product/index?gkey=bimai')" class="row-box-hd  pdl-10">
+					<div class="iconfont mgr-10 icon-likefill cl-f30 f22"></div>
+					<div class="flex-1 ">
+						<div class="f14">必买好货</div>
+						<div class="cl3 f12">大家都会心动的产品</div>
+					</div>
+					<div class="row-box-more"></div>
+				</div>
+				<view class="mtlist">
+
+					<view v-for="(item,index) in bmList" :key="index" @click="goProduct(item.id)" class="mtlist-item">
+						<view class="mtlist-item-bd">
+							<image mode="widthFix" class="mtlist-img " :src="item.imgurl+'.small.jpg'"></image>
+							<view class="mtlist-item-pd">
+								<view class="mtlist-item-money">
+									<view class="mtlist-item-money-flex">￥
+										<text class="mtlist-item-money_money">{{item.price}}</text>
+									</view>
+									<view class="mtlist-item-money_num">月销{{item.buy_num}}件</view>
+								</view>
+								<view class="mtlist-title">{{item.title}}</view>
+
+							</view>
+						</view>
+					</view>
+
+				</view>
+
+				<div @click="gourl('../../pageb2c/b2c_product/index?type=recommend')" class="row-box-hd  pdl-10">
+					<div class="iconfont mgr-10 icon-moneybag cl-f30 f20"></div>
+					<div class="flex-1 ">
+						<div class="f14">猜你喜欢</div>
+						<div class="cl3 f12">Guess You Like It</div>
+					</div>
+					<div class="row-box-more"></div>
+				</div>
+				<view class="mtlist">
+
+					<view v-for="(item,index) in recList" :key="index" @click="goProduct(item.id)" class="mtlist-item">
+						<view class="mtlist-item-bd">
+							<image mode="widthFix" class="mtlist-img " :src="item.imgurl+'.small.jpg'"></image>
+							<view class="mtlist-item-pd">
+								<view class="mtlist-item-money">
+									<view class="mtlist-item-money-flex">￥
+										<text class="mtlist-item-money_money">{{item.price}}</text>
+									</view>
+									<view class="mtlist-item-money_num">月销{{item.buy_num}}件</view>
+								</view>
+								<view class="mtlist-title">{{item.title}}</view>
+
+							</view>
+						</view>
+					</view>
+
+				</view>
+
+				<div @click="gourl('../../pageb2c/b2c_product/index?type=hot')" class="row-box-hd  pdl-10 mtt10">
+					<div class="iconfont mgr-10 icon-hot_light cl-f30 f20"></div>
+					<div class="flex-1 ">
+						<div class="f14">热销商品</div>
+						<div class="cl3 f12">Hot Goods</div>
+					</div>
+					<div class="row-box-more"></div>
+				</div>
+				<view class="mtlist">
+
+					<view v-for="(item,index) in hotList" :key="index" @click="goProduct(item.id)" class="mtlist-item">
+						<view class="mtlist-item-bd">
+							<image mode="widthFix" class="mtlist-img " :src="item.imgurl+'.small.jpg'"></image>
+							<view class="mtlist-item-pd">
+								<view class="mtlist-item-money">
+									<view class="mtlist-item-money-flex">￥
+										<text class="mtlist-item-money_money">{{item.price}}</text>
+									</view>
+									<view class="mtlist-item-money_num">月销{{item.buy_num}}件</view>
+								</view>
+								<view class="mtlist-title">{{item.title}}</view>
+
+							</view>
+						</view>
+					</view>
+
+				</view>
+
+
+			</div>
+
 		</view>
 		<b2c-footer tab="home"></b2c-footer>
 	</view>
@@ -151,35 +138,37 @@
 				flashList: [],
 				navList: [],
 				recList: [],
-				bmList:[],
-				hotList:[],
-				czList:[],
-				tehuiList:[],
-				site: {}, 
+				bmList: [],
+				hotList: [],
+				czList: [],
+				tehuiList: [],
+				site: {},
 				pageLoad: false,
 				keyword: "",
 				swipeHeight: 320,
-				catList:[],
-				catid:0
+				catList: [],
+				catid: 0,
+				site: {},
+				keyword: ""
 			}
 		},
 		onLoad: function(ops) {
-			 
+
 			var sys = uni.getSystemInfoSync();
 			this.swipeHeight = Math.min(640, sys.windowWidth) / 2;
-			if (!this.getCache() && 1==2) {
+			if (!this.getCache() && 1 == 2) {
 				uni.showNavigationBarLoading();
 				this.getPage();
 			}
 			this.getPage();
 			this.getList();
 		},
-		
+
 		onPullDownRefresh: function() {
 			this.refresh();
 		},
-		onShareAppMessage:function(){
-			
+		onShareAppMessage: function() {
+
 		},
 		methods: {
 			setCache: function() {
@@ -205,14 +194,19 @@
 
 				return true;
 			},
+			search: function() {
+				uni.navigateTo({
+					url: "../../pageb2c/b2c_search/index?keyword=" + this.keyword
+				})
+			},
 			gourl: function(url) {
 				uni.navigateTo({
 					url: url
 				})
 			},
-			goProduct:function(id){
+			goProduct: function(id) {
 				uni.navigateTo({
-					url:"/pageb2c/b2c_product/show?id="+id
+					url: "/pageb2c/b2c_product/show?id=" + id
 				})
 			},
 			search: function() {
@@ -231,38 +225,38 @@
 					url: this.app.apiHost + "/mm/b2c/index",
 					success: function(res) {
 						that.flashList = res.data.flashList;
-						that.navList = res.data.navList;				 
+						that.navList = res.data.navList;
 						that.site = res.data.site;
-						that.bmList=res.data.bmList;
-						that.hotList=res.data.hotList;
-						that.czList=res.data.czList;
-						that.recList=res.data.recList;
-						that.tehuiList=res.data.tehuiList;
+						that.bmList = res.data.bmList;
+						that.hotList = res.data.hotList;
+						that.czList = res.data.czList;
+						that.recList = res.data.recList;
+						that.tehuiList = res.data.tehuiList;
 						that.pageLoad = true;
 						uni.hideNavigationBarLoading();
 						that.setCache();
 					}
 				})
 			},
-			setCat(catid){
-				this.catid=catid
-				if(catid==0){
+			setCat(catid) {
+				this.catid = catid
+				if (catid == 0) {
 					this.getPage();
-				}else{
+				} else {
 					this.getList();
 				}
-				
+
 			},
 			getList: function() {
 				var that = this;
 				that.app.get({
 					url: this.app.apiHost + "/mm/b2c_product/index",
-					data:{
-						catid:this.catid
+					data: {
+						catid: this.catid
 					},
 					success: function(res) {
-						that.catList=res.data.catList; 
-						that.recList=res.data.list;
+						that.catList = res.data.catList;
+						that.recList = res.data.list;
 					}
 				})
 			},

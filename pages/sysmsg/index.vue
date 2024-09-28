@@ -101,9 +101,12 @@
 			},
 			del:function(item){
 				var that=this;
-				skyJs.confirm({
+				uni.showModal({
 					content:"删除后不可恢复，确认删除码",
-					success:function(){
+					success:function(e){
+						if(e.cancel){
+							return false;
+						}
 						that.app.get({
 							url:that.app.apiHost+"/index/sysmsg/delete",
 							dataType:"json",
